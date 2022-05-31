@@ -1,0 +1,9 @@
+@import url('./main-layout.css');
+@import url('./views/image-list-view.css');
+@import url('./views/map-view.css');
+@import url('./views/master-detail-view.css');
+@import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
+@import url('@fontsource/ubuntu');    html {
+--lumo-font-family: Ubuntu;
+
+    }
