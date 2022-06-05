@@ -1,5 +1,5 @@
 .image-list-view ol {
-  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .image-list-view li {
@@ -7,7 +7,3 @@
   transition-property: background-color, box-shadow;
 }
 
-.image-list-view li:hover {
-  background-color: var(--lumo-base-color);
-  box-shadow: var(--lumo-box-shadow-s);
-}
