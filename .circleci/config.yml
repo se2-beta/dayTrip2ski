@@ -95,8 +95,16 @@ workflows:
           requires:
             - build
     - build_push_image_gcr:
+          filters:
+            branches:
+              only:
+                - main
           requires:
             - test
     - gcp_cloudrun_deploy:
           requires:
             - build_push_image_gcr
+          filters:
+            branches:
+              only:
+                - main
