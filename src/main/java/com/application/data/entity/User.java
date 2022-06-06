@@ -24,6 +24,8 @@ public class User extends AbstractEntity {
     private Set<Role> roles;
     @Lob
     private String profilePictureUrl;
+    private Double home_lat;
+    private Double home_lon;
 
     public String getUsername() {
         return username;
@@ -56,4 +58,19 @@ public class User extends AbstractEntity {
         this.profilePictureUrl = profilePictureUrl;
     }
 
+    public Double getHome_lat() {
+        return home_lat;
+    }
+
+    public void setHome_lat(Double home_lat) {
+        this.home_lat = home_lat;
+    }
+
+    public Double getHome_lon() {
+        return home_lon;
+    }
+
+    public void setHome_lon(Double home_lon) {
+        this.home_lon = home_lon;
+    }
 }
