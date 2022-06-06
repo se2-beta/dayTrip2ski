@@ -9,7 +9,6 @@ orbs:
   gcp-cli: circleci/gcp-cli@2.1
 
 executors:
-
   gcloud-executor:
     docker:
       - image: google/cloud-sdk
@@ -18,7 +17,7 @@ executors:
 jobs:
     build:
         docker:
-            - image: se2beta/se2beta-repo:latest
+            - image: se2beta/vaadin-builder:0.1.0
               auth:
                 username: se2beta
                 password: $DOCKERHUB_PASSWORD
@@ -30,10 +29,10 @@ jobs:
             - store_artifacts:
                 path: target
                 destination: target
-                
+
     test:
         docker:
-            - image: se2beta/se2beta-repo:latest
+            - image: se2beta/vaadin-builder:0.1.0
               auth:
                   username: se2beta
                   password: $DOCKERHUB_PASSWORD
@@ -101,4 +100,3 @@ workflows:
     - gcp_cloudrun_deploy:
           requires:
             - build_push_image_gcr
-
