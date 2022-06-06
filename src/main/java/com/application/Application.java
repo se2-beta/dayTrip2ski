@@ -25,11 +25,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
 
-    @Bean
-    public WebClient.Builder webClientBuilder() {
-        return WebClient.builder();
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
