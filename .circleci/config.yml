@@ -18,7 +18,10 @@ executors:
 jobs:
     build:
         docker:
-            - image: se2beta/se2beta-repo
+            - image: se2beta/se2beta-repo:latest
+              auth:
+                username: se2beta
+                password: $DOCKERHUB_PASSWORD
         environment:
           MAVEN_CLI_OPTS: "--batch-mode"
         steps:
@@ -30,7 +33,10 @@ jobs:
                 
     test:
         docker:
-            - image: se2beta/se2beta-repo
+            - image: se2beta/se2beta-repo:latest
+              auth:
+                  username: se2beta
+                  password: $DOCKERHUB_PASSWORD
         steps:
             - checkout
             - run: mvn test -e
