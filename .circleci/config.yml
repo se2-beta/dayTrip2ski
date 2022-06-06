@@ -19,9 +19,6 @@ jobs:
     build:
         docker:
             - image: se2beta/se2beta-repo
-              auth:
-                username: se2beta
-                password: $DOCKERHUB_PASSWORD
         environment:
           MAVEN_CLI_OPTS: "--batch-mode"
         steps:
