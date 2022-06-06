@@ -18,7 +18,7 @@ executors:
 jobs:
     build:
         docker:
-            - image: se2beta/se2beta-repo:latest
+            - image: se2beta/se2beta-repo
               auth:
                 username: se2beta
                 password: $DOCKERHUB_PASSWORD
@@ -33,7 +33,7 @@ jobs:
                 
     test:
         docker:
-            - image: se2beta/se2beta-repo:latest
+            - image: se2beta/se2beta-repo
         steps:
             - checkout
             - run: mvn test -e
