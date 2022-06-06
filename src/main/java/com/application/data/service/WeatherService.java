@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class WeatherService {
     private final WebClient webClient;
-    //private final String key  = "l6gRrOTmayCWKws3";
+    private final String key  = "l6gRrOTmayCWKws3";
 
     public WeatherService(WebClient.Builder builder){
         webClient = builder.baseUrl("http://my.meteoblue.com/packages/").build();

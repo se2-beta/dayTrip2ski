@@ -8,6 +8,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * The entry point of the Spring Boot application.
@@ -22,6 +24,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @PWA(name = "daytrip2Ski", shortName = "daytrip2Ski", offlineResources = {})
 @NpmPackage(value = "line-awesome", version = "1.3.0")
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator {
+
+    @Bean
+    public WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
