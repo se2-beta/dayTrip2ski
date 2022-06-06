@@ -1,0 +1,110 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# orbs for Google Cloud + CircleCi
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.15.0
+  cloudrun: circleci/gcp-cloud-run@1.0.1
+  gcp-cli: circleci/gcp-cli@2.1
+
+executors:
+  gcloud-executor:
+    docker:
+      - image: google/cloud-sdk
+  machine-executor:
+    machine: true
+jobs:
+    build:
+        docker:
+            - image: se2beta/vaadin-builder:0.1.0
+              auth:
+                username: se2beta
+                password: $DOCKERHUB_PASSWORD
+        environment:
+          MAVEN_CLI_OPTS: "--batch-mode"
+        steps:
+            - checkout
+            - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e
+            - store_artifacts:
+                path: target
+                destination: target
+
+    test:
+        docker:
+            - image: se2beta/vaadin-builder:0.1.0
+              auth:
+                  username: se2beta
+                  password: $DOCKERHUB_PASSWORD
+        steps:
+            - checkout
+            - run: mvn test -e
+            - store_artifacts:
+                path: reports
+                destination: reports   
+         
+    build_push_image_gcr:
+        description: Build docker image and push to gcr registry
+        executor: gcp-gcr/default
+        machine:
+          image: ubuntu-2004:202010-01
+        steps:
+          - checkout
+          
+          - run:
+              name: Build app binary and Docker image
+              command: |
+                echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
+                echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
+                echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
+                echo 'export TAG=$CIRCLE_SHA1' >> $BASH_ENV                 
+          
+          - gcp-gcr/gcr-auth
+          
+          - gcp-gcr/build-image:
+              dockerfile: Dockerfile
+              google-project-id: GOOGLE_PROJECT_ID
+              image: $CIRCLE_WORKFLOW_ID
+              registry-url: "gcr.io"
+              tag: "latest"              
+
+          - gcp-gcr/push-image:
+              google-project-id: GOOGLE_PROJECT_ID
+              image: $CIRCLE_WORKFLOW_ID
+              registry-url: "gcr.io"
+              tag: "latest"
+
+    gcp_cloudrun_deploy:
+        description: Deploy using cloud run
+        executor: machine-executor
+        steps:
+          - cloudrun/init
+          - cloudrun/deploy:                            
+              platform: 'managed'
+              image: 'gcr.io/$GOOGLE_PROJECT_ID/$CIRCLE_WORKFLOW_ID'
+              service-name: 'vaadin-ui-service'
+              region: 'europe-west1'
+              unauthenticated: true
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - build
+    - test:
+          requires:
+            - build
+    - build_push_image_gcr:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - test
+    - gcp_cloudrun_deploy:
+          requires:
+            - build_push_image_gcr
+          filters:
+            branches:
+              only:
+                - main
