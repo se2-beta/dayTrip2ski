@@ -34,6 +34,7 @@ public class DataGenerator {
             }
             int seed = 123;
 
+
             logger.info("Generating demo data");
 
             logger.info("... generating 2 User entities...");

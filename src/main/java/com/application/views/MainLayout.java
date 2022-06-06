@@ -38,6 +38,7 @@ public class MainLayout extends AppLayout {
      */
     public static class MenuItemInfo extends ListItem {
 
+
         private final Class<? extends Component> view;
 
         public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
