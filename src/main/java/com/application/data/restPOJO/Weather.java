@@ -1,5 +1,5 @@
 
-package com.application.restPOJO;
+package com.application.data.restPOJO;
 
 import java.util.HashMap;
 import java.util.Map;
