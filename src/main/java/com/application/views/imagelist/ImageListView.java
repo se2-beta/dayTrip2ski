@@ -7,6 +7,7 @@ import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -84,10 +85,10 @@ public class ImageListView extends Main implements HasComponents, HasStyle {
         imageContainer = new OrderedList();
         imageContainer.addClassNames("gap-l", "grid", "list-none");
 
-
         for (int i = 0; i < 6; i++) {
 
-            imageContainer.add(new ImageListViewCard(
+           ImageListViewCard img =  new ImageListViewCard(
+                    i+10,
                     "Schladminger Planai",
                     "Steiermark",
                     "Planai-Hochwurzen-Bahnen Gesellschaft m.b.H. ",
@@ -120,8 +121,14 @@ public class ImageListView extends Main implements HasComponents, HasStyle {
                     "https://www.planai.at/_planai/2_winter/winter-bilder-allgemein/image-thumb__21927__header-image_auto_a532a6968365f70264b8c62e24bae48a/PLANAI%20GIPFEL%20RICHTUNG%20GRAHBERGZINKEN.webp",
                     "https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg",
                     98-i,
-                    i));
+                    i);
+
+            //img.addClickListener(e -> Notification.show("Clicked " + e.getClass()));
+
+            imageContainer.add(img);
+            //imageContainer.addClickListener(e -> Notification.show("Clicked " + e));
         }
+
     }
 
 

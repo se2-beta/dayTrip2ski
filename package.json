@@ -257,7 +257,9 @@
     "construct-style-sheets-polyfill": "$construct-style-sheets-polyfill",
     "date-fns": "$date-fns",
     "lit": "$lit",
-    "chokidar": "$chokidar"
+    "chokidar": "$chokidar",
+    "@fontsource/ubuntu": "$@fontsource/ubuntu",
+    "line-awesome": "$line-awesome"
   },
   "vaadin": {
     "dependencies": {

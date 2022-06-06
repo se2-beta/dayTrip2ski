@@ -3,10 +3,10 @@ package com.application.views.imagelist;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,7 +14,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 public class ImageListViewCard extends ListItem {
 
 
-    public ImageListViewCard(String name, String region, String operator, String address, Integer zip, String city, Integer heigt_min, Integer height_max,
+    public ImageListViewCard(Integer id, String name, String region, String operator, String address, Integer zip, String city, Integer heigt_min, Integer height_max,
                              Integer total_length, Integer ropeways, Double pos_lon, Double pos_lat, String date_season_start, String date_season_end,
                              String time_service_start, String time_service_end, Integer current_utilization_percent, Integer user_rating,
                              Double weather_current_windspeed, Double weather_current_temperature, Integer weather_current_snowfall_forecast_percent,
@@ -33,6 +33,7 @@ public class ImageListViewCard extends ListItem {
         Image image = new Image();
         image.setHeight("100%");
         image.setSrc(image_url);
+        image.addClickListener(e -> Notification.show("Clicked on image: " + id)); // TODO
 
 
         div.add(image);
@@ -100,6 +101,10 @@ public class ImageListViewCard extends ListItem {
 
         return layout;
     }
+// TODO
+//    private void viewDetails() { // Skigebiet skigebiet
+//        UI.getCurrent().navigate(ImageDetailView.class, 11); //
+//    }
 
 
 }
