@@ -24,8 +24,19 @@ public class WeatherService {
                         .build())
                 .retrieve()
                 .bodyToMono(Weather.class).block();
-
-
-
     }
+
+    public String getForecastString(String latitude, String longitude){
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("basic-day")
+                        .queryParam("lat", latitude)
+                        .queryParam("lon",longitude)
+                        .queryParam("apikey",key)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class).block();
+    }
+
+
 }

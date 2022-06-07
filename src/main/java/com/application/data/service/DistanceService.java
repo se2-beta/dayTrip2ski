@@ -15,7 +15,7 @@ public class DistanceService {
         webClient = builder.baseUrl("https://maps.googleapis.com/maps/api/").build();
     }
 
-    public Distance getForecast(String dlatitude, String dlongitude, String olatitude, String olongitude){
+    public Distance getDistance(String dlatitude, String dlongitude, String olatitude, String olongitude){
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("distancematrix/json")
@@ -25,8 +25,19 @@ public class DistanceService {
                         .build())
                 .retrieve()
                 .bodyToMono(Distance.class).block();
-
-
-
     }
+
+    public String getDistanceString(String dlatitude, String dlongitude, String olatitude, String olongitude){
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("distancematrix/json")
+                        .queryParam("destinations", String.join("," ,dlatitude,dlongitude))
+                        .queryParam("origins",String.join(",",olatitude,olongitude))
+                        .queryParam("key",key)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class).block();
+    }
+
+
 }
