@@ -132,7 +132,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Image List", "la la-th-list", ImageListView.class), //
+                new MenuItemInfo("Skigebiete", "la la-th-list", ImageListView.class), //
 
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
 
@@ -140,7 +140,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
 
-                new MenuItemInfo("Ski Resort Detail", "la la-file", SkiRsortDetailView.class), //
+                new MenuItemInfo("Skigebiet Detail", "la la-file", SkiRsortDetailView.class), //
 
 
         };
@@ -159,9 +159,7 @@ public class MainLayout extends AppLayout {
 
             ContextMenu userMenu = new ContextMenu(avatar);
             userMenu.setOpenOnClick(true);
-            userMenu.addItem("Logout", e -> {
-                authenticatedUser.logout();
-            });
+            userMenu.addItem("Logout", e -> authenticatedUser.logout());
 
             Span name = new Span(user.getName());
             name.addClassNames("font-medium", "text-s", "text-secondary");
