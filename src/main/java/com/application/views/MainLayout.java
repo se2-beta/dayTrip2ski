@@ -4,6 +4,7 @@ import com.application.data.entity.User;
 import com.application.security.AuthenticatedUser;
 import com.application.views.about.AboutView;
 import com.application.views.imagelist.ImageListView;
+import com.application.views.imagelist.SkiRsortDetailView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
 import com.vaadin.flow.component.Component;
@@ -138,6 +139,9 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Master-Detail", "la la-columns", MasterDetailView.class), //
 
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
+
+                new MenuItemInfo("Ski Resort Detail", "la la-file", SkiRsortDetailView.class), //
+
 
         };
     }
