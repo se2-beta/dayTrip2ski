@@ -130,6 +130,41 @@ public class DataGenerator {
             skiResortRepository.save(skiResort2);
             logger.info("Resort added: " + skiResort2.getName());
 
+            SkiResort skiResort3 = new SkiResort();
+            skiResort3.setName("Saalbach Hinterglemm Leogang Fieberbrunn Skigebiet");
+            skiResort3.setRegion("Salzburg, Zell am See - Kaprun");
+            skiResort3.setOperator("Skicircus Saalbach Hinterglemm Leogang Fieberbrunn");
+            skiResort3.setAddress("Eberhartweg 308");
+            skiResort3.setZip(5753);
+            skiResort3.setCity("Saalbach");
+            skiResort3.setHeight_min(840);
+            skiResort3.setHeight_max(2096);
+            skiResort3.setTotal_length(270.0);
+            skiResort3.setRopeways(70);
+            skiResort3.setPos_lon(12.641559);
+            skiResort3.setPos_lat(47.391941);
+            skiResort3.setDate_season_start("08.10.2022");
+            skiResort3.setDate_season_end("19.07.2023");
+            skiResort3.setTime_service_start("09:00");
+            skiResort3.setTime_service_end("16.00");
+            skiResort3.setCurrent_utilization_percent(88);
+            skiResort3.setUser_rating(95);
+            skiResort3.setWeather_current_windspeed(25.36);
+            skiResort3.setWeather_current_temperature(-10.1);
+            skiResort3.setWeather_current_snowfall_forecast_percent(100);
+            skiResort3.setWeather_current_snowfall_forecast_amount_mm(150);
+            skiResort3.setWeather_datetime_lastread("07.06.2022 10:08:14");
+            skiResort3.setSnow_depth_min(114);
+            skiResort3.setSnow_depth_max(286);
+            skiResort3.setAmount_fresh_snow(40);
+            skiResort3.setDate_last_snowfall("06.06.2022");
+            skiResort3.setUrl_ticketpage("https://www.saalbach.com/de/winter/skitickets/ticketubersicht");
+            skiResort3.setAvalanche_warning_level(1);
+            skiResort3.setImage_front_url("https://www.saalbach.com/static/img/saalbach-logo.svg");
+            skiResort3.setImage_slope_url("https://www.saalbach.com/de/download__6027784");
+            skiResortRepository.save(skiResort3);
+            logger.info("Resort added: " + skiResort2.getName());
+
             logger.info("Done with generating ski resorts");
         };
     }
