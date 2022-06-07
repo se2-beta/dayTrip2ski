@@ -27,12 +27,12 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import javax.annotation.security.RolesAllowed;
 
-@PageTitle("Skigebiet-Details")
+@PageTitle("Skigebiet Details")
 @Route(value = "resort-details", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class SkiRsortDetailView extends Main implements HasComponents, HasStyle { // implements HasUrlParameter<Long>
 
-
+// Für Routing wenn DB Daten vorhanden
 //    @Override
 //    public void setParameter(BeforeEvent beforeEvent, Long aLong) {
 //
@@ -43,6 +43,7 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
 //        );
 //    }
 
+    // Durch DB Daten ersetzen
     String name = "Schladminger Planai";
 
     String operator = "Planai-Hochwurzen-Bahnen Gesellschaft m.b.H.";
@@ -80,47 +81,6 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
 
     public SkiRsortDetailView() {
 
-
-        // Zum Testen DELETE
-        ImageListViewCard vorlage = new ImageListViewCard(
-                10,
-                "Schladminger Planai",
-                "Steiermark",
-                "Planai-Hochwurzen-Bahnen Gesellschaft m.b.H. ",
-                "Coburgstrasse 52 ",
-                8970,
-                "Schladming ",
-                268,
-                1906,
-                550,
-                34,
-                13.6785045,
-                47.3901116,
-                "01.10.2022",
-                "31.03.2023 ",
-                "08:00:00",
-                "16:00:00 ",
-                50,
-                4,
-                40.0,
-                -5.0,
-                10,
-                30,
-                "22.10.2022 13:34:00 ",
-                34,
-                84,
-                40,
-                "01.01.2021",
-                "https://www.planai.at/de/tickets-preise/preise-winter ",
-                1,
-                "https://www.planai.at/_planai/2_winter/winter-bilder-allgemein/image-thumb__21927__header-image_auto_a532a6968365f70264b8c62e24bae48a/PLANAI%20GIPFEL%20RICHTUNG%20GRAHBERGZINKEN.webp",
-                "https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg",
-                98,
-                1);
-
-        //setSpacing(false);
-
-
         // Headerimage
         Div skiresort_div = new Div();
         skiresort_div.addClassNames("bg-contrast", "flex items-center", "mb-m", "overflow-hidden", "rounded-m w-full");
@@ -129,10 +89,6 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
         skiresort_image.setWidth("100%");
         skiresort_image.setSrc(image_url);
         skiresort_div.add(skiresort_image);
-
-
-        //add(new H2("This place intentionally left empty"));
-        //add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
 
         setSizeFull();
         getStyle().set("text-align", "center");
@@ -148,9 +104,8 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
     private Component createContent() {
 
         // Left vertical Layout
-
         // Title Slope Image
-        H4 slope_title = new H4("Pistenübersicht " + name + " (Talstation: " + height_min + "m - Bergstation: " + height_max + "m)");
+        H4 slope_title = new H4("" + name + " (Talstation: " + height_min + "m - Bergstation: " + height_max + "m)");
         Image slope_image = new Image();
         slope_image.setMaxWidth("100%");
         slope_image.setSrc(slope_image_url);
