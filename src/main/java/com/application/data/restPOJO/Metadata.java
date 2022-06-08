@@ -4,6 +4,7 @@ package com.application.data.restPOJO;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "name",
-    "latitude",
-    "longitude",
-    "height",
-    "timezone_abbrevation",
-    "utc_timeoffset",
-    "modelrun_utc",
-    "modelrun_updatetime_utc"
+        "name",
+        "latitude",
+        "longitude",
+        "height",
+        "timezone_abbrevation",
+        "utc_timeoffset",
+        "modelrun_utc",
+        "modelrun_updatetime_utc"
 })
 @Generated("jsonschema2pojo")
 public class Metadata {
@@ -41,8 +42,6 @@ public class Metadata {
     private String modelrunUtc;
     @JsonProperty("modelrun_updatetime_utc")
     private String modelrunUpdatetimeUtc;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("name")
     public String getName() {
@@ -122,16 +121,6 @@ public class Metadata {
     @JsonProperty("modelrun_updatetime_utc")
     public void setModelrunUpdatetimeUtc(String modelrunUpdatetimeUtc) {
         this.modelrunUpdatetimeUtc = modelrunUpdatetimeUtc;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

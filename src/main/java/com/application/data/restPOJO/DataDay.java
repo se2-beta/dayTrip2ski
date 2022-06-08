@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,33 +15,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "time",
-    "pictocode",
-    "uvindex",
-    "temperature_max",
-    "temperature_min",
-    "temperature_mean",
-    "felttemperature_max",
-    "felttemperature_min",
-    "winddirection",
-    "precipitation_probability",
-    "rainspot",
-    "predictability_class",
-    "predictability",
-    "precipitation",
-    "snowfraction",
-    "sealevelpressure_max",
-    "sealevelpressure_min",
-    "sealevelpressure_mean",
-    "windspeed_max",
-    "windspeed_mean",
-    "windspeed_min",
-    "relativehumidity_max",
-    "relativehumidity_min",
-    "relativehumidity_mean",
-    "convective_precipitation",
-    "precipitation_hours",
-    "humiditygreater90_hours"
+        "time",
+        "pictocode",
+        "uvindex",
+        "temperature_max",
+        "temperature_min",
+        "temperature_mean",
+        "felttemperature_max",
+        "felttemperature_min",
+        "winddirection",
+        "precipitation_probability",
+        "rainspot",
+        "predictability_class",
+        "predictability",
+        "precipitation",
+        "snowfraction",
+        "sealevelpressure_max",
+        "sealevelpressure_min",
+        "sealevelpressure_mean",
+        "windspeed_max",
+        "windspeed_mean",
+        "windspeed_min",
+        "relativehumidity_max",
+        "relativehumidity_min",
+        "relativehumidity_mean",
+        "convective_precipitation",
+        "precipitation_hours",
+        "humiditygreater90_hours"
 })
 @Generated("jsonschema2pojo")
 public class DataDay {
@@ -99,8 +100,6 @@ public class DataDay {
     private List<Double> precipitationHours = null;
     @JsonProperty("humiditygreater90_hours")
     private List<Double> humiditygreater90Hours = null;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("time")
     public List<String> getTime() {
@@ -370,16 +369,6 @@ public class DataDay {
     @JsonProperty("humiditygreater90_hours")
     public void setHumiditygreater90Hours(List<Double> humiditygreater90Hours) {
         this.humiditygreater90Hours = humiditygreater90Hours;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

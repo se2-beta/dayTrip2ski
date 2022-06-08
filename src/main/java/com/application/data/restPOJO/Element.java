@@ -4,6 +4,7 @@ package com.application.data.restPOJO;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,29 +14,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "distance",
-    "duration",
-    "status"
+        "distance",
+        "duration",
+        "status"
 })
 @Generated("jsonschema2pojo")
 public class Element {
 
     @JsonProperty("distance")
-    private Distance__1 distance;
+    private Distance distance;
     @JsonProperty("duration")
     private Duration duration;
     @JsonProperty("status")
     private String status;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("distance")
-    public Distance__1 getDistance() {
+    public Distance getDistance() {
         return distance;
     }
 
     @JsonProperty("distance")
-    public void setDistance(Distance__1 distance) {
+    public void setDistance(Distance distance) {
         this.distance = distance;
     }
 
@@ -57,16 +56,6 @@ public class Element {
     @JsonProperty("status")
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

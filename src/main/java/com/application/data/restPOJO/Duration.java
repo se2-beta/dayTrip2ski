@@ -1,9 +1,9 @@
-
 package com.application.data.restPOJO;
 
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "text",
-    "value"
+        "text",
+        "value"
 })
 @Generated("jsonschema2pojo")
 public class Duration {
@@ -23,8 +23,6 @@ public class Duration {
     private String text;
     @JsonProperty("value")
     private Integer value;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("text")
     public String getText() {
@@ -44,16 +42,6 @@ public class Duration {
     @JsonProperty("value")
     public void setValue(Integer value) {
         this.value = value;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
