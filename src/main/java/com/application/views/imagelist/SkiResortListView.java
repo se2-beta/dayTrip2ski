@@ -7,7 +7,6 @@ import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -22,14 +21,14 @@ import javax.annotation.security.RolesAllowed;
 @Route(value = "skigebiete", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @RolesAllowed("USER")
-public class ImageListView extends Main implements HasComponents, HasStyle {
+public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     TextField filterText = new TextField();
-    SkigebieteFilterForm filter;
+    SkiResortFilterForm filter;
 
     private OrderedList imageContainer;
 
-    public ImageListView() {
+    public SkiResortListView() {
         addClassNames("image-list-view", "mx-auto", "pb-l", "px-l", "max-w-screen-2xl");
 
         addClassName("skigebiete-image-list");
@@ -75,7 +74,7 @@ public class ImageListView extends Main implements HasComponents, HasStyle {
     }
 
     private void configureFilter() {
-        filter = new SkigebieteFilterForm();
+        filter = new SkiResortFilterForm();
         filter.setWidth("5em");
         filter.addClassNames("sticky");
     }
@@ -87,7 +86,7 @@ public class ImageListView extends Main implements HasComponents, HasStyle {
 
         for (int i = 0; i < 6; i++) {
 
-           ImageListViewCard img =  new ImageListViewCard(
+           SkiResortListViewCard img =  new SkiResortListViewCard(
                     i+10,
                     "Schladminger Planai",
                     "Steiermark",

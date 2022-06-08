@@ -11,15 +11,15 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-public class ImageListViewCard extends ListItem {
+public class SkiResortListViewCard extends ListItem {
 
 
-    public ImageListViewCard(Integer id, String name, String region, String operator, String address, Integer zip, String city, Integer heigt_min, Integer height_max,
-                             Integer total_length, Integer ropeways, Double pos_lon, Double pos_lat, String date_season_start, String date_season_end,
-                             String time_service_start, String time_service_end, Integer current_utilization_percent, Integer user_rating,
-                             Double weather_current_windspeed, Double weather_current_temperature, Integer weather_current_snowfall_forecast_percent,
-                             Integer weather_current_snowfall_forecast_amount_mm, String weather_datetime_lastread, Integer snow_depth_min, Integer snow_depth_max,
-                             Integer amount_fresh_snow, String date_last_snowfall, String url_ticketpage, Integer avalanche_warning, String image_url, String snope_image_url
+    public SkiResortListViewCard(Integer id, String name, String region, String operator, String address, Integer zip, String city, Integer heigt_min, Integer height_max,
+                                 Integer total_length, Integer ropeways, Double pos_lon, Double pos_lat, String date_season_start, String date_season_end,
+                                 String time_service_start, String time_service_end, Integer current_utilization_percent, Integer user_rating,
+                                 Double weather_current_windspeed, Double weather_current_temperature, Integer weather_current_snowfall_forecast_percent,
+                                 Integer weather_current_snowfall_forecast_amount_mm, String weather_datetime_lastread, Integer snow_depth_min, Integer snow_depth_max,
+                                 Integer amount_fresh_snow, String date_last_snowfall, String url_ticketpage, Integer avalanche_warning, String image_url, String snope_image_url
             , Integer filter_rating, Integer colorIndex) {
         addClassNames("bg-contrast-5", "flex", "flex-col", "items-start", "p-m", "rounded-l");
 
@@ -41,7 +41,9 @@ public class ImageListViewCard extends ListItem {
         Avatar avatar = new Avatar("98%");
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
         avatar.setAbbreviation(filter_rating + "%");
-        avatar.setColorIndex(colorIndex);
+        avatar.setColorIndex(3);
+        avatar.addClassNames("font-bold");
+        avatar.getStyle().set("font-weight", "700");
 
         // Title Settings
         Span header = new Span();

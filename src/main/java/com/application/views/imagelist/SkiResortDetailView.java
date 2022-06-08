@@ -1,8 +1,10 @@
 package com.application.views.imagelist;
 
-import ch.qos.logback.core.Layout;
 import com.application.views.MainLayout;
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
 import com.vaadin.flow.component.button.Button;
@@ -10,27 +12,22 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.*;
 import com.vaadin.flow.component.charts.model.style.SolidColor;
-import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.provider.DataView;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Skigebiet Details")
 @Route(value = "resort-details", layout = MainLayout.class)
 @RolesAllowed("USER")
-public class SkiRsortDetailView extends Main implements HasComponents, HasStyle { // implements HasUrlParameter<Long>
+public class SkiResortDetailView extends Main implements HasComponents, HasStyle { // implements HasUrlParameter<Long>
 
 // Für Routing wenn DB Daten vorhanden
 //    @Override
@@ -65,9 +62,7 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
     String date_season_end = "31.03.2023";
     String time_service_start = "08:00:00";
     String time_service_end = "16:00:00";
-
     Integer total_length = 550;
-
     Integer ropeways = 34;
 
     Integer height_min = 268;
@@ -79,22 +74,22 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
     Integer avalanche_warning = 1;
     String ticket_page = "https://www.planai.at/de/tickets-preise/preise-winter";
 
-    public SkiRsortDetailView() {
+    public SkiResortDetailView() {
 
         // Headerimage
-        Div skiresort_div = new Div();
-        skiresort_div.addClassNames("bg-contrast", "flex items-center", "mb-m", "overflow-hidden", "rounded-m w-full");
-        skiresort_div.setMaxHeight("200px");
-        Image skiresort_image = new Image();
-        skiresort_image.setWidth("100%");
-        skiresort_image.setSrc(image_url);
-        skiresort_div.add(skiresort_image);
+        Div skiresortDiv = new Div();
+        skiresortDiv.addClassNames("bg-contrast", "flex items-center", "mb-m", "overflow-hidden", "rounded-m w-full");
+        skiresortDiv.setMaxHeight("200px");
+        Image skiresortImage = new Image();
+        skiresortImage.setWidth("100%");
+        skiresortImage.setSrc(image_url);
+        skiresortDiv.add(skiresortImage);
 
         setSizeFull();
         getStyle().set("text-align", "center");
 
         add(
-                skiresort_div,
+                skiresortDiv,
                 createContent()
 
         );
@@ -105,28 +100,28 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
 
         // Left vertical Layout
         // Title Slope Image
-        H4 slope_title = new H4("" + name + " (Talstation: " + height_min + "m - Bergstation: " + height_max + "m)");
-        Image slope_image = new Image();
-        slope_image.setMaxWidth("100%");
-        slope_image.setSrc(slope_image_url);
+        H4 slopeTitle = new H4("" + name + " (Talstation: " + height_min + "m - Bergstation: " + height_max + "m)");
+        Image slopeImage = new Image();
+        slopeImage.setMaxWidth("100%");
+        slopeImage.setSrc(slope_image_url);
 
         Component chart = configureUtilizationChart();
 
-        HorizontalLayout utilization_layout = new HorizontalLayout(new Label("Auslastung"), chart);
-        utilization_layout.setWidth("100%");
+        HorizontalLayout utilizationLayout = new HorizontalLayout(new Label("Auslastung"), chart);
+        utilizationLayout.setWidth("100%");
 
 
-        VerticalLayout left_layout = new VerticalLayout(
-                slope_title,
-                utilization_layout,
-                slope_image
+        VerticalLayout leftLayout = new VerticalLayout(
+                slopeTitle,
+                utilizationLayout,
+                slopeImage
         );
 
 
         // Right vertical Layout
         // Title Details
-        H4 slope_title_right = new H4("Skigebietdetails");
-        slope_title_right.addClassNames("pl-m", "pb-m");
+        H4 slopeTitleRight = new H4("Skigebietdetails");
+        slopeTitleRight.addClassNames("pl-m", "pb-m");
 
         Avatar avatar = new Avatar(avalanche_warning.toString());
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
@@ -135,89 +130,89 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
 
 
         // Adress
-        Component adress_layout =
+        Component adressLayout =
                 VerticalDataView("Adresse", VaadinIcon.ROAD, zip, " - ", address, "");
         // Region
-        Component region_layout =
+        Component regionLayout =
                 VerticalDataView("Region", VaadinIcon.HOME, city, ", ", region, "");
         // Horizontal Layout temperature & snow height
-        HorizontalLayout adress_region_layout = new HorizontalLayout(adress_layout, region_layout);
-        adress_region_layout.setWidth("100%");
+        HorizontalLayout adressRegionLayout = new HorizontalLayout(adressLayout, regionLayout);
+        adressRegionLayout.setWidth("100%");
 
         // Season start-end
-        Component season_layout =
+        Component seasonLayout =
                 VerticalDataView("Saison", VaadinIcon.CALENDAR, date_season_start, " - ", date_season_end, "");
         // service times
-        Component times_layout =
+        Component timesLayout =
                 VerticalDataView("Öffnungszeiten", VaadinIcon.CLOCK, time_service_start, " - ", time_service_end, "");
         // Horizontal Layout temperature & snow height
-        HorizontalLayout season_time_layout = new HorizontalLayout(season_layout, times_layout);
-        season_time_layout.setWidth("100%");
+        HorizontalLayout seasonTimeLayout = new HorizontalLayout(seasonLayout, timesLayout);
+        seasonTimeLayout.setWidth("100%");
 
         // total length
-        Component totel_length_layout =
+        Component totelLengthLayout =
                 VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, total_length, " km", "", "");
         // ropeways
-        Component ropeways_layout =
+        Component ropewaysLayout =
                 VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, ropeways, " km", "", "");
         // Horizontal Layout temperature & snow height
-        HorizontalLayout length_ropeways_layout = new HorizontalLayout(totel_length_layout, ropeways_layout);
-        length_ropeways_layout.setWidth("100%");
+        HorizontalLayout lengthRopewaysLayout = new HorizontalLayout(totelLengthLayout, ropewaysLayout);
+        lengthRopewaysLayout.setWidth("100%");
 
 
         // current Information title
-        H4 information_title_right = new H4("Aktuelle Informationen");
-        information_title_right.addClassNames("pl-m", "pb-s", "pt-m");
+        H4 informationTitleRight = new H4("Aktuelle Informationen");
+        informationTitleRight.addClassNames("pl-m", "pb-s", "pt-m");
 
         // Temperature
-        Component temperatur_layout =
+        Component temperaturLayout =
                 VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, weather_current_temperature, " °C", "", "");
         // Snow height min-max
-        Component snow_height_layout =
+        Component snowHeightLayout =
                 VerticalDataView("Aktuelle Schneehöhe", VaadinIcon.ASTERISK, snow_depth_min, " - ", snow_depth_max, " cm");
         // Horizontal Layout temperature & snow height
-        HorizontalLayout temperature_snowHeight_layout = new HorizontalLayout(temperatur_layout, snow_height_layout);
-        temperature_snowHeight_layout.setWidth("100%");
+        HorizontalLayout temperatureSnowHeightLayout = new HorizontalLayout(temperaturLayout, snowHeightLayout);
+        temperatureSnowHeightLayout.setWidth("100%");
 
 
         // Wind Speed
-        Component windspeed_layout =
+        Component windspeedLayout =
                 VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, weather_current_windspeed, " m/s", "", "");
         // Fresh Snow
-        Component fresh_snow_layout =
+        Component freshSnowLayout =
                 VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, amount_fresh_snow, " cm", "", "");
         // Horizontal Layout windspeed & fresh snow
-        HorizontalLayout windspeed_freshSnow_layout = new HorizontalLayout(windspeed_layout, fresh_snow_layout);
-        windspeed_freshSnow_layout.setWidth("100%");
+        HorizontalLayout windspeedFreshSnowLayout = new HorizontalLayout(windspeedLayout, freshSnowLayout);
+        windspeedFreshSnowLayout.setWidth("100%");
 
 
         // Snowfall forecast
-        Component forecast_layout =
+        Component forecastLayout =
                 VerticalDataView("Vorhersage Neuschnee", VaadinIcon.TRENDING_UP, weather_current_snowfall_forecast_percent, "% / ", weather_current_snowfall_forecast_amount_mm, " mm");
         // date Last snowfall
-        Component last_snowfall_layout =
+        Component lastSnowfallLayout =
                 VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, date_last_snowfall, "", "", "");
         // Horizontal Layout forecast & snowfall
-        HorizontalLayout forecast_lastSnowfall_layout = new HorizontalLayout(forecast_layout, last_snowfall_layout);
-        forecast_lastSnowfall_layout.setWidth("100%");
+        HorizontalLayout forecastLastSnowfallLayout = new HorizontalLayout(forecastLayout, lastSnowfallLayout);
+        forecastLastSnowfallLayout.setWidth("100%");
 
 
-        VerticalLayout right_layout = new VerticalLayout(
-                slope_title_right,
+        VerticalLayout rightLayout = new VerticalLayout(
+                slopeTitleRight,
                 getAvalancheLevel(avalanche_warning),
-                adress_region_layout,
-                season_time_layout,
-                length_ropeways_layout,
+                adressRegionLayout,
+                seasonTimeLayout,
+                lengthRopewaysLayout,
 
-                information_title_right,
-                temperature_snowHeight_layout,
-                windspeed_freshSnow_layout,
-                forecast_lastSnowfall_layout
+                informationTitleRight,
+                temperatureSnowHeightLayout,
+                windspeedFreshSnowLayout,
+                forecastLastSnowfallLayout
         );
-        right_layout.setSpacing(false);
+        rightLayout.setSpacing(false);
 
         // Horizontal Layout of Vertical Layouts
-        HorizontalLayout layout = new HorizontalLayout(left_layout, right_layout);
+        HorizontalLayout layout = new HorizontalLayout(leftLayout, rightLayout);
         layout.setWidth("100%");
         layout.setSpacing(false);
 
@@ -229,12 +224,12 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
         Label title = new Label("Lawinenwarnstufe");
         title.addClassNames("pr-m", "pl-m");
 
-        HorizontalLayout avalanche_layout = new HorizontalLayout(title);
-        avalanche_layout.setMaxWidth("100%");
-        avalanche_layout.setHeight("30px");
-        avalanche_layout.setSpacing(false);
-        avalanche_layout.addClassNames("mb-l");
-        avalanche_layout.setAlignItems(FlexComponent.Alignment.CENTER);
+        HorizontalLayout avalancheLayout = new HorizontalLayout(title);
+        avalancheLayout.setMaxWidth("100%");
+        avalancheLayout.setHeight("30px");
+        avalancheLayout.setSpacing(false);
+        avalancheLayout.addClassNames("mb-l");
+        avalancheLayout.setAlignItems(FlexComponent.Alignment.CENTER);
 
         for (int i = 0; i < 5; i++) {
             Integer label = i + 1;
@@ -253,14 +248,14 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
                 if (level == 5) lb.addClassNames("bg-error");
             }
 
-            avalanche_layout.add(lb);
+            avalancheLayout.add(lb);
         }
 
         Button ticket = new Button("Tickets");
-        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);",ticket_page));
+        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", ticket_page));
         ticket.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        HorizontalLayout layout = new HorizontalLayout(avalanche_layout, ticket);
+        HorizontalLayout layout = new HorizontalLayout(avalancheLayout, ticket);
         layout.setWidth("90%");
         layout.setAlignItems(FlexComponent.Alignment.BASELINE);
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
@@ -297,18 +292,18 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
         yAxis.addPlotBand(new PlotBand(0, current_utilization_percent, new SolidColor("#af3d5e")));
         yAxis.addPlotBand(new PlotBand(current_utilization_percent, 100, new SolidColor("#ffffff ")));
         yAxis.setMax(100);
-        conf.getxAxis().addCategory(""); // <br/>U.S. $ (1,000s)
+        conf.getxAxis().addCategory("");
 
         return chart;
     }
 
     private <T> Component IconText(VaadinIcon icon, T first_text, String suffix_first, T second_text, String suffix_second) {
         Icon ic = new Icon(icon);
-        String convert_first = first_text.toString();
-        String convert_second = second_text.toString();
+        String convertFirst = first_text.toString();
+        String convertSecond = second_text.toString();
         ic.setSize("19px");
 
-        Label l1 = new Label(convert_first + suffix_first + convert_second + suffix_second);
+        Label l1 = new Label(convertFirst + suffix_first + convertSecond + suffix_second);
         l1.getStyle().set("font-size", "19px");
         HorizontalLayout hl = new HorizontalLayout(ic, l1);
         hl.addClassNames("pt-0", "mt-0");
@@ -319,10 +314,10 @@ public class SkiRsortDetailView extends Main implements HasComponents, HasStyle 
 
     private <T> Component VerticalDataView(String title, VaadinIcon icon, T first_text, String suffix_first, T second_text, String suffix_second) {
 
-        Label layout_title = new Label(title);
-        layout_title.addClassNames("pb-0", "mb-0");
-        Component snow_height = IconText(icon, first_text, suffix_first, second_text, suffix_second);
-        VerticalLayout layout = new VerticalLayout(layout_title, snow_height);
+        Label layoutTitle = new Label(title);
+        layoutTitle.addClassNames("pb-0", "mb-0");
+        Component snowHeight = IconText(icon, first_text, suffix_first, second_text, suffix_second);
+        VerticalLayout layout = new VerticalLayout(layoutTitle, snowHeight);
         layout.addClassNames("pb-s");
         layout.setSpacing(false);
 

@@ -13,7 +13,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.shared.Registration;
 
-public class SkigebieteFilterForm extends FormLayout {
+public class SkiResortFilterForm extends FormLayout {
 
     TextField region = new TextField("Region"); // Durch ComboBox<Region> region = new ComboBox<>("Region"); ersetzen?
     IntegerField fresh_snow = new IntegerField("Neuschnee (cm)");
@@ -24,7 +24,7 @@ public class SkigebieteFilterForm extends FormLayout {
     Button save = new Button("Speichern");
     Button cancel = new Button("Abbrechen");
 
-    public SkigebieteFilterForm() {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
+    public SkiResortFilterForm() {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
 
         addClassName("skigebieteFilter");
         addClassName("px-xl");
@@ -76,14 +76,14 @@ public class SkigebieteFilterForm extends FormLayout {
         return new HorizontalLayout(save, cancel);
     }
 
-    public static abstract class SkigebieteFilterEvent extends ComponentEvent<SkigebieteFilterForm> {
+    public static abstract class SkigebieteFilterEvent extends ComponentEvent<SkiResortFilterForm> {
 
-        public SkigebieteFilterEvent(SkigebieteFilterForm source, boolean fromClient) {
+        public SkigebieteFilterEvent(SkiResortFilterForm source, boolean fromClient) {
             super(source, false);
         }
 
         public static class CloseEvent extends SkigebieteFilterEvent {
-            public CloseEvent(SkigebieteFilterForm source) {
+            public CloseEvent(SkiResortFilterForm source) {
                 super(source, true); // true => ändern wenn Klasse Skigebiet existiert
             }
         }
