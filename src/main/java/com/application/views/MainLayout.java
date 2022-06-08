@@ -5,10 +5,10 @@ import com.application.security.AuthenticatedUser;
 import com.application.views.about.AboutView;
 import com.application.views.freeride.FreerideView;
 import com.application.views.imagelist.SkiResortListView;
-import com.application.views.imagelist.SkiResortDetailView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
@@ -90,7 +90,6 @@ public class MainLayout extends AppLayout {
         viewTitle = new H1();
         viewTitle.addClassNames("view-title");
 
-
         Nav nav = new Nav();
         nav.addClassNames("gap-s", "overflow-auto", "px-m");
         nav.setWidth("100%");
@@ -112,14 +111,6 @@ public class MainLayout extends AppLayout {
         return header;
     }
 
-    private MenuItemInfo[] createTopMenuItems() {
-        return new MenuItemInfo[]{ //
-                new MenuItemInfo("Pisten", "la la-globe", SkiResortListView.class), //
-
-                new MenuItemInfo("Freeride", "la la-file", FreerideView.class), //
-
-        };
-    }
 
     private Component createDrawerContent() {
         H2 appName = new H2("daytrip2Ski");
@@ -150,19 +141,21 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
+    private MenuItemInfo[] createTopMenuItems() {
+        return new MenuItemInfo[]{ //
+                new MenuItemInfo("Pisten", "la la-globe", SkiResortListView.class), //
+                new MenuItemInfo("Freeride", "la la-file", FreerideView.class), //
+
+        };
+    }
+
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Skigebiete", "la la-th-list", SkiResortListView.class), //
-
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
-
                 new MenuItemInfo("Master-Detail", "la la-columns", MasterDetailView.class), //
-
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
-
                 new MenuItemInfo("Debug", "la la-file", DebugView.class), //
-
-                new MenuItemInfo("Skigebiet Detail", "la la-file", SkiResortDetailView.class), //
 
 
         };
@@ -205,4 +198,11 @@ public class MainLayout extends AppLayout {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
     }
+
+    public static MainLayout get() {
+        return (MainLayout) UI.getCurrent().getChildren()
+                .filter(component -> component.getClass() == MainLayout.class)
+                .findFirst().get();
+    }
 }
+

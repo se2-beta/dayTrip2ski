@@ -1,9 +1,12 @@
 package com.application.views.imagelist;
 
+import com.application.data.entity.SkiResort;
+import com.application.data.service.SkiResortService;
 import com.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
@@ -11,14 +14,12 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.router.*;
 
 import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Skigebiete")
-@Route(value = "skigebiete", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class SkiResortListView extends Main implements HasComponents, HasStyle {
@@ -28,10 +29,13 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
 
-    public SkiResortListView() {
+    SkiResortService service;
+
+    public SkiResortListView(SkiResortService service) {
+        this.service = service;
         addClassNames("image-list-view", "mx-auto", "pb-l", "px-l", "max-w-screen-2xl");
 
-        addClassName("skigebiete-image-list");
+        addClassName("ski-resort-list-view");
         setSizeFull();
 
         configureImageContainer();
@@ -79,55 +83,24 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filter.addClassNames("sticky");
     }
 
-
     private void configureImageContainer() {
         imageContainer = new OrderedList();
         imageContainer.addClassNames("gap-l", "grid", "list-none");
 
-        for (int i = 0; i < 6; i++) {
+        for (SkiResort skiResort : service.getAllSkiResort()) {
 
-           SkiResortListViewCard img =  new SkiResortListViewCard(
-                    i+10,
-                    "Schladminger Planai",
-                    "Steiermark",
-                    "Planai-Hochwurzen-Bahnen Gesellschaft m.b.H. ",
-                    "Coburgstrasse 52 ",
-                    8970,
-                    "Schladming ",
-                    268,
-                    1906,
-                    550,
-                    34,
-                    13.6785045,
-                    47.3901116,
-                    "01.10.2022",
-                    "31.03.2023 ",
-                    "08:00:00",
-                    "16:00:00 ",
-                    50,
-                    4,
-                    40.0,
-                    -5.0,
-                    10,
-                    30,
-                    "22.10.2022 13:34:00 ",
-                    34,
-                    84,
-                    40,
-                    "01.01.2021",
-                    "https://www.planai.at/de/tickets-preise/preise-winter ",
-                    1,
-                    "https://www.planai.at/_planai/2_winter/winter-bilder-allgemein/image-thumb__21927__header-image_auto_a532a6968365f70264b8c62e24bae48a/PLANAI%20GIPFEL%20RICHTUNG%20GRAHBERGZINKEN.webp",
-                    "https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg",
-                    98-i,
-                    i);
+            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
 
-            //img.addClickListener(e -> Notification.show("Clicked " + e.getClass()));
+            RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
 
-            imageContainer.add(img);
-            //imageContainer.addClickListener(e -> Notification.show("Clicked " + e));
+            tempVar.addClickListener(e -> viewDetails(skiResort));
+            imageContainer.add(tempVar);
         }
+    }
 
+
+    private void viewDetails(SkiResort skiResort) {
+        UI.getCurrent().navigate(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
     }
 
 

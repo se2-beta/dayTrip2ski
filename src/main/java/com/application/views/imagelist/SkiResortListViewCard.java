@@ -1,26 +1,21 @@
 package com.application.views.imagelist;
 
+import com.application.data.entity.SkiResort;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 public class SkiResortListViewCard extends ListItem {
 
+    Integer filter_rating = 98;
 
-    public SkiResortListViewCard(Integer id, String name, String region, String operator, String address, Integer zip, String city, Integer heigt_min, Integer height_max,
-                                 Integer total_length, Integer ropeways, Double pos_lon, Double pos_lat, String date_season_start, String date_season_end,
-                                 String time_service_start, String time_service_end, Integer current_utilization_percent, Integer user_rating,
-                                 Double weather_current_windspeed, Double weather_current_temperature, Integer weather_current_snowfall_forecast_percent,
-                                 Integer weather_current_snowfall_forecast_amount_mm, String weather_datetime_lastread, Integer snow_depth_min, Integer snow_depth_max,
-                                 Integer amount_fresh_snow, String date_last_snowfall, String url_ticketpage, Integer avalanche_warning, String image_url, String snope_image_url
-            , Integer filter_rating, Integer colorIndex) {
+    public SkiResortListViewCard(SkiResort skiResort) {
         addClassNames("bg-contrast-5", "flex", "flex-col", "items-start", "p-m", "rounded-l");
 
 
@@ -32,41 +27,44 @@ public class SkiResortListViewCard extends ListItem {
 
         Image image = new Image();
         image.setHeight("100%");
-        image.setSrc(image_url);
-        image.addClickListener(e -> Notification.show("Clicked on image: " + id)); // TODO
+        image.setSrc(skiResort.getImage_front_url());
+        //image.addClickListener(e -> Notification.show("Clicked on image: " + skiResort.getId())); // TODO
 
 
         div.add(image);
 
-        Avatar avatar = new Avatar("98%");
+        Avatar avatar = new Avatar("fr");
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
         avatar.setAbbreviation(filter_rating + "%");
         avatar.setColorIndex(3);
-        avatar.addClassNames("font-bold");
         avatar.getStyle().set("font-weight", "700");
 
         // Title Settings
         Span header = new Span();
-        header.addClassNames("text-xl", "font-semibold");
-        header.setText(name);
+        header.addClassNames("text-xl", "font-semibold", "pb-0");
+        header.setText(skiResort.getName());
 
         HorizontalLayout headerIcon = new HorizontalLayout(header, avatar);
+        headerIcon.addClassNames("pb-0");
         headerIcon.setWidth("100%");
-        headerIcon.setAlignItems(FlexComponent.Alignment.CENTER);
+        headerIcon.setAlignItems(FlexComponent.Alignment.START);
         headerIcon.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
 
         Span subtitle = new Span();
         subtitle.addClassNames("text-s", "text-secondary", "pb-m");
-        subtitle.setText(region);
+        subtitle.setText(skiResort.getRegion());
+
+        VerticalLayout headerSubTitle = new VerticalLayout(headerIcon, subtitle);
+        headerSubTitle.setSpacing(false);
+
 
         add(
                 div,
-                headerIcon,
-                subtitle,
-                horizontalComponents(IconText(VaadinIcon.CLOUD, weather_current_temperature, " °C", "", ""),
+                headerSubTitle,
+                horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeather_current_temperature(), " °C", "", ""),
                         IconText(VaadinIcon.CAR, "40", " min", "", "")),
-                horizontalComponents(IconText(VaadinIcon.ASTERISK, snow_depth_min, " - ", snow_depth_max, " cm"),
-                        IconText(VaadinIcon.TRENDING_UP, amount_fresh_snow, " cm", "", ""))
+                horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnow_depth_min(), " - ", skiResort.getSnow_depth_max(), " cm"),
+                        IconText(VaadinIcon.TRENDING_UP, skiResort.getAmount_fresh_snow(), " cm", "", ""))
 
         );
 
@@ -91,8 +89,8 @@ public class SkiResortListViewCard extends ListItem {
 
         VerticalLayout vl1 = new VerticalLayout(left);
         VerticalLayout vl2 = new VerticalLayout(right);
-        vl1.addClassNames("p-0",  "m-0");
-        vl2.addClassNames("p-0",  "m-0");
+        vl1.addClassNames("p-0", "m-0");
+        vl2.addClassNames("p-0", "m-0");
 
         HorizontalLayout layout = new HorizontalLayout(vl1, vl2);
         layout.setWidth("100%");
