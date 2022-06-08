@@ -3,7 +3,6 @@ package com.application.data.entity;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Entity
 @Table(name = "SkiResort")
@@ -15,31 +14,31 @@ public class SkiResort extends AbstractEntity {
     private String address;
     private Integer zip;
     private String city;
-    private Integer height_min;
-    private Integer height_max;
-    private Double total_length;
+    private Integer heightMin;
+    private Integer heightMax;
+    private Double totalLength;
     private Integer ropeways;
-    private Double pos_lon;
-    private Double pos_lat;
-    private String date_season_start;
-    private String date_season_end;
-    private String time_service_start;
-    private String time_service_end;
-    private Integer current_utilization_percent;
-    private Integer user_rating;
-    private Double weather_current_windspeed;
-    private Double weather_current_temperature;
-    private Integer weather_current_snowfall_forecast_percent;
-    private Integer weather_current_snowfall_forecast_amount_mm;
-    private String weather_datetime_lastread;
-    private Integer snow_depth_min;
-    private Integer snow_depth_max;
-    private Integer amount_fresh_snow;
-    private String date_last_snowfall;
-    private String url_ticketpage;
-    private Integer avalanche_warning_level;
-    private String image_front_url;
-    private String image_slope_url;
+    private Double posLon;
+    private Double posLat;
+    private String dateSeasonStart;
+    private String dateSeasonEnd;
+    private String timeServiceStart;
+    private String timeServiceEnd;
+    private Integer currentUtilizationPercent;
+    private Integer userRating;
+    private Double weatherCurrentWindspeed;
+    private Double weatherCurrentTemperature;
+    private Integer weatherCurrentSnowfallForecastPercent;
+    private Integer weatherCurrentSnowfallForecastAmountMM;
+    private String weatherDatetimeLastRead;
+    private Integer snowDepthMin;
+    private Integer snowDepthMax;
+    private Integer amountFreshSnow;
+    private String dateLastSnowfall;
+    private String URLTicketpage;
+    private Integer avalancheWarningLevel;
+    private String URLImageFront;
+    private String URLImageSlope;
 
     public String getName() {
         return name;
@@ -89,28 +88,28 @@ public class SkiResort extends AbstractEntity {
         this.city = city;
     }
 
-    public Integer getHeight_min() {
-        return height_min;
+    public Integer getHeightMin() {
+        return heightMin;
     }
 
-    public void setHeight_min(Integer height_min) {
-        this.height_min = height_min;
+    public void setHeightMin(Integer heightMin) {
+        this.heightMin = heightMin;
     }
 
-    public Integer getHeight_max() {
-        return height_max;
+    public Integer getHeightMax() {
+        return heightMax;
     }
 
-    public void setHeight_max(Integer height_max) {
-        this.height_max = height_max;
+    public void setHeightMax(Integer heightMax) {
+        this.heightMax = heightMax;
     }
 
-    public Double getTotal_length() {
-        return total_length;
+    public Double getTotalLength() {
+        return totalLength;
     }
 
-    public void setTotal_length(Double total_length) {
-        this.total_length = total_length;
+    public void setTotalLength(Double totalLength) {
+        this.totalLength = totalLength;
     }
 
     public Integer getRopeways() {
@@ -121,171 +120,171 @@ public class SkiResort extends AbstractEntity {
         this.ropeways = ropeways;
     }
 
-    public Double getPos_lon() {
-        return pos_lon;
+    public Double getPosLon() {
+        return posLon;
     }
 
-    public void setPos_lon(Double pos_lon) {
-        this.pos_lon = pos_lon;
+    public void setPosLon(Double posLon) {
+        this.posLon = posLon;
     }
 
-    public Double getPos_lat() {
-        return pos_lat;
+    public Double getPosLat() {
+        return posLat;
     }
 
-    public void setPos_lat(Double pos_lat) {
-        this.pos_lat = pos_lat;
+    public void setPosLat(Double posLat) {
+        this.posLat = posLat;
     }
 
-    public String getDate_season_start() {
-        return date_season_start;
+    public String getDateSeasonStart() {
+        return dateSeasonStart;
     }
 
-    public void setDate_season_start(String date_season_start) {
-        this.date_season_start = date_season_start;
+    public void setDateSeasonStart(String dateSeasonStart) {
+        this.dateSeasonStart = dateSeasonStart;
     }
 
-    public String getDate_season_end() {
-        return date_season_end;
+    public String getDateSeasonEnd() {
+        return dateSeasonEnd;
     }
 
-    public void setDate_season_end(String date_season_end) {
-        this.date_season_end = date_season_end;
+    public void setDateSeasonEnd(String dateSeasonEnd) {
+        this.dateSeasonEnd = dateSeasonEnd;
     }
 
-    public String getTime_service_start() {
-        return time_service_start;
+    public String getTimeServiceStart() {
+        return timeServiceStart;
     }
 
-    public void setTime_service_start(String time_service_start) {
-        this.time_service_start = time_service_start;
+    public void setTimeServiceStart(String timeServiceStart) {
+        this.timeServiceStart = timeServiceStart;
     }
 
-    public String getTime_service_end() {
-        return time_service_end;
+    public String getTimeServiceEnd() {
+        return timeServiceEnd;
     }
 
-    public void setTime_service_end(String time_service_end) {
-        this.time_service_end = time_service_end;
+    public void setTimeServiceEnd(String timeServiceEnd) {
+        this.timeServiceEnd = timeServiceEnd;
     }
 
-    public Integer getCurrent_utilization_percent() {
-        return current_utilization_percent;
+    public Integer getCurrentUtilizationPercent() {
+        return currentUtilizationPercent;
     }
 
-    public void setCurrent_utilization_percent(Integer current_utilization_percent) {
-        this.current_utilization_percent = current_utilization_percent;
+    public void setCurrentUtilizationPercent(Integer currentUtilizationPercent) {
+        this.currentUtilizationPercent = currentUtilizationPercent;
     }
 
-    public Integer getUser_rating() {
-        return user_rating;
+    public Integer getUserRating() {
+        return userRating;
     }
 
-    public void setUser_rating(Integer user_rating) {
-        this.user_rating = user_rating;
+    public void setUserRating(Integer userRating) {
+        this.userRating = userRating;
     }
 
-    public Double getWeather_current_windspeed() {
-        return weather_current_windspeed;
+    public Double getWeatherCurrentWindspeed() {
+        return weatherCurrentWindspeed;
     }
 
-    public void setWeather_current_windspeed(Double weather_current_windspeed) {
-        this.weather_current_windspeed = weather_current_windspeed;
+    public void setWeatherCurrentWindspeed(Double weatherCurrentWindspeed) {
+        this.weatherCurrentWindspeed = weatherCurrentWindspeed;
     }
 
-    public Double getWeather_current_temperature() {
-        return weather_current_temperature;
+    public Double getWeatherCurrentTemperature() {
+        return weatherCurrentTemperature;
     }
 
-    public void setWeather_current_temperature(Double weather_current_temperature) {
-        this.weather_current_temperature = weather_current_temperature;
+    public void setWeatherCurrentTemperature(Double weatherCurrentTemperature) {
+        this.weatherCurrentTemperature = weatherCurrentTemperature;
     }
 
-    public Integer getWeather_current_snowfall_forecast_percent() {
-        return weather_current_snowfall_forecast_percent;
+    public Integer getWeatherCurrentSnowfallForecastPercent() {
+        return weatherCurrentSnowfallForecastPercent;
     }
 
-    public void setWeather_current_snowfall_forecast_percent(Integer weather_current_snowfall_forecast_percent) {
-        this.weather_current_snowfall_forecast_percent = weather_current_snowfall_forecast_percent;
+    public void setWeatherCurrentSnowfallForecastPercent(Integer weatherCurrentSnowfallForecastPercent) {
+        this.weatherCurrentSnowfallForecastPercent = weatherCurrentSnowfallForecastPercent;
     }
 
-    public Integer getWeather_current_snowfall_forecast_amount_mm() {
-        return weather_current_snowfall_forecast_amount_mm;
+    public Integer getWeatherCurrentSnowfallForecastAmountMM() {
+        return weatherCurrentSnowfallForecastAmountMM;
     }
 
-    public void setWeather_current_snowfall_forecast_amount_mm(Integer weather_current_snowfall_forecast_amount_mm) {
-        this.weather_current_snowfall_forecast_amount_mm = weather_current_snowfall_forecast_amount_mm;
+    public void setWeatherCurrentSnowfallForecastAmountMM(Integer weatherCurrentSnowfallForecastAmountMM) {
+        this.weatherCurrentSnowfallForecastAmountMM = weatherCurrentSnowfallForecastAmountMM;
     }
 
-    public String getWeather_datetime_lastread() {
-        return weather_datetime_lastread;
+    public String getWeatherDatetimeLastRead() {
+        return weatherDatetimeLastRead;
     }
 
-    public void setWeather_datetime_lastread(String weather_datetime_lastread) {
-        this.weather_datetime_lastread = weather_datetime_lastread;
+    public void setWeatherDatetimeLastRead(String weatherDatetimeLastRead) {
+        this.weatherDatetimeLastRead = weatherDatetimeLastRead;
     }
 
-    public Integer getSnow_depth_min() {
-        return snow_depth_min;
+    public Integer getSnowDepthMin() {
+        return snowDepthMin;
     }
 
-    public void setSnow_depth_min(Integer snow_depth_min) {
-        this.snow_depth_min = snow_depth_min;
+    public void setSnowDepthMin(Integer snowDepthMin) {
+        this.snowDepthMin = snowDepthMin;
     }
 
-    public Integer getSnow_depth_max() {
-        return snow_depth_max;
+    public Integer getSnowDepthMax() {
+        return snowDepthMax;
     }
 
-    public void setSnow_depth_max(Integer snow_depth_max) {
-        this.snow_depth_max = snow_depth_max;
+    public void setSnowDepthMax(Integer snowDepthMax) {
+        this.snowDepthMax = snowDepthMax;
     }
 
-    public Integer getAmount_fresh_snow() {
-        return amount_fresh_snow;
+    public Integer getAmountFreshSnow() {
+        return amountFreshSnow;
     }
 
-    public void setAmount_fresh_snow(Integer amount_fresh_snow) {
-        this.amount_fresh_snow = amount_fresh_snow;
+    public void setAmountFreshSnow(Integer amountFreshSnow) {
+        this.amountFreshSnow = amountFreshSnow;
     }
 
-    public String getDate_last_snowfall() {
-        return date_last_snowfall;
+    public String getDateLastSnowfall() {
+        return dateLastSnowfall;
     }
 
-    public void setDate_last_snowfall(String date_last_snowfall) {
-        this.date_last_snowfall = date_last_snowfall;
+    public void setDateLastSnowfall(String dateLastSnowfall) {
+        this.dateLastSnowfall = dateLastSnowfall;
     }
 
-    public String getUrl_ticketpage() {
-        return url_ticketpage;
+    public String getURLTicketpage() {
+        return URLTicketpage;
     }
 
-    public void setUrl_ticketpage(String url_ticketpage) {
-        this.url_ticketpage = url_ticketpage;
+    public void setURLTicketpage(String URLTicketpage) {
+        this.URLTicketpage = URLTicketpage;
     }
 
-    public Integer getAvalanche_warning_level() {
-        return avalanche_warning_level;
+    public Integer getAvalancheWarningLevel() {
+        return avalancheWarningLevel;
     }
 
-    public void setAvalanche_warning_level(Integer avalanche_warning_level) {
-        this.avalanche_warning_level = avalanche_warning_level;
+    public void setAvalancheWarningLevel(Integer avalancheWarningLevel) {
+        this.avalancheWarningLevel = avalancheWarningLevel;
     }
 
-    public String getImage_front_url() {
-        return image_front_url;
+    public String getURLImageFront() {
+        return URLImageFront;
     }
 
-    public void setImage_front_url(String image_front_url) {
-        this.image_front_url = image_front_url;
+    public void setURLImageFront(String URLImageFront) {
+        this.URLImageFront = URLImageFront;
     }
 
-    public String getImage_slope_url() {
-        return image_slope_url;
+    public String getURLImageSlope() {
+        return URLImageSlope;
     }
 
-    public void setImage_slope_url(String image_slope_url) {
-        this.image_slope_url = image_slope_url;
+    public void setURLImageSlope(String URLImageSlope) {
+        this.URLImageSlope = URLImageSlope;
     }
 }
