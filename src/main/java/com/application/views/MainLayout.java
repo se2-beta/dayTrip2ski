@@ -3,8 +3,9 @@ package com.application.views;
 import com.application.data.entity.User;
 import com.application.security.AuthenticatedUser;
 import com.application.views.about.AboutView;
-import com.application.views.imagelist.ImageListView;
-import com.application.views.imagelist.SkiRsortDetailView;
+import com.application.views.freeride.FreerideView;
+import com.application.views.imagelist.SkiResortListView;
+import com.application.views.imagelist.SkiResortDetailView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
 import com.vaadin.flow.component.Component;
@@ -14,15 +15,7 @@ import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.dependency.NpmPackage;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.ListItem;
-import com.vaadin.flow.component.html.Nav;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
@@ -31,6 +24,7 @@ import java.util.Optional;
 /**
  * The main view is a top-level placeholder for other views.
  */
+
 public class MainLayout extends AppLayout {
 
     /**
@@ -96,9 +90,35 @@ public class MainLayout extends AppLayout {
         viewTitle = new H1();
         viewTitle.addClassNames("view-title");
 
-        Header header = new Header(toggle, viewTitle);
+
+        Nav nav = new Nav();
+        nav.addClassNames("gap-s", "overflow-auto", "px-m");
+        nav.setWidth("100%");
+
+
+        // Wrap the links in a list; improves accessibility
+        UnorderedList list = new UnorderedList();
+        list.addClassNames("flex", "list-none", "m-0", "p-0");
+        list.addClassNames("justify-center");
+        nav.add(list);
+
+        for (MenuItemInfo menuItem : createTopMenuItems()) {
+            list.add(menuItem);
+
+        }
+
+        Header header = new Header(toggle, viewTitle, nav);
         header.addClassNames("view-header");
         return header;
+    }
+
+    private MenuItemInfo[] createTopMenuItems() {
+        return new MenuItemInfo[]{ //
+                new MenuItemInfo("Pisten", "la la-globe", SkiResortListView.class), //
+
+                new MenuItemInfo("Freeride", "la la-file", FreerideView.class), //
+
+        };
     }
 
     private Component createDrawerContent() {
@@ -132,7 +152,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Skigebiete", "la la-th-list", ImageListView.class), //
+                new MenuItemInfo("Skigebiete", "la la-th-list", SkiResortListView.class), //
 
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
 
@@ -140,7 +160,9 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
 
-                new MenuItemInfo("Skigebiet Detail", "la la-file", SkiRsortDetailView.class), //
+                new MenuItemInfo("Debug", "la la-file", DebugView.class), //
+
+                new MenuItemInfo("Skigebiet Detail", "la la-file", SkiResortDetailView.class), //
 
 
         };
