@@ -30,12 +30,11 @@ import javax.annotation.security.RolesAllowed;
 public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     TextField filterText = new TextField();
-    SkiResortFilterForm filterForm;
 
     CustomDialog filterDialog;
     CustomDialog.Position dialogPosition = new CustomDialog.Position("120px", "50px");
 
-    private OrderedList imageContainer;
+    private OrderedList imageContainer = new OrderedList();
 
     SkiResortService service;
 
@@ -63,7 +62,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterText.setPlaceholder("Skigebiete suchen ...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        // TODO: filterText.addValueChangeListener(e -> updateList());
+        filterText.addValueChangeListener(e -> updateList());
 
         Button filterButton = new Button("Filter");
         filterButton.addClickListener(e -> openFilter());
@@ -74,6 +73,22 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         toolbar.addClassNames("pl-xl", "pt-m", "pb-m");
 
         return toolbar;
+    }
+
+    private void updateList() {
+        setImageList();
+    }
+
+    private void setImageList() {
+
+        imageContainer.removeAll();
+
+        for (SkiResort skiResort : service.findAllSkiResort(filterText.getValue())) {
+            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
+            RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
+            tempVar.addClickListener(e -> viewDetails(skiResort));
+            imageContainer.add(tempVar);
+        }
     }
 
     private void openFilter() {
@@ -110,15 +125,8 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     }
 
     private void configureImageContainer() {
-        imageContainer = new OrderedList();
         imageContainer.addClassNames("gap-l", "grid", "list-none");
-
-        for (SkiResort skiResort : service.getAllSkiResort()) {
-            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
-            RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
-            tempVar.addClickListener(e -> viewDetails(skiResort));
-            imageContainer.add(tempVar);
-        }
+        setImageList();
     }
 
     private void viewDetails(SkiResort skiResort) {

@@ -47,7 +47,7 @@ public class FreerideView extends VerticalLayout {
                 Verwaltungsstrafe.""");
         lawText.setWidth("80%");
 
-        add(new H2("Freeriden ist nicht erlaubt!"));
+        add(new H2("Freeriden ist nur unter bestimmten Bedingungen erlaubt!"));
         add(lawText);
 
         setSizeFull();

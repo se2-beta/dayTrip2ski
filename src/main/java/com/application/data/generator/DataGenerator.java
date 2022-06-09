@@ -47,6 +47,7 @@ public class DataGenerator {
             user.setHome_lat(47.259659); // Innsbruck
             user.setHome_lon(11.400375);
             userRepository.save(user);
+
             User admin = new User();
             admin.setName("Emma Powerful");
             admin.setUsername("admin");

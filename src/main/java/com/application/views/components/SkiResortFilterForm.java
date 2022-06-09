@@ -26,6 +26,7 @@ public class SkiResortFilterForm extends FormLayout {
     Button cancel = new Button("Abbrechen");
 
     Dialog dialog;
+
     public SkiResortFilterForm(CustomDialog dialog) {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
         this.dialog = dialog;
         addClassName("skigebieteFilter");
@@ -71,7 +72,7 @@ public class SkiResortFilterForm extends FormLayout {
         save.addClickShortcut(Key.ENTER);
         cancel.addClickShortcut(Key.ESCAPE);
 
-        cancel.addClickListener(e-> dialog.close());
+        cancel.addClickListener(e -> dialog.close());
         //TODO save.addClickListener(event -> {fireEvent(new saveEvent(this));
 
         HorizontalLayout layout = new HorizontalLayout(save, cancel);

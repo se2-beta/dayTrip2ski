@@ -39,7 +39,17 @@ public class SkiResortService {
         return repository.findAll(pageable);
     }
 
-    public List<SkiResort> getAllSkiResort() { return repository.findAll(); }
+    public List<SkiResort> getAllSkiResort() {
+        return repository.findAll();
+    }
+
+    public List<SkiResort> findAllSkiResort(String filterText) {
+        if (filterText == null || filterText.isEmpty()) {
+            return repository.findAll();
+        } else {
+            return repository.search(filterText);
+        }
+    }
 
     public int count() {
         return (int) repository.count();
