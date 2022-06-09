@@ -1,8 +1,8 @@
 package com.application.data.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "SkiResort")
@@ -39,6 +39,9 @@ public class SkiResort extends AbstractEntity {
     private Integer avalancheWarningLevel;
     private String URLImageFront;
     private String URLImageSlope;
+
+    @OneToMany(mappedBy="skiResort")
+    private List<Rating> ratings = new ArrayList<>();
 
     public String getName() {
         return name;

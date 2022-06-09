@@ -2,19 +2,15 @@ package com.application.data.entity;
 
 import com.application.data.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity {
-
     private String username;
     private String name;
     @JsonIgnore
@@ -26,6 +22,9 @@ public class User extends AbstractEntity {
     private String profilePictureUrl;
     private Double homeLat;
     private Double homeLon;
+
+    @OneToMany(mappedBy="user")
+    private List<Rating> ratings = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -72,5 +71,13 @@ public class User extends AbstractEntity {
 
     public void setHomeLon(Double homeLon) {
         this.homeLon = homeLon;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }
