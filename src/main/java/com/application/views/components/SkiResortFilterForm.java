@@ -1,4 +1,4 @@
-package com.application.views.imagelist;
+package com.application.views.components;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
@@ -6,6 +6,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
@@ -24,10 +25,11 @@ public class SkiResortFilterForm extends FormLayout {
     Button save = new Button("Speichern");
     Button cancel = new Button("Abbrechen");
 
-    public SkiResortFilterForm() {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
-
+    Dialog dialog;
+    public SkiResortFilterForm(CustomDialog dialog) {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
+        this.dialog = dialog;
         addClassName("skigebieteFilter");
-        addClassName("px-xl");
+        addClassNames("px-xl");
 
         configureFields();
 
@@ -39,7 +41,6 @@ public class SkiResortFilterForm extends FormLayout {
                 current_utilization_percent,
                 createButtonLayout()
         );
-
     }
 
     private void configureFields() {
@@ -67,13 +68,15 @@ public class SkiResortFilterForm extends FormLayout {
     private Component createButtonLayout() {
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-
-        //TODO cancel.addClickListener(event -> {fireEvent(new CloseEvent(this));
-
         save.addClickShortcut(Key.ENTER);
         cancel.addClickShortcut(Key.ESCAPE);
 
-        return new HorizontalLayout(save, cancel);
+        cancel.addClickListener(e-> dialog.close());
+        //TODO save.addClickListener(event -> {fireEvent(new saveEvent(this));
+
+        HorizontalLayout layout = new HorizontalLayout(save, cancel);
+        layout.addClassNames("pt-m");
+        return layout;
     }
 
     public static abstract class SkigebieteFilterEvent extends ComponentEvent<SkiResortFilterForm> {

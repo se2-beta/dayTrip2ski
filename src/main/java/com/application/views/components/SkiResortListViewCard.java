@@ -1,4 +1,4 @@
-package com.application.views.imagelist;
+package com.application.views.components;
 
 import com.application.data.entity.SkiResort;
 import com.vaadin.flow.component.Component;
@@ -16,22 +16,28 @@ public class SkiResortListViewCard extends ListItem {
     Integer filter_rating = 98;
 
     public SkiResortListViewCard(SkiResort skiResort) {
-        addClassNames("bg-contrast-5", "flex", "flex-col", "items-start", "p-m", "rounded-l");
-
+        addClassNames("bg-contrast-5", "flex", "flex-col", "items-start", "p-s", "rounded-l");
 
         // Picture Settings
-        Div div = new Div();
-        div.addClassNames("bg-contrast", "flex items-center", "justify-center", "mb-m", "overflow-hidden",
+        Div imageHeader = new Div();
+        imageHeader.addClassNames("bg-contrast", "flex items-center", "justify-center", "mb-m", "overflow-hidden",
                 "rounded-m w-full");
-        div.setHeight("160px");
+        imageHeader.setHeight("160px");
 
         Image image = new Image();
-        image.setHeight("100%");
+        image.setWidth("100%");
         image.setSrc(skiResort.getImage_front_url());
-        //image.addClickListener(e -> Notification.show("Clicked on image: " + skiResort.getId())); // TODO
+        imageHeader.add(image);
+
+        add(
+                imageHeader,
+                createContent(skiResort)
+        );
+
+    }
 
 
-        div.add(image);
+    private Component createHeader(SkiResort skiResort) {
 
         Avatar avatar = new Avatar("fr");
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
@@ -40,8 +46,9 @@ public class SkiResortListViewCard extends ListItem {
         avatar.getStyle().set("font-weight", "700");
 
         // Title Settings
-        Span header = new Span();
-        header.addClassNames("text-xl", "font-semibold", "pb-0");
+        Label header = new Label();
+        header.addClassNames("text-l", "font-semibold", "pb-0");
+        header.setMaxWidth("100%");
         header.setText(skiResort.getName());
 
         HorizontalLayout headerIcon = new HorizontalLayout(header, avatar);
@@ -56,19 +63,40 @@ public class SkiResortListViewCard extends ListItem {
 
         VerticalLayout headerSubTitle = new VerticalLayout(headerIcon, subtitle);
         headerSubTitle.setSpacing(false);
+        headerSubTitle.addClassNames("m-0", "p-0", "px-s");
 
-
-        add(
-                div,
-                headerSubTitle,
-                horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeather_current_temperature(), " °C", "", ""),
-                        IconText(VaadinIcon.CAR, "40", " min", "", "")),
-                horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnow_depth_min(), " - ", skiResort.getSnow_depth_max(), " cm"),
-                        IconText(VaadinIcon.TRENDING_UP, skiResort.getAmount_fresh_snow(), " cm", "", ""))
-
-        );
-
+        return headerSubTitle;
     }
+
+    private Component createInformationContent(SkiResort skiResort) {
+
+        Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeather_current_temperature(), " °C", "", ""),
+                IconText(VaadinIcon.CAR, "40", " min", "", ""));
+        Component snowLayout = horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnow_depth_min(), " - ", skiResort.getSnow_depth_max(), " cm"),
+                IconText(VaadinIcon.TRENDING_UP, skiResort.getAmount_fresh_snow(), " cm", "", ""));
+
+        VerticalLayout informationContent = new VerticalLayout();
+        informationContent.add(tempDriveLayout);
+        informationContent.add(snowLayout);
+        informationContent.addClassNames("m-0", "p-0");
+        informationContent.setSpacing(false);
+
+        return informationContent;
+    }
+
+    private Component createContent(SkiResort skiResort) {
+
+        VerticalLayout content = new VerticalLayout();
+        content.add(createHeader(skiResort));
+        content.add(createInformationContent(skiResort));
+        content.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+        content.setHeight("60%");
+        content.setSpacing(false);
+        content.addClassNames("p-0");
+
+        return content;
+    }
+
 
     private <T> Component IconText(VaadinIcon icon, T first_text, String suffix_first, T second_text, String suffix_second) {
         Icon ic = new Icon(icon);
@@ -94,17 +122,12 @@ public class SkiResortListViewCard extends ListItem {
 
         HorizontalLayout layout = new HorizontalLayout(vl1, vl2);
         layout.setWidth("100%");
-        layout.setHeight("50px");
+        layout.setHeight("40px");
         layout.setSpacing(false);
+        layout.addClassNames("pb-0", "px-s");
 
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
 
         return layout;
     }
-// TODO
-//    private void viewDetails() { // Skigebiet skigebiet
-//        UI.getCurrent().navigate(ImageDetailView.class, 11); //
-//    }
-
-
 }
