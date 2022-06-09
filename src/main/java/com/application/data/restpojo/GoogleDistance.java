@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "status"
 })
 @Generated("jsonschema2pojo")
-public class GoogleDist {
+public class GoogleDistance {
 
     @JsonProperty("destination_addresses")
     private List<String> destinationAddresses = null;

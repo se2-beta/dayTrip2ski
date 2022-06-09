@@ -1,6 +1,6 @@
 package com.application.data.service;
 
-import com.application.data.restpojo.GoogleDist;
+import com.application.data.restpojo.GoogleDistance;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -14,7 +14,7 @@ public class DistanceService {
         webClient = builder.baseUrl("https://maps.googleapis.com/maps/api/").build();
     }
 
-    public GoogleDist getDistance(String dlatitude, String dlongitude, String olatitude, String olongitude) {
+    public GoogleDistance getDistance(String dlatitude, String dlongitude, String olatitude, String olongitude) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("distancematrix/json")
@@ -23,7 +23,7 @@ public class DistanceService {
                         .queryParam("key", key)
                         .build())
                 .retrieve()
-                .bodyToMono(GoogleDist.class).block();
+                .bodyToMono(GoogleDistance.class).block();
     }
 
     public String getDistanceString(String dlatitude, String dlongitude, String olatitude, String olongitude) {
