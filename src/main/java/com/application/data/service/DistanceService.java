@@ -1,6 +1,6 @@
 package com.application.data.service;
 
-import com.application.data.restPOJO.GoogleDist;
+import com.application.data.restpojo.GoogleDist;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 

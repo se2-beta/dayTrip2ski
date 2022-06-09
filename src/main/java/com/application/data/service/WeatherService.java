@@ -1,7 +1,7 @@
 package com.application.data.service;
 
 
-import com.application.data.restPOJO.Weather;
+import com.application.data.restpojo.Weather;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
