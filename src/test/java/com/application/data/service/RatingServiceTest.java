@@ -3,6 +3,7 @@ package com.application.data.service;
 import com.application.data.entity.Rating;
 import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
@@ -38,32 +39,31 @@ public class RatingServiceTest {
     }
 
     @Test
-    public void get() {
-//        this.logger.info("");
-//
-//        User testUser = new User();
-//        testUser.setName("Test User");
-//        testUser.setUsername("usertest");
-//        userRepository.save(testUser);
-//
-//        SkiResort testsSkiResort = new SkiResort();
-//        testsSkiResort.setName("MyTest");
-//        skiResortRepository.save(testsSkiResort);
-//
-//        ratingService.setRating(testUser, testsSkiResort, 1.5);
-//
-//        Optional<Rating> testRating = ratingService.get(testUser, testsSkiResort);
-//        if (testRating != null) {
-//            if (testRating.isPresent()) {
-//                System.out.println(testRating.get().getRating());
-//            } else {
-//                System.out.println("Rating für " + testUser.getName() + ", " + testsSkiResort.getName() + " konnte nicht gefunden werden.");
-//            }
-//        } else {
-//            System.out.println("testrating == null");
-//        }
-//
-//        //assertTrue(testResort.isPresent());
-//        this.logger.info("");
+    public void CreateAndGet() {
+        this.logger.info("start ...");
+
+        User testUser = new User();
+        testUser.setName("TestName");
+        testUser.setUsername("usertest");
+        userRepository.save(testUser);
+
+        SkiResort testsSkiResort = new SkiResort();
+        testsSkiResort.setName("MyTest");
+        skiResortRepository.save(testsSkiResort);
+
+        ratingService.setRating(testUser, testsSkiResort, 1.5);
+
+        Optional<Rating> testRating = ratingService.get(testUser, testsSkiResort);
+        if (testRating != null) {
+            if (testRating.isPresent()) {
+                Assert.assertEquals(testRating.get().getRating(), 1.5, 0);
+            } else {
+                Assert.assertTrue(testRating.isPresent());
+            }
+        } else {
+            Assert.assertNotEquals(testRating, null);
+        }
+
+        this.logger.info("... end");
     }
 }

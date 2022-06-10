@@ -26,25 +26,16 @@ public class RatingService {
         return repository.findById(id);
     }
 
-    //    @Query "test"
     public Optional<Rating> get(User user, SkiResort skiResort) {
-        return null;
+        return repository.findByUserAndSkiResort(user, skiResort);
     }
 
     public Optional<Rating> get(User user) {
         return null;
     }
 
-//    public Page<Rating> list(Pageable pageable) {
-//        return repository.findAllByUser(pageable);
-//    }
-
     public void setRating(User user, SkiResort skiResort, double rating) {
         Rating ratingObj = new Rating(user, skiResort, rating);
         repository.save(ratingObj);
     }
-
-//    public Optional<Rating> get(UUID userUUID, UUID skiResortUUID) {
-//        return repository.findByUserAndSkiResort(userUUID, skiResortUUID);
-//    }
 }
