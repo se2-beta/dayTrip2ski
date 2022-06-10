@@ -1,6 +1,7 @@
 package com.application.views.masterdetail;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.service.SkiResortService;
 import com.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -21,18 +22,24 @@ public class MasterDetailView extends VerticalLayout {
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
     TextField filterText = new TextField();
     SkigebietForm form;
+    private SkiResortService service;
 
 
 
 
-
-    public MasterDetailView() {
+    public MasterDetailView(SkiResortService service) {
+        this.service = service;
         addClassNames("list-view");
         setSizeFull();
         configureGrid();
         configureForm();
         add(getToolbar(), getContent());
 
+        updateList();
+
+    }
+    private void updateList(){
+        grid.setItems(service.getAllSkiResort(filterText.getValue()));
     }
 
     private Component getContent(){
@@ -61,6 +68,7 @@ public class MasterDetailView extends VerticalLayout {
         filterText.setPlaceholder("Filter by name...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
 
         Button addSkiButton = new Button("add Contact");
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addSkiButton);
