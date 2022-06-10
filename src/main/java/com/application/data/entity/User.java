@@ -23,6 +23,11 @@ public class User extends AbstractEntity {
     private Double homeLat;
     private Double homeLon;
 
+    private Integer weightFreshSnow = 0;
+    private Integer weightSlopeLength = 0;
+    private Integer weightTravelTime = 0;
+    private Integer weightOccupancy = 0;
+
     @OneToMany(mappedBy="user")
     private List<Rating> ratings = new ArrayList<>();
 
@@ -79,5 +84,37 @@ public class User extends AbstractEntity {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public Integer getWeightFreshSnow() {
+        return weightFreshSnow;
+    }
+
+    public void setWeightFreshSnow(Integer weightFreshSnow) {
+        this.weightFreshSnow = weightFreshSnow;
+    }
+
+    public Integer getWeightSlopeLength() {
+        return weightSlopeLength;
+    }
+
+    public void setWeightSlopeLength(Integer weightSlopeLength) {
+        this.weightSlopeLength = weightSlopeLength;
+    }
+
+    public Integer getWeightTravelTime() {
+        return weightTravelTime;
+    }
+
+    public void setWeightTravelTime(Integer weightTravelTime) {
+        this.weightTravelTime = weightTravelTime;
+    }
+
+    public Integer getWeightOccupancy() {
+        return weightOccupancy;
+    }
+
+    public void setWeightOccupancy(Integer weightOccupancy) {
+        this.weightOccupancy = weightOccupancy;
     }
 }
