@@ -8,19 +8,18 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.shared.Registration;
 
 public class SkiResortFilterForm extends FormLayout {
 
-    TextField region = new TextField("Region"); // Durch ComboBox<Region> region = new ComboBox<>("Region"); ersetzen?
-    IntegerField fresh_snow = new IntegerField("Neuschnee (cm)");
-    IntegerField total_length = new IntegerField("Pistenlänge (km)");
-    NumberField travel_time = new NumberField("Anfahrtszeit (Stunden)");
-    IntegerField current_utilization_percent = new IntegerField("Auslastung (%)");
+    IntegerField fresh_snow = new IntegerField("Neuschnee");
+    IntegerField total_length = new IntegerField("Pistenlänge");
+    IntegerField travel_time = new IntegerField("Anfahrtszeit");
+    IntegerField current_utilization_percent = new IntegerField("Auslastung");
 
     Button save = new Button("Speichern");
     Button cancel = new Button("Abbrechen");
@@ -30,12 +29,12 @@ public class SkiResortFilterForm extends FormLayout {
     public SkiResortFilterForm(CustomDialog dialog) {        // TODO: Als Argument dann eine Liste an Regionen hinzufügen
         this.dialog = dialog;
         addClassName("skigebieteFilter");
-        addClassNames("px-xl");
+        addClassNames("px-0");
 
         configureFields();
 
         add(
-                region,
+
                 fresh_snow,
                 total_length,
                 travel_time,
@@ -46,23 +45,25 @@ public class SkiResortFilterForm extends FormLayout {
 
     private void configureFields() {
         fresh_snow.setMin(0);
+        fresh_snow.setMax(5);
         fresh_snow.setHasControls(true);
         fresh_snow.setValue(0);
 
         total_length.setMin(0);
+        total_length.setMax(5);
         total_length.setHasControls(true);
         total_length.setValue(0);
 
         travel_time.setMin(0);
+        travel_time.setMax(5);
         travel_time.setHasControls(true);
-        travel_time.setStep(0.5);
-        travel_time.setValue(0.0);
+        travel_time.setValue(0);
 
         current_utilization_percent.setMin(0);
-        current_utilization_percent.setMax(100);
+        current_utilization_percent.setMax(5);
         current_utilization_percent.setHasControls(true);
-        current_utilization_percent.setStep(10);
         current_utilization_percent.setValue(0);
+
 
     }
 
@@ -77,6 +78,7 @@ public class SkiResortFilterForm extends FormLayout {
 
         HorizontalLayout layout = new HorizontalLayout(save, cancel);
         layout.addClassNames("pt-m");
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
         return layout;
     }
 

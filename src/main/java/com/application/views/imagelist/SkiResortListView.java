@@ -64,8 +64,15 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button filterButton = new Button("Filter");
-        filterButton.addClickListener(e -> openFilter());
+        Button filterButton = new Button("Präferenzen");
+        filterButton.addClickListener(e -> {
+            if (filterDialog.isOpened()) {
+                closeFilter();
+            } else {
+                openFilter();
+
+            }
+        });
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, filterButton);
         toolbar.addClassName("toolbar");
@@ -96,6 +103,10 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterDialog.open();
     }
 
+    private void closeFilter() {
+        filterDialog.close();
+    }
+
     private void configureFilterDialog() {
         filterDialog = new CustomDialog();
         filterDialog.getElement()
@@ -109,7 +120,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     }
 
     private VerticalLayout createDialogLayout(CustomDialog dialog) {
-        H2 headline = new H2("Finden sie ein Skigebiet nach ihrem Geschmack!");
+        H2 headline = new H2("Welche Features sind ihnen am wichtigsten?");
         headline.getStyle().set("margin", "var(--lumo-space-m) 0")
                 .set("font-size", "1.5em").set("font-weight", "bold");
         headline.addClassNames("text-center");
