@@ -20,12 +20,8 @@ import javax.annotation.security.RolesAllowed;
 @RolesAllowed("ADMIN")
 public class MasterDetailView extends VerticalLayout {
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
-    TextField filterText = new TextField();
     SkigebietForm form;
     private SkiResortService service;
-
-
-
 
     public MasterDetailView(SkiResortService service) {
         this.service = service;
@@ -34,9 +30,7 @@ public class MasterDetailView extends VerticalLayout {
         configureGrid();
         configureForm();
         add(getToolbar(), getContent());
-
         updateList();
-
         closeEditor();
 
     }
@@ -80,17 +74,13 @@ public class MasterDetailView extends VerticalLayout {
         service.delete(event.getContact().getId());
         updateList();
         closeEditor();
-
-
     }
 
     private void configureGrid() {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
         grid.setColumns("name", "region", "operator", "address", "zip", "city", "height_min", "height_max", "total_length", "ropeways", "pos_lon", "pos_lat", "date_season_start", "date_season_end", "time_service_start", "time_service_end", "url_ticketpage", "image_front_url", "image_slope_url");
-        //grid.addColumn(contact -> contact.getName());
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
-
         grid.asSingleSelect().addValueChangeListener(e -> editContact(e.getValue()));
     }
 
@@ -105,15 +95,10 @@ public class MasterDetailView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by name...");
-        filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
 
         Button addSkiButton = new Button("add Contact");
         addSkiButton.addClickListener(e->addSkiResort());
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addSkiButton);
-
+        HorizontalLayout toolbar = new HorizontalLayout(addSkiButton);
 
         toolbar.addClassName("toolbar");
         return toolbar;

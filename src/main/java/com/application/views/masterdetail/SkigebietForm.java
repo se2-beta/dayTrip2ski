@@ -102,7 +102,6 @@ public class SkigebietForm extends FormLayout {
             }
         }
 
-
         public static abstract class SkigebietFormEvent extends ComponentEvent<SkigebietForm>{
             private SkiResort skiResort;
             protected SkigebietFormEvent(SkigebietForm source, SkiResort contact){
@@ -135,8 +134,7 @@ public class SkigebietForm extends FormLayout {
     public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
                                                                   ComponentEventListener<T> listener) {
 
-
         return getEventBus().addListener(eventType, listener);
     }
-    }
+}
 
