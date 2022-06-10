@@ -22,7 +22,7 @@ public class RatingService {
         this.repository = repository;
     }
 
-    public Optional<Rating> get(UUID id) {
+    public Optional<Rating> get(Integer id) {
         return repository.findById(id);
     }
 

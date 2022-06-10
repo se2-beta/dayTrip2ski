@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RatingRepository extends JpaRepository<Rating, UUID>{
+public interface RatingRepository extends JpaRepository<Rating, Integer>{
 //    Page<Rating> findAllByUser(Pageable pageable);
 //    public Optional<Rating> findByUserAndSkiResort(UUID userUUID, UUID skiResortUUID);
 }

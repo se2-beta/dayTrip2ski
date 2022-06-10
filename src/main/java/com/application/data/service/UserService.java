@@ -20,7 +20,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public Optional<User> get(UUID id) {
+    public Optional<User> get(Integer id) {
         return repository.findById(id);
     }
 
@@ -28,7 +28,7 @@ public class UserService {
         return repository.save(entity);
     }
 
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 

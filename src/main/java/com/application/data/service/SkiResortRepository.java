@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface SkiResortRepository extends JpaRepository<SkiResort, UUID> {
+public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
     Optional<SkiResort> findSkiResortByName(String name);
 }
