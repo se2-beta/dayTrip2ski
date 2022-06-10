@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface SkiResortRepository extends JpaRepository<SkiResort, UUID> {
+public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
     Optional<SkiResort> findSkiResortByName(String name);
 
     @Query("select s from SkiResort s " +

@@ -142,20 +142,23 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        Optional<UUID> sampleBookId = event.getRouteParameters().get(SAMPLEBOOK_ID).map(UUID::fromString);
-        if (sampleBookId.isPresent()) {
-            Optional<SampleBook> sampleBookFromBackend = sampleBookService.get(sampleBookId.get());
-            if (sampleBookFromBackend.isPresent()) {
-                populateForm(sampleBookFromBackend.get());
-            } else {
-                Notification.show(String.format("The requested sampleBook was not found, ID = %s", sampleBookId.get()),
-                        3000, Notification.Position.BOTTOM_START);
-                // when a row is selected but the data is no longer available,
-                // refresh grid
-                refreshGrid();
-                event.forwardTo(MasterDetailView.class);
-            }
-        }
+        // Removed by Markus as this code is not needed, but would cause an exception due to a type conflict with the ID.
+        // Shall be removed completely eventually.
+
+//        Optional<UUID> sampleBookId = event.getRouteParameters().get(SAMPLEBOOK_ID).map(UUID::fromString);
+//        if (sampleBookId.isPresent()) {
+//            Optional<SampleBook> sampleBookFromBackend = sampleBookService.get(sampleBookId.get());
+//            if (sampleBookFromBackend.isPresent()) {
+//                populateForm(sampleBookFromBackend.get());
+//            } else {
+//                Notification.show(String.format("The requested sampleBook was not found, ID = %s", sampleBookId.get()),
+//                        3000, Notification.Position.BOTTOM_START);
+//                // when a row is selected but the data is no longer available,
+//                // refresh grid
+//                refreshGrid();
+//                event.forwardTo(MasterDetailView.class);
+//            }
+//        }
     }
 
     private void createEditorLayout(SplitLayout splitLayout) {

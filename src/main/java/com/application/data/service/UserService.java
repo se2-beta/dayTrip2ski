@@ -1,8 +1,10 @@
 package com.application.data.service;
 
 import com.application.data.entity.User;
+
 import java.util.Optional;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +20,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public Optional<User> get(UUID id) {
+    public Optional<User> get(Integer id) {
         return repository.findById(id);
     }
 
@@ -26,7 +28,7 @@ public class UserService {
         return repository.save(entity);
     }
 
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
