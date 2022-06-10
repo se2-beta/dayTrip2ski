@@ -2,7 +2,7 @@ package com.application.views.masterdetail;
 
 import com.application.data.entity.SkiResort;
 import com.application.views.MainLayout;
-import com.application.views.list.SkigebietForm;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -30,9 +30,23 @@ public class MasterDetailView extends VerticalLayout {
         addClassNames("list-view");
         setSizeFull();
         configureGrid();
-        //configureForm();
-        add(getToolbar(), grid);
+        configureForm();
+        add(getToolbar(), getContent());
 
+    }
+
+    private Component getContent(){
+        HorizontalLayout content = new HorizontalLayout(grid, form);
+        content.setFlexGrow(2, grid);
+        content.setFlexGrow(1, form);
+        content.addClassName("content");
+        content.setSizeFull();
+        return content;
+    }
+
+    public void configureForm(){
+        form = new SkigebietForm();
+        form.setWidth("25em");
     }
 
     private void configureGrid() {
