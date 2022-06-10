@@ -6,6 +6,7 @@ import com.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -66,12 +67,14 @@ public class MasterDetailView extends VerticalLayout {
 
     private void saveSkiresort(SkigebietForm.SaveEvent event){
         service.update(event.getContact());
+        Notification.show("Skigebiet gesichert");
         updateList();
         closeEditor();
     }
 
     private void deleteSkiresort(SkigebietForm.DeleteEvent event){
         service.delete(event.getContact().getId());
+        Notification.show("Skigebiet gelöscht");
         updateList();
         closeEditor();
     }
