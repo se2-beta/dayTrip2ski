@@ -39,7 +39,7 @@ public class MasterDetailView extends VerticalLayout {
 
     }
     private void updateList(){
-        grid.setItems(service.getAllSkiResort(filterText.getValue()));
+        grid.setItems();
     }
 
     private Component getContent(){
@@ -59,7 +59,7 @@ public class MasterDetailView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
-        grid.setColumns("name", "region");
+        grid.setColumns("name", "region", "operator", "address", "zip", "city", "height_min", "height_max", "total_length", "ropeways", "pos_lon", "pos_lat", "date_season_start", "date_season_end", "time_service_start", "time_service_end", "url_ticketpage", "image_front_url", "image_slope_url");
         //grid.addColumn(contact -> contact.get);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
