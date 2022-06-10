@@ -51,12 +51,18 @@ public class RatingServiceTest {
         testsSkiResort.setName("MyTest");
         skiResortRepository.save(testsSkiResort);
 
-        ratingService.setRating(testUser, testsSkiResort, 1.5);
+        ratingService.setRating(testUser, testsSkiResort, 1.5, "45", 45.0, "100", 100.0);
 
         Optional<Rating> testRating = ratingService.get(testUser, testsSkiResort);
         if (testRating != null) {
             if (testRating.isPresent()) {
+                Assert.assertEquals(testRating.get().getUser().getName(), "TestName");
+                Assert.assertEquals(testRating.get().getSkiResort().getName(), "MyTest");
                 Assert.assertEquals(testRating.get().getRating(), 1.5, 0);
+                Assert.assertEquals(testRating.get().getDistanceStr(), "45");
+                Assert.assertEquals(testRating.get().getDistanceVal(), 45.0, 0);
+                Assert.assertEquals(testRating.get().getDurationStr(), "100");
+                Assert.assertEquals(testRating.get().getDurationVal(), 100.0, 0);
             } else {
                 Assert.assertTrue(testRating.isPresent());
             }

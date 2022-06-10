@@ -34,8 +34,8 @@ public class RatingService {
         return null;
     }
 
-    public void setRating(User user, SkiResort skiResort, double rating) {
-        Rating ratingObj = new Rating(user, skiResort, rating);
+    public void setRating(User user, SkiResort skiResort, Double rating, String distanceStr, Double distanceVal, String durationStr, Double durationVal) {
+        Rating ratingObj = new Rating(user, skiResort, rating, distanceStr, distanceVal, durationStr, durationVal);
         repository.save(ratingObj);
     }
 }
