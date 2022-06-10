@@ -3,7 +3,10 @@ package com.application.views.imagelist;
 import com.application.data.entity.SkiResort;
 import com.application.data.service.SkiResortService;
 import com.application.views.MainLayout;
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HasStyle;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.charts.Chart;
@@ -23,14 +26,11 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
-import java.util.UUID;
 
 @PageTitle("Skigebiet Details")
 @Route(value = "skigebietdetail/:id", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class SkiResortDetailView extends Main implements HasComponents, HasStyle, BeforeEnterObserver {
-
-    private Integer resortId;
 
     private SkiResortService service;
 
@@ -39,7 +39,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
 
-        resortId = Integer.valueOf(event.getRouteParameters().get("id").get());
+        Integer resortId = Integer.valueOf(event.getRouteParameters().get("id").get());
         skiResort = service.get(resortId);
 
         // Headerimage
@@ -69,9 +69,9 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
     private Component createContent() {
 
-        // Left vertical Layout
-        // Title Slope Image
-        H4 slopeTitle = new H4("" + skiResort.get().getName() + " (Talstation: " + skiResort.get().getHeightMin() + "m - Bergstation: " + skiResort.get().getHeightMax() + "m)");
+
+        H4 slopeTitle = new H4("" + skiResort.get().getName()
+                + " (Talstation: " + skiResort.get().getHeightMin() + "m - Bergstation: " + skiResort.get().getHeightMax() + "m)");
         Image slopeImage = new Image();
         slopeImage.setMaxWidth("100%");
         slopeImage.setSrc(skiResort.get().getURLImageSlope());
@@ -88,83 +88,46 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
                 slopeImage
         );
 
-        // Right vertical Layout
-        // Title Details
+
         H4 slopeTitleRight = new H4("Skigebietdetails");
         slopeTitleRight.addClassNames("pl-m", "pb-m");
 
 
-        // Codeduplikate werden beseitigt Zeile 100-189
+        Component adressRegionLayout = horizontalDataView(
+                VerticalDataView("Adresse", VaadinIcon.ROAD, skiResort.get().getZip(), " - ", skiResort.get().getAddress(), ""),
+                VerticalDataView("Region", VaadinIcon.HOME, skiResort.get().getCity(), ", ", skiResort.get().getRegion(), "")
+        );
+
+        Component seasonTimeLayout = horizontalDataView(
+                VerticalDataView("Saison", VaadinIcon.CALENDAR, skiResort.get().getDateSeasonStart(), " - ", skiResort.get().getDateSeasonEnd(), ""),
+                VerticalDataView("Öffnungszeiten", VaadinIcon.CLOCK, skiResort.get().getTimeServiceStart(), " - ", skiResort.get().getTimeServiceEnd(), "")
+        );
+
+        Component lengthRopewaysLayout = horizontalDataView(
+                VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, skiResort.get().getTotalLength(), " km", "", ""),
+                VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, skiResort.get().getRopeways(), " km", "", "")
+        );
 
 
-        // Adress
-        Component adressLayout =
-                VerticalDataView("Adresse", VaadinIcon.ROAD, skiResort.get().getZip(), " - ", skiResort.get().getAddress(), "");
-        // Region
-        Component regionLayout =
-                VerticalDataView("Region", VaadinIcon.HOME, skiResort.get().getCity(), ", ", skiResort.get().getRegion(), "");
-        // Horizontal Layout temperature & snow height
-        HorizontalLayout adressRegionLayout = new HorizontalLayout(adressLayout, regionLayout);
-        adressRegionLayout.setWidth("100%");
-
-        // Season start-end
-        Component seasonLayout =
-                VerticalDataView("Saison", VaadinIcon.CALENDAR, skiResort.get().getDateSeasonStart(), " - ", skiResort.get().getDateSeasonEnd(), "");
-        // service times
-        Component timesLayout =
-                VerticalDataView("Öffnungszeiten", VaadinIcon.CLOCK, skiResort.get().getTimeServiceStart(), " - ", skiResort.get().getTimeServiceEnd(), "");
-        // Horizontal Layout temperature & snow height
-        HorizontalLayout seasonTimeLayout = new HorizontalLayout(seasonLayout, timesLayout);
-        seasonTimeLayout.setWidth("100%");
-
-        // total length
-        Component totelLengthLayout =
-                VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, skiResort.get().getTotalLength(), " km", "", "");
-        // ropeways
-        Component ropewaysLayout =
-                VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, skiResort.get().getRopeways(), " km", "", "");
-        // Horizontal Layout temperature & snow height
-        HorizontalLayout lengthRopewaysLayout = new HorizontalLayout(totelLengthLayout, ropewaysLayout);
-        lengthRopewaysLayout.setWidth("100%");
-
-
-        // current Information title
         H4 informationTitleRight = new H4("Aktuelle Informationen");
         informationTitleRight.addClassNames("pl-m", "pb-s", "pt-m");
 
-        // Temperature
-        Component temperaturLayout =
-                VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, skiResort.get().getWeatherCurrentTemperature(), " °C", "", "");
-        // Snow height min-max
-        Component snowHeightLayout =
-                VerticalDataView("Aktuelle Schneehöhe", VaadinIcon.ASTERISK, skiResort.get().getSnowDepthMin(), " - ", skiResort.get().getSnowDepthMax(), " cm");
-        // Horizontal Layout temperature & snow height
-        HorizontalLayout temperatureSnowHeightLayout = new HorizontalLayout(temperaturLayout, snowHeightLayout);
-        temperatureSnowHeightLayout.setWidth("100%");
 
+        Component temperatureSnowHeightLayout = horizontalDataView(
+                VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, skiResort.get().getWeatherCurrentTemperature(), " °C", "", ""),
+                VerticalDataView("Aktuelle Schneehöhe", VaadinIcon.ASTERISK, skiResort.get().getSnowDepthMin(), " - ", skiResort.get().getSnowDepthMax(), " cm")
+        );
 
-        // Wind Speed
-        Component windspeedLayout =
-                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeatherCurrentWindspeed(), " m/s", "", "");
-        // Fresh Snow
-        Component freshSnowLayout =
-                VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, skiResort.get().getAmountFreshSnow(), " cm", "", "");
-        // Horizontal Layout windspeed & fresh snow
-        HorizontalLayout windspeedFreshSnowLayout = new HorizontalLayout(windspeedLayout, freshSnowLayout);
-        windspeedFreshSnowLayout.setWidth("100%");
+        Component windspeedFreshSnowLayout = horizontalDataView(
+                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeatherCurrentWindspeed(), " m/s", "", ""),
+                VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, skiResort.get().getAmountFreshSnow(), " cm", "", "")
+        );
 
-
-        // Snowfall forecast
-        Component forecastLayout =
+        Component forecastLastSnowfallLayout = horizontalDataView(
                 VerticalDataView("Vorhersage Neuschnee", VaadinIcon.TRENDING_UP, skiResort.get().getWeatherCurrentSnowfallForecastPercent(),
-                        "% / ", skiResort.get().getWeatherCurrentSnowfallForecastAmountMM(), " mm");
-        // date Last snowfall
-        Component lastSnowfallLayout =
-                VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDateLastSnowfall(), "", "", "");
-        // Horizontal Layout forecast & snowfall
-        HorizontalLayout forecastLastSnowfallLayout = new HorizontalLayout(forecastLayout, lastSnowfallLayout);
-        forecastLastSnowfallLayout.setWidth("100%");
-
+                        "% / ", skiResort.get().getWeatherCurrentSnowfallForecastAmountMM(), " mm"),
+                VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDateLastSnowfall(), "", "", "")
+        );
 
         VerticalLayout rightLayout = new VerticalLayout(
                 slopeTitleRight,
@@ -180,10 +143,17 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         );
         rightLayout.setSpacing(false);
 
-        // Horizontal Layout of Vertical Layouts
         HorizontalLayout layout = new HorizontalLayout(leftLayout, rightLayout);
         layout.setWidth("100%");
         layout.setSpacing(false);
+
+        return layout;
+    }
+
+    private Component horizontalDataView(Component left, Component right) {
+
+        HorizontalLayout layout = new HorizontalLayout(left, right);
+        layout.setWidth("100%");
 
         return layout;
     }
