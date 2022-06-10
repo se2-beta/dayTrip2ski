@@ -19,7 +19,7 @@ public class SkiResortService {
         this.repository = repository;
     }
 
-    public Optional<SkiResort> get(UUID id) {
+    public Optional<SkiResort> get(Integer id) {
         return repository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class SkiResortService {
         return repository.save(entity);
     }
 
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
@@ -39,7 +39,9 @@ public class SkiResortService {
         return repository.findAll(pageable);
     }
 
-    public List<SkiResort> getAllSkiResort() { return repository.findAll(); }
+    public List<SkiResort> getAllSkiResort() {
+        return repository.findAll();
+    }
 
     public int count() {
         return (int) repository.count();
