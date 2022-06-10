@@ -37,7 +37,17 @@ public class MasterDetailView extends VerticalLayout {
 
         updateList();
 
+        closeEditor();
+
     }
+
+    private void closeEditor(){
+        form.setSkiResort(null);
+        form.setVisible(false);
+        removeClassName("editing");
+
+    }
+
     private void updateList(){
         grid.setItems(service.getAllSkiResort());
     }
@@ -60,8 +70,20 @@ public class MasterDetailView extends VerticalLayout {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
         grid.setColumns("name", "region", "operator", "address", "zip", "city", "height_min", "height_max", "total_length", "ropeways", "pos_lon", "pos_lat", "date_season_start", "date_season_end", "time_service_start", "time_service_end", "url_ticketpage", "image_front_url", "image_slope_url");
-        grid.addColumn(contact -> contact.getName());
+        //grid.addColumn(contact -> contact.getName());
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        grid.asSingleSelect().addValueChangeListener(e -> editContact(e.getValue()));
+    }
+
+    private void editContact(SkiResort skiResort){
+        if(skiResort == null){
+            closeEditor();
+        }else {
+            form.setSkiResort(skiResort);
+            form.setVisible(true);
+            addClassName("editing");
+        }
     }
 
     private HorizontalLayout getToolbar() {
