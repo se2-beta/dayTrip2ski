@@ -11,6 +11,7 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
@@ -30,7 +31,6 @@ import javax.annotation.security.RolesAllowed;
 public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     TextField filterText = new TextField();
-
     CustomDialog filterDialog;
     CustomDialog.Position dialogPosition = new CustomDialog.Position("120px", "50px");
 
@@ -38,14 +38,11 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     SkiResortService service;
 
-    Button save = new Button("Speichern");
-    Button cancel = new Button("Abbrechen");
-
     public SkiResortListView(SkiResortService service) {
         this.service = service;
         addClassNames("image-list-view", "mx-auto", "pb-l", "px-l", "max-w-screen-2xl");
-
         addClassName("ski-resort-list-view");
+
         setSizeFull();
 
         configureImageContainer();
@@ -62,7 +59,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterText.setPlaceholder("Skigebiete suchen ...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
+        filterText.addValueChangeListener(e -> setImageList());
 
         Button filterButton = new Button("Präferenzen");
         filterButton.addClickListener(e -> {
@@ -82,10 +79,6 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         return toolbar;
     }
 
-    private void updateList() {
-        setImageList();
-    }
-
     private void setImageList() {
 
         imageContainer.removeAll();
@@ -93,7 +86,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         for (SkiResort skiResort : service.findAllSkiResort(filterText.getValue())) {
             SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
             RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
-            tempVar.addClickListener(e -> viewDetails(skiResort));
+            tempVar.addClickListener(e -> navigateToDetailView(skiResort));
             imageContainer.add(tempVar);
         }
     }
@@ -109,8 +102,6 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
     private void configureFilterDialog() {
         filterDialog = new CustomDialog();
-        filterDialog.getElement()
-                .setAttribute("aria-label", "System maintenance hint");
 
         VerticalLayout dialogLayout = createDialogLayout(filterDialog);
         filterDialog.add(dialogLayout);
@@ -120,7 +111,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     }
 
     private VerticalLayout createDialogLayout(CustomDialog dialog) {
-        H2 headline = new H2("Welche Features sind ihnen am wichtigsten?");
+        H2 headline = new H2("Ihre Präferenzen");
         headline.getStyle().set("margin", "var(--lumo-space-m) 0")
                 .set("font-size", "1.5em").set("font-weight", "bold");
         headline.addClassNames("text-center");
@@ -140,7 +131,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         setImageList();
     }
 
-    private void viewDetails(SkiResort skiResort) {
+    private void navigateToDetailView(SkiResort skiResort) {
         UI.getCurrent().navigate(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
     }
 

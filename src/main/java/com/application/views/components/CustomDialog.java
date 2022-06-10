@@ -1,16 +1,17 @@
 package com.application.views.components;
 
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.function.SerializableConsumer;
 
-public class CustomDialog extends Dialog {
+public class CustomDialog extends Dialog implements HasStyle {
 
     private static final String SET_PROPERTY_IN_OVERLAY_JS = "this.$.overlay.$.overlay.style[$0]=$1";
 
     public void setPosition(Position position) {
         enablePositioning(true);
-        //getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "left", position.getLeft());
         getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "right", position.getRight());
         getElement().executeJs(SET_PROPERTY_IN_OVERLAY_JS, "top", position.getTop());
     }

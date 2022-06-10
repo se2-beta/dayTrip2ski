@@ -16,7 +16,7 @@ public class SkiResortListViewCard extends ListItem {
     Integer filter_rating = 98;
 
     public SkiResortListViewCard(SkiResort skiResort) {
-        addClassNames("bg-contrast-5", "flex", "flex-col", "items-start", "p-s", "rounded-l");
+        addClassNames("bg-contrast-10", "flex", "flex-col", "items-start", "p-s", "rounded-l");
 
         // Picture Settings
         Div imageHeader = new Div();

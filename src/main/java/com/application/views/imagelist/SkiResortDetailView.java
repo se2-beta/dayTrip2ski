@@ -40,7 +40,6 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
     public void beforeEnter(BeforeEnterEvent event) {
 
         resortId = Integer.valueOf(event.getRouteParameters().get("id").get());
-        //skiResort = service.get("Schladminger Planai & Hochwurzen");
         skiResort = service.get(resortId);
 
         // Headerimage
@@ -89,11 +88,14 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
                 slopeImage
         );
 
-
         // Right vertical Layout
         // Title Details
         H4 slopeTitleRight = new H4("Skigebietdetails");
         slopeTitleRight.addClassNames("pl-m", "pb-m");
+
+
+        // Codeduplikate werden beseitigt Zeile 100-189
+
 
         // Adress
         Component adressLayout =
@@ -291,13 +293,5 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         return layout;
     }
 
-
-    @Override
-    protected void onAttach(AttachEvent attachEvent) {
-        super.onAttach(attachEvent);
-
-        UI.getCurrent().getPage().setTitle("Testtitle");
-
-    }
 
 }
