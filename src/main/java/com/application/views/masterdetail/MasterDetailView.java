@@ -64,6 +64,24 @@ public class MasterDetailView extends VerticalLayout {
     public void configureForm(){
         form = new SkigebietForm();
         form.setWidth("25em");
+
+        form.addListener(SkigebietForm.SaveEvent.class, this::saveSkiresort);
+        form.addListener(SkigebietForm.DeleteEvent.class, this::deleteSkiresort);
+        form.addListener(SkigebietForm.CloseEvent.class, e->closeEditor());
+    }
+
+    private void saveSkiresort(SkigebietForm.SaveEvent event){
+        /*service.saveSkiresort(event.getContact());
+        updateList();
+        closeEditor();*/
+    }
+
+    private void deleteSkiresort(SkigebietForm.DeleteEvent event){
+        /*service.deleteSkiresort(event.getContact());
+        updateList();
+        closeEditor();*/
+
+
     }
 
     private void configureGrid() {
@@ -93,11 +111,16 @@ public class MasterDetailView extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
 
         Button addSkiButton = new Button("add Contact");
+        addSkiButton.addClickListener(e->addSkiResort());
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addSkiButton);
 
 
         toolbar.addClassName("toolbar");
         return toolbar;
 
+    }
+    private void addSkiResort(){
+        grid.asSingleSelect().clear();
+        editContact(new SkiResort());
     }
 }
