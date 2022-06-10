@@ -5,8 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Rating")
 public class Rating extends AbstractEntity {
-    @Lob
-    double rating;
+    Double rating;
+//    double distance;
+//    String
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable=false)

@@ -7,7 +7,6 @@ import java.util.List;
 @Entity
 @Table(name = "SkiResort")
 public class SkiResort extends AbstractEntity {
-    @Lob
     private String name;
     private String region;
     private String operator;

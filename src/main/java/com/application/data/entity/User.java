@@ -18,7 +18,7 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @Lob
+
     private String profilePictureUrl;
     private Double homeLat;
     private Double homeLon;
