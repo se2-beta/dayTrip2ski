@@ -97,8 +97,8 @@ public class MainLayout extends AppLayout {
 
         // Wrap the links in a list; improves accessibility
         UnorderedList list = new UnorderedList();
-        list.addClassNames("flex", "list-none", "m-0", "p-0");
-        list.addClassNames("justify-center");
+        list.addClassNames("flex", "list-none", "m-0","p-0", "justify-center");
+        list.setWidth("93%");
         nav.add(list);
 
         for (MenuItemInfo menuItem : createTopMenuItems()) {

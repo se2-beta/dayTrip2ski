@@ -26,7 +26,7 @@ public class SkiResortListViewCard extends ListItem {
 
         Image image = new Image();
         image.setWidth("100%");
-        image.setSrc(skiResort.getImage_front_url());
+        image.setSrc(skiResort.getURLImageFront());
         imageHeader.add(image);
 
         add(
@@ -70,10 +70,10 @@ public class SkiResortListViewCard extends ListItem {
 
     private Component createInformationContent(SkiResort skiResort) {
 
-        Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeather_current_temperature(), " °C", "", ""),
+        Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeatherCurrentTemperature(), " °C", "", ""),
                 IconText(VaadinIcon.CAR, "40", " min", "", ""));
-        Component snowLayout = horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnow_depth_min(), " - ", skiResort.getSnow_depth_max(), " cm"),
-                IconText(VaadinIcon.TRENDING_UP, skiResort.getAmount_fresh_snow(), " cm", "", ""));
+        Component snowLayout = horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnowDepthMin(), " - ", skiResort.getSnowDepthMax(), " cm"),
+                IconText(VaadinIcon.TRENDING_UP, skiResort.getAmountFreshSnow(), " cm", "", ""));
 
         VerticalLayout informationContent = new VerticalLayout();
         informationContent.add(tempDriveLayout);

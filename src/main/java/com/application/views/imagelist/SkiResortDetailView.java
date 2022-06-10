@@ -28,9 +28,9 @@ import java.util.UUID;
 @PageTitle("Skigebiet Details")
 @Route(value = "skigebietdetail/:id", layout = MainLayout.class)
 @RolesAllowed("USER")
-public class SkiResortDetailView extends Main implements HasComponents, HasStyle, BeforeEnterObserver { // implements HasUrlParameter<UUID>, , BeforeEnterObserver
+public class SkiResortDetailView extends Main implements HasComponents, HasStyle, BeforeEnterObserver {
 
-    private UUID resortId;
+    private Integer resortId;
 
     private SkiResortService service;
 
@@ -39,7 +39,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
 
-        resortId = UUID.fromString(event.getRouteParameters().get("id").get());
+        resortId = Integer.valueOf(event.getRouteParameters().get("id").get());
         //skiResort = service.get("Schladminger Planai & Hochwurzen");
         skiResort = service.get(resortId);
 
@@ -49,7 +49,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         skiresortDiv.setMaxHeight("200px");
         Image skiresortImage = new Image();
         skiresortImage.setWidth("100%");
-        skiresortImage.setSrc(skiResort.get().getImage_front_url());
+        skiresortImage.setSrc(skiResort.get().getURLImageFront());
 
         skiresortDiv.add(skiresortImage);
 
@@ -72,10 +72,10 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         // Left vertical Layout
         // Title Slope Image
-        H4 slopeTitle = new H4("" + skiResort.get().getName() + " (Talstation: " + skiResort.get().getHeight_min() + "m - Bergstation: " + skiResort.get().getHeight_max() + "m)");
+        H4 slopeTitle = new H4("" + skiResort.get().getName() + " (Talstation: " + skiResort.get().getHeightMin() + "m - Bergstation: " + skiResort.get().getHeightMax() + "m)");
         Image slopeImage = new Image();
         slopeImage.setMaxWidth("100%");
-        slopeImage.setSrc(skiResort.get().getImage_slope_url());
+        slopeImage.setSrc(skiResort.get().getURLImageSlope());
 
         Component chart = configureUtilizationChart();
 
@@ -107,17 +107,17 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         // Season start-end
         Component seasonLayout =
-                VerticalDataView("Saison", VaadinIcon.CALENDAR, skiResort.get().getDate_season_start(), " - ", skiResort.get().getDate_season_end(), "");
+                VerticalDataView("Saison", VaadinIcon.CALENDAR, skiResort.get().getDateSeasonStart(), " - ", skiResort.get().getDateSeasonEnd(), "");
         // service times
         Component timesLayout =
-                VerticalDataView("Öffnungszeiten", VaadinIcon.CLOCK, skiResort.get().getTime_service_start(), " - ", skiResort.get().getTime_service_end(), "");
+                VerticalDataView("Öffnungszeiten", VaadinIcon.CLOCK, skiResort.get().getTimeServiceStart(), " - ", skiResort.get().getTimeServiceEnd(), "");
         // Horizontal Layout temperature & snow height
         HorizontalLayout seasonTimeLayout = new HorizontalLayout(seasonLayout, timesLayout);
         seasonTimeLayout.setWidth("100%");
 
         // total length
         Component totelLengthLayout =
-                VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, skiResort.get().getTotal_length(), " km", "", "");
+                VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, skiResort.get().getTotalLength(), " km", "", "");
         // ropeways
         Component ropewaysLayout =
                 VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, skiResort.get().getRopeways(), " km", "", "");
@@ -132,10 +132,10 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         // Temperature
         Component temperaturLayout =
-                VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, skiResort.get().getWeather_current_temperature(), " °C", "", "");
+                VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, skiResort.get().getWeatherCurrentTemperature(), " °C", "", "");
         // Snow height min-max
         Component snowHeightLayout =
-                VerticalDataView("Aktuelle Schneehöhe", VaadinIcon.ASTERISK, skiResort.get().getSnow_depth_min(), " - ", skiResort.get().getSnow_depth_max(), " cm");
+                VerticalDataView("Aktuelle Schneehöhe", VaadinIcon.ASTERISK, skiResort.get().getSnowDepthMin(), " - ", skiResort.get().getSnowDepthMax(), " cm");
         // Horizontal Layout temperature & snow height
         HorizontalLayout temperatureSnowHeightLayout = new HorizontalLayout(temperaturLayout, snowHeightLayout);
         temperatureSnowHeightLayout.setWidth("100%");
@@ -143,10 +143,10 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         // Wind Speed
         Component windspeedLayout =
-                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeather_current_windspeed(), " m/s", "", "");
+                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeatherCurrentWindspeed(), " m/s", "", "");
         // Fresh Snow
         Component freshSnowLayout =
-                VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, skiResort.get().getAmount_fresh_snow(), " cm", "", "");
+                VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, skiResort.get().getAmountFreshSnow(), " cm", "", "");
         // Horizontal Layout windspeed & fresh snow
         HorizontalLayout windspeedFreshSnowLayout = new HorizontalLayout(windspeedLayout, freshSnowLayout);
         windspeedFreshSnowLayout.setWidth("100%");
@@ -154,11 +154,11 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         // Snowfall forecast
         Component forecastLayout =
-                VerticalDataView("Vorhersage Neuschnee", VaadinIcon.TRENDING_UP, skiResort.get().getWeather_current_snowfall_forecast_percent(),
-                        "% / ", skiResort.get().getWeather_current_snowfall_forecast_amount_mm(), " mm");
+                VerticalDataView("Vorhersage Neuschnee", VaadinIcon.TRENDING_UP, skiResort.get().getWeatherCurrentSnowfallForecastPercent(),
+                        "% / ", skiResort.get().getWeatherCurrentSnowfallForecastAmountMM(), " mm");
         // date Last snowfall
         Component lastSnowfallLayout =
-                VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDate_last_snowfall(), "", "", "");
+                VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDateLastSnowfall(), "", "", "");
         // Horizontal Layout forecast & snowfall
         HorizontalLayout forecastLastSnowfallLayout = new HorizontalLayout(forecastLayout, lastSnowfallLayout);
         forecastLastSnowfallLayout.setWidth("100%");
@@ -166,7 +166,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         VerticalLayout rightLayout = new VerticalLayout(
                 slopeTitleRight,
-                getAvalancheLevel(skiResort.get().getAvalanche_warning_level()),
+                getAvalancheLevel(skiResort.get().getAvalancheWarningLevel()),
                 adressRegionLayout,
                 seasonTimeLayout,
                 lengthRopewaysLayout,
@@ -219,7 +219,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         }
 
         Button ticket = new Button("Tickets");
-        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", skiResort.get().getUrl_ticketpage()));
+        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", skiResort.get().getURLTicketpage()));
         ticket.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         HorizontalLayout layout = new HorizontalLayout(avalancheLayout, ticket);
@@ -248,7 +248,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         options.setColor(SolidColor.BLACK);
         options.getTargetOptions().setWidth("200%");
         DataSeries series = new DataSeries();
-        series.add(new DataSeriesItemBullet(0, skiResort.get().getCurrent_utilization_percent()));
+        series.add(new DataSeriesItemBullet(0, skiResort.get().getCurrentUtilizationPercent()));
         series.setPlotOptions(options);
         conf.addSeries(series);
 
@@ -256,8 +256,8 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         YAxis yAxis = conf.getyAxis();
         yAxis.setGridLineWidth(0);
         yAxis.setTitle("");
-        yAxis.addPlotBand(new PlotBand(0, skiResort.get().getCurrent_utilization_percent(), new SolidColor("#af3d5e")));
-        yAxis.addPlotBand(new PlotBand(skiResort.get().getCurrent_utilization_percent(), 100, new SolidColor("#ffffff ")));
+        yAxis.addPlotBand(new PlotBand(0, skiResort.get().getCurrentUtilizationPercent(), new SolidColor("#af3d5e")));
+        yAxis.addPlotBand(new PlotBand(skiResort.get().getCurrentUtilizationPercent(), 100, new SolidColor("#ffffff ")));
         yAxis.setMax(100);
         conf.getxAxis().addCategory("");
 
