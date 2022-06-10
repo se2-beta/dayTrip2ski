@@ -71,9 +71,9 @@ public class MasterDetailView extends VerticalLayout {
     }
 
     private void saveSkiresort(SkigebietForm.SaveEvent event){
-        /*service.saveSkiresort(event.getContact());
+        service.update(event.getContact());
         updateList();
-        closeEditor();*/
+        closeEditor();
     }
 
     private void deleteSkiresort(SkigebietForm.DeleteEvent event){
