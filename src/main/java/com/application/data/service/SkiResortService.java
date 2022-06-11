@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class SkiResortService {
@@ -41,6 +40,14 @@ public class SkiResortService {
 
     public List<SkiResort> getAllSkiResort() {
         return repository.findAll();
+    }
+
+    public List<SkiResort> findAllSkiResort(String filterText) {
+        if (filterText == null || filterText.isEmpty()) {
+            return repository.findAll();
+        } else {
+            return repository.search(filterText);
+        }
     }
 
     public int count() {
