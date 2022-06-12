@@ -6,7 +6,7 @@ import com.application.views.about.AboutView;
 import com.application.views.DebugView;
 import com.application.views.imagelist.ImageListView;
 import com.application.views.map.MapView;
-import com.application.views.masterdetail.MasterDetailView;
+//import com.application.views.masterdetail.MasterDetailView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -136,7 +136,7 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
 
-                new MenuItemInfo("Master-Detail", "la la-columns", MasterDetailView.class), //
+                //new MenuItemInfo("Master-Detail", "la la-columns", MasterDetailView.class), //
 
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
 
