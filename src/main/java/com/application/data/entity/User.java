@@ -2,19 +2,15 @@ package com.application.data.entity;
 
 import com.application.data.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity {
-
     private String username;
     private String name;
     @JsonIgnore
@@ -22,10 +18,18 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @Lob
+
     private String profilePictureUrl;
-    private Double home_lat;
-    private Double home_lon;
+    private Double homeLat;
+    private Double homeLon;
+
+    private Integer weightFreshSnow = 0;
+    private Integer weightSlopeLength = 0;
+    private Integer weightTravelTime = 0;
+    private Integer weightOccupancy = 0;
+
+    @OneToMany(mappedBy="user")
+    private List<Rating> ratings = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -58,19 +62,59 @@ public class User extends AbstractEntity {
         this.profilePictureUrl = profilePictureUrl;
     }
 
-    public Double getHome_lat() {
-        return home_lat;
+    public Double getHomeLat() {
+        return homeLat;
     }
 
-    public void setHome_lat(Double home_lat) {
-        this.home_lat = home_lat;
+    public void setHomeLat(Double homeLat) {
+        this.homeLat = homeLat;
     }
 
-    public Double getHome_lon() {
-        return home_lon;
+    public Double getHomeLon() {
+        return homeLon;
     }
 
-    public void setHome_lon(Double home_lon) {
-        this.home_lon = home_lon;
+    public void setHomeLon(Double homeLon) {
+        this.homeLon = homeLon;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Integer getWeightFreshSnow() {
+        return weightFreshSnow;
+    }
+
+    public void setWeightFreshSnow(Integer weightFreshSnow) {
+        this.weightFreshSnow = weightFreshSnow;
+    }
+
+    public Integer getWeightSlopeLength() {
+        return weightSlopeLength;
+    }
+
+    public void setWeightSlopeLength(Integer weightSlopeLength) {
+        this.weightSlopeLength = weightSlopeLength;
+    }
+
+    public Integer getWeightTravelTime() {
+        return weightTravelTime;
+    }
+
+    public void setWeightTravelTime(Integer weightTravelTime) {
+        this.weightTravelTime = weightTravelTime;
+    }
+
+    public Integer getWeightOccupancy() {
+        return weightOccupancy;
+    }
+
+    public void setWeightOccupancy(Integer weightOccupancy) {
+        this.weightOccupancy = weightOccupancy;
     }
 }

@@ -18,7 +18,7 @@ public class SampleBookService {
         this.repository = repository;
     }
 
-    public Optional<SampleBook> get(UUID id) {
+    public Optional<SampleBook> get(Integer id) {
         return repository.findById(id);
     }
 
@@ -26,7 +26,7 @@ public class SampleBookService {
         return repository.save(entity);
     }
 
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
