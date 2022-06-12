@@ -1,5 +1,4 @@
 package com.application.views.masterdetail;
-
 import com.application.data.entity.SkiResort;
 import com.application.data.service.SkiResortService;
 import com.application.views.MainLayout;
@@ -15,10 +14,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
-
 @PageTitle("Master-Detail")
 @Route(value = "master-detail/:sampleBookID?/:action?(edit)", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
+
+
 public class MasterDetailView extends VerticalLayout {
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
     SkigebietForm form;
@@ -111,4 +111,6 @@ public class MasterDetailView extends VerticalLayout {
         grid.asSingleSelect().clear();
         editContact(new SkiResort());
     }
+
+
 }

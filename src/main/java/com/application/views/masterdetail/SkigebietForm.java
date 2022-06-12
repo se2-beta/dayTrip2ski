@@ -16,7 +16,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
-public class SkigebietForm extends FormLayout {
+public class SkigebietForm extends FormLayout{
+
     Binder<SkiResort> binder = new BeanValidationBinder<>(SkiResort.class);
     TextField name =new TextField("Name");
     TextField region = new TextField("Region");
@@ -28,8 +29,8 @@ public class SkigebietForm extends FormLayout {
     IntegerField height_max = new IntegerField("max Höhenlage");
     IntegerField total_lenght = new IntegerField("Pistenlänge");
     IntegerField ropeways = new IntegerField("Anzahl Pisten");
-   // BigDecimalField pos_lon = new BigDecimalField("Laengengrad");
-   // BigDecimalField pos_lat = new BigDecimalField("Breitengrad");
+    // BigDecimalField pos_lon = new BigDecimalField("Laengengrad");
+    // BigDecimalField pos_lat = new BigDecimalField("Breitengrad");
     TextField date_season_start = new TextField("Saisonstart");
     TextField date_season_end = new TextField("Saisonende");
     TextField time_service_start = new TextField("Öffnungszeiten");
@@ -59,8 +60,8 @@ public class SkigebietForm extends FormLayout {
                 total_lenght,
                 ropeways,
                 total_lenght,
-     //           pos_lon,
-   //             pos_lat,
+                //           pos_lon,
+                //             pos_lat,
                 date_season_start,
                 date_season_end,
                 time_service_start,
@@ -77,41 +78,41 @@ public class SkigebietForm extends FormLayout {
     }
 
 
-        private HorizontalLayout  createButtonsLayout(){
-            save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-            delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
-            close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+    private HorizontalLayout  createButtonsLayout(){
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
 
-            save.addClickListener(event -> validateAndSave());
-            delete.addClickListener(event -> fireEvent(new DeleteEvent(this, skiResort)));
-            close.addClickListener(event -> fireEvent(new CloseEvent(this)));
+        save.addClickListener(event -> validateAndSave());
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, skiResort)));
+        close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
-            save.addClickShortcut(Key.ENTER);
-            close.addClickShortcut(Key.ESCAPE);
+        save.addClickShortcut(Key.ENTER);
+        close.addClickShortcut(Key.ESCAPE);
 
-            return new HorizontalLayout(save, delete, close);
+        return new HorizontalLayout(save, delete, close);
+    }
+
+    private void validateAndSave(){
+        try{
+            binder.writeBean(skiResort);
+            fireEvent(new SaveEvent(this, skiResort));
+        } catch (ValidationException e){
+            e.printStackTrace();
         }
+    }
 
-        private void validateAndSave(){
-            try{
-                binder.writeBean(skiResort);
-                fireEvent(new SaveEvent(this, skiResort));
-            } catch (ValidationException e){
-                e.printStackTrace();
-            }
+    public static abstract class SkigebietFormEvent extends ComponentEvent<SkigebietForm>{
+        private SkiResort skiResort;
+        protected SkigebietFormEvent(SkigebietForm source, SkiResort contact){
+            super(source, false);
+            this.skiResort = contact;
         }
-
-        public static abstract class SkigebietFormEvent extends ComponentEvent<SkigebietForm>{
-            private SkiResort skiResort;
-            protected SkigebietFormEvent(SkigebietForm source, SkiResort contact){
-                super(source, false);
-                this.skiResort = contact;
-            }
-            public SkiResort getContact(){
-                return skiResort;
-            }
+        public SkiResort getContact(){
+            return skiResort;
         }
+    }
 
     public static class SaveEvent extends SkigebietFormEvent {
         SaveEvent(SkigebietForm source, SkiResort skiResort) {
@@ -136,5 +137,6 @@ public class SkigebietForm extends FormLayout {
 
         return getEventBus().addListener(eventType, listener);
     }
-}
 
+
+}
