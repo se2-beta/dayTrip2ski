@@ -100,3 +100,4 @@ import '@vaadin/vaadin-lumo-styles/style.js';
 import '@vaadin/vaadin-lumo-styles/typography.js';
 import '@vaadin/vertical-layout/theme/lumo/vaadin-vertical-layout.js';
 import '@vaadin/virtual-list/vaadin-virtual-list.js';
+import 'Frontend/iconrating.js';
