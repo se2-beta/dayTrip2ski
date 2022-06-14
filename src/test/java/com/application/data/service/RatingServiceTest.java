@@ -32,11 +32,7 @@ public class RatingServiceTest {
     public RatingServiceTest() {
         this.logger = LoggerFactory.getLogger(getClass());
     }
-
-    @BeforeAll
-    public void setup() {
-        // no code yet
-    }
+    
 
     @Test
     public void CreateAndGet() {
@@ -69,6 +65,38 @@ public class RatingServiceTest {
         } else {
             Assert.assertNotEquals(testRating, null);
         }
+
+        this.logger.info("... end");
+    }
+    @Test
+    public void callRest() {
+        this.logger.info("start ...");
+
+        User testUser = new User();
+        testUser.setName("TestName");
+        testUser.setUsername("usertest");
+        testUser.setHomeLat(47.2692);
+        testUser.setHomeLon(11.4041);
+        userRepository.save(testUser);
+
+        SkiResort testsSkiResort = new SkiResort();
+        testsSkiResort.setName("MyTest");
+        testsSkiResort.setPosLat(47.2804);
+        testsSkiResort.setPosLon(11.5058);
+        skiResortRepository.save(testsSkiResort);
+
+        ratingService.setDistDur(testUser,testsSkiResort);
+
+        Optional<Rating> testRating = ratingService.get(testUser, testsSkiResort);
+
+
+        this.logger.info("is not null");
+        if (testRating.isPresent()) {
+            this.logger.info("is present");
+            this.logger.info(testRating.get().getDistanceStr());
+            this.logger.info(testRating.get().getDurationStr());
+        }
+
 
         this.logger.info("... end");
     }
