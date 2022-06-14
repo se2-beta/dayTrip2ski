@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SkiResortServiceTest {
     @Autowired
     SkiResortService service;
+    @Autowired
+    SkiResortRepository skiResortRepository;
 
     Logger logger;
 
@@ -59,4 +61,19 @@ public class SkiResortServiceTest {
 //        assertTrue(testResort.isPresent());
 //        this.logger.info("SkiResortServiceTest - Ending Test whether resort exists" + testResort.get().getName());
     }
+
+/*    @Test
+    public void weatherUpdateTest() {
+        SkiResort testsSkiResort = new SkiResort();
+        testsSkiResort.setName("MyTest");
+        testsSkiResort.setPosLat(47.2804);
+        testsSkiResort.setPosLon(11.5058);
+        skiResortRepository.save(testsSkiResort);
+
+        service.updateWeather(testsSkiResort);
+
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentSnowfallForecastPercent()));
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentTemperature()));
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentWindspeed()));
+    }*/
 }

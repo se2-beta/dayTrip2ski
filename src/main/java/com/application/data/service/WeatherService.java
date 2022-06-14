@@ -1,6 +1,7 @@
 package com.application.data.service;
 
 
+import com.application.data.restpojo.DataDay;
 import com.application.data.restpojo.Weather;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -36,6 +37,19 @@ public class WeatherService {
                         .build())
                 .retrieve()
                 .bodyToMono(String.class).block();
+    }
+
+    public DataDay getForecastDataDay(String latitude, String longitude) {
+        Weather w = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("basic-day")
+                        .queryParam("lat", latitude)
+                        .queryParam("lon", longitude)
+                        .queryParam("apikey", key)
+                        .build())
+                .retrieve()
+                .bodyToMono(Weather.class).block();
+        return w.getDataDay();
     }
 
 

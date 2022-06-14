@@ -32,7 +32,7 @@ public class RatingServiceTest {
     public RatingServiceTest() {
         this.logger = LoggerFactory.getLogger(getClass());
     }
-    
+
 
     @Test
     public void CreateAndGet() {
@@ -68,7 +68,7 @@ public class RatingServiceTest {
 
         this.logger.info("... end");
     }
-    @Test
+/*    @Test
     public void callRest() {
         this.logger.info("start ...");
 
@@ -99,5 +99,5 @@ public class RatingServiceTest {
 
 
         this.logger.info("... end");
-    }
+    }*/
 }
