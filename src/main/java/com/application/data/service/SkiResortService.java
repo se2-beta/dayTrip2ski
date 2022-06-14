@@ -70,6 +70,14 @@ public class SkiResortService {
         repository.save(skiResort);
     }
 
+    public void updateAllWeather(){
+        List<SkiResort> list = repository.findAll();
+        for (SkiResort resort:list) {
+            updateWeather(resort);
+        }
+
+    }
+
 
 
 }

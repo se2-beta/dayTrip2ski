@@ -48,7 +48,7 @@ public class RatingService {
             rating = new Rating(user, skiResort);
             repository.save(rating);
         }else {
-            rating = get(user, skiResort).get();
+            rating = optionalRating.get();
         }
         String olon, olat, dlat, dlon;
         olon = String.valueOf(user.getHomeLon());
@@ -64,6 +64,19 @@ public class RatingService {
         rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
 
         repository.save(rating);
+    }
 
+    public void setRating(User user, SkiResort skiResort){
+        Optional<Rating> optionalRating = get(user, skiResort);
+        Rating rating;
+        if(!optionalRating.isPresent()){
+            rating = new Rating(user, skiResort);
+            repository.save(rating);
+        }else {
+            rating = optionalRating.get();
+        }
+        double r = user.getWeightFreshSnow()*skiResort.getAmountFreshSnow()+ user.getWeightOccupancy()*skiResort.getCurrentUtilizationPercent()+
+                user.getWeightSlopeLength()*skiResort.getTotalLength()+user.getWeightTravelTime()*rating.getDurationVal();
+        rating.setRating(r);
     }
 }
