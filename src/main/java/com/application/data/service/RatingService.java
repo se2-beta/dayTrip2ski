@@ -41,13 +41,13 @@ public class RatingService {
         repository.save(ratingObj);
     }
 
-    public void setDistDur(User user, SkiResort skiResort){
+    public void setDistDur(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
-        if(!optionalRating.isPresent()){
+        if (!optionalRating.isPresent()) {
             rating = new Rating(user, skiResort);
             repository.save(rating);
-        }else {
+        } else {
             rating = optionalRating.get();
         }
         String olon, olat, dlat, dlon;
@@ -57,7 +57,7 @@ public class RatingService {
         dlon = String.valueOf(skiResort.getPosLon());
 
 
-        Element element = service.getDistDur(olat,olon,dlat,dlon);
+        Element element = service.getDistDur(olat, olon, dlat, dlon);
         rating.setDistanceStr(element.getDistance().getText());
         rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
         rating.setDurationStr(element.getDuration().getText());
@@ -66,17 +66,17 @@ public class RatingService {
         repository.save(rating);
     }
 
-    public void calculateRating(User user, SkiResort skiResort){
+    public void calculateRating(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
-        if(!optionalRating.isPresent()){
+        if (!optionalRating.isPresent()) {
             rating = new Rating(user, skiResort);
             repository.save(rating);
-        }else {
+        } else {
             rating = optionalRating.get();
         }
-        double r = user.getWeightFreshSnow()*skiResort.getAmountFreshSnow()+ user.getWeightOccupancy()*skiResort.getCurrentUtilizationPercent()+
-                user.getWeightSlopeLength()*skiResort.getTotalLength()+user.getWeightTravelTime()*rating.getDurationVal();
+        double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
+                user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal();
         rating.setRating(r);
     }
 }

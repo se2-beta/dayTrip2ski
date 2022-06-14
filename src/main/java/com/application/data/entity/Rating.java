@@ -25,10 +25,6 @@ public class Rating extends AbstractEntity {
         this.rating = 0.0;
     }
 
-    public Rating(double rating) {
-        this.rating = rating;
-    }
-
     public Rating(User user, SkiResort skiResort) {
         this.user = user;
         this.skiResort = skiResort;
