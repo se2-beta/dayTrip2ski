@@ -153,7 +153,7 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Skigebiete", "la la-th-list", SkiResortListView.class), //
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
-                new MenuItemInfo("Master-Detail", "la la-columns", MasterDetailView.class), //
+                new MenuItemInfo("Admin-Bereich", "la la-columns", MasterDetailView.class), //
                 new MenuItemInfo("About", "la la-file", AboutView.class), //
                 new MenuItemInfo("Debug", "la la-file", DebugView.class), //
 

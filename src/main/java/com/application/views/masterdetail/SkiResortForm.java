@@ -1,7 +1,6 @@
 package com.application.views.masterdetail;
 
 import com.application.data.entity.SkiResort;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
@@ -9,7 +8,6 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -19,7 +17,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
 
-public class SkigebietForm extends FormLayout{
+public class SkiResortForm extends FormLayout{
 
     Binder<SkiResort> binder = new BeanValidationBinder<>(SkiResort.class);
     TextField name =new TextField("Name");
@@ -54,14 +52,14 @@ public class SkigebietForm extends FormLayout{
     TextField URLImageFront = new TextField("Titelbild");
     TextField URLImageSlope = new TextField("Pistenbild");
 
-    Button save = new Button("Save");
-    Button delete = new Button("Delete");
-    Button close = new Button("Cancel");
+    Button save = new Button("Speichern");
+    Button delete = new Button("Löschen");
+    Button close = new Button("Abbrechen");
     private SkiResort skiResort;
 
 
-    public SkigebietForm() {
-        addClassName("Skigebiet-Form");
+    public SkiResortForm() {
+        addClassName("SkiResort-Form");
         binder.bindInstanceFields(this);
 
         add(
@@ -131,9 +129,9 @@ public class SkigebietForm extends FormLayout{
         }
     }
 
-    public static abstract class SkigebietFormEvent extends ComponentEvent<SkigebietForm>{
+    public static abstract class SkiResortEvent extends ComponentEvent<SkiResortForm>{
         private SkiResort skiResort;
-        protected SkigebietFormEvent(SkigebietForm source, SkiResort contact){
+        protected SkiResortEvent(SkiResortForm source, SkiResort contact){
             super(source, false);
             this.skiResort = contact;
         }
@@ -142,21 +140,21 @@ public class SkigebietForm extends FormLayout{
         }
     }
 
-    public static class SaveEvent extends SkigebietFormEvent {
-        SaveEvent(SkigebietForm source, SkiResort skiResort) {
+    public static class SaveEvent extends SkiResortEvent {
+        SaveEvent(SkiResortForm source, SkiResort skiResort) {
             super(source, skiResort);
         }
     }
 
-    public static class DeleteEvent extends SkigebietFormEvent{
-        DeleteEvent(SkigebietForm source, SkiResort skiResort) {
+    public static class DeleteEvent extends SkiResortEvent{
+        DeleteEvent(SkiResortForm source, SkiResort skiResort) {
             super(source, skiResort);
         }
 
     }
 
-    public static class CloseEvent extends SkigebietFormEvent {
-        CloseEvent(SkigebietForm source) {
+    public static class CloseEvent extends SkiResortEvent {
+        CloseEvent(SkiResortForm source) {
             super(source, null);
         }
     }

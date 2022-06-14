@@ -14,13 +14,13 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.security.RolesAllowed;
 
 
-@PageTitle("Master-Detail")
+@PageTitle("Admin-Bereich")
 @Route(value = "master-detail/:sampleBookID?/:action?(edit)", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class MasterDetailView extends VerticalLayout {
 
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
-    SkigebietForm form;
+    SkiResortForm form;
     private SkiResortService service;
 
     public MasterDetailView(SkiResortService service) {
@@ -56,22 +56,22 @@ public class MasterDetailView extends VerticalLayout {
     }
 
     public void configureForm(){
-        form = new SkigebietForm();
-        form.setWidth("25em");
+        form = new SkiResortForm();
+        form.setWidth("30em");
 
-        form.addListener(SkigebietForm.SaveEvent.class, this::saveSkiresort);
-        form.addListener(SkigebietForm.DeleteEvent.class, this::deleteSkiresort);
-        form.addListener(SkigebietForm.CloseEvent.class, e->closeEditor());
+        form.addListener(SkiResortForm.SaveEvent.class, this::saveSkiresort);
+        form.addListener(SkiResortForm.DeleteEvent.class, this::deleteSkiresort);
+        form.addListener(SkiResortForm.CloseEvent.class, e->closeEditor());
     }
 
-    private void saveSkiresort(SkigebietForm.SaveEvent event){
+    private void saveSkiresort(SkiResortForm.SaveEvent event){
         service.update(event.getContact());
         Notification.show("Skigebiet gesichert");
         updateList();
         closeEditor();
     }
 
-    private void deleteSkiresort(SkigebietForm.DeleteEvent event){
+    private void deleteSkiresort(SkiResortForm.DeleteEvent event){
         service.delete(event.getContact().getId());
         Notification.show("Skigebiet gelöscht");
         updateList();
@@ -98,7 +98,7 @@ public class MasterDetailView extends VerticalLayout {
 
     private HorizontalLayout getToolbar() {
 
-        Button addSkiButton = new Button("add Contact");
+        Button addSkiButton = new Button("Skigebiet hinzufügen");
         addSkiButton.addClickListener(e->addSkiResort());
         HorizontalLayout toolbar = new HorizontalLayout(addSkiButton);
 
