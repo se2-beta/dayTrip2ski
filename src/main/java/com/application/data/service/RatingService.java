@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class RatingService {
     private final RatingRepository repository;
-    private DistanceService service;
+    private final DistanceService service;
 
     @Autowired
     public RatingService(RatingRepository repository, DistanceService service) {
@@ -66,7 +66,7 @@ public class RatingService {
         repository.save(rating);
     }
 
-    public void setRating(User user, SkiResort skiResort){
+    public void calculateRating(User user, SkiResort skiResort){
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
         if(!optionalRating.isPresent()){

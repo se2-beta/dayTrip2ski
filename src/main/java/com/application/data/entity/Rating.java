@@ -32,6 +32,11 @@ public class Rating extends AbstractEntity {
     public Rating(User user, SkiResort skiResort) {
         this.user = user;
         this.skiResort = skiResort;
+        this.rating = 0d;
+        this.distanceStr = "";
+        this.distanceVal = 0d;
+        this.durationStr = "";
+        this.durationVal = 0d;
     }
 
     public Rating(User user, SkiResort skiResort, Double rating, String distanceStr, Double distanceVal, String durationStr, Double durationVal) {
