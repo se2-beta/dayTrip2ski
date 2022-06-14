@@ -27,8 +27,6 @@ public class Weather {
     private Units units;
     @JsonProperty("data_day")
     private DataDay dataDay;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("metadata")
     public Metadata getMetadata() {
@@ -58,16 +56,6 @@ public class Weather {
     @JsonProperty("data_day")
     public void setDataDay(DataDay dataDay) {
         this.dataDay = dataDay;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
