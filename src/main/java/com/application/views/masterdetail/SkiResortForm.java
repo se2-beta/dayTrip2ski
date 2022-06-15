@@ -30,19 +30,11 @@ public class SkiResortForm extends FormLayout{
     IntegerField heightMax = new IntegerField("max Höhenlage");
     IntegerField totalLenght = new IntegerField("Pistenlänge");
     IntegerField ropeways = new IntegerField("Anzahl Pisten");
-    NumberField pos_lon = new NumberField("Laengengrad");
-    NumberField pos_lat = new NumberField("Breitengrad");
     TextField dateSeasonStart = new TextField("Saisonstart");
     TextField dateSeasonEnd = new TextField("Saisonende");
     TextField timeServiceStart = new TextField("Öffnungszeiten");
     TextField timeServiceEnd = new TextField("Schließzeiten");
     IntegerField currentUtilizationPercent = new IntegerField("Auslastung");
-    IntegerField userRating = new IntegerField("User Bewertungen");
-    NumberField weatherCurrentWindspeed = new NumberField("aktuelle Windgeschwindigkeit");
-    NumberField weatherCurrentTemperature = new NumberField("aktuelle Temperatur");
-    IntegerField weatherCurrentSnowfallForecastPercent = new IntegerField("Schneefall Forecast in %");
-    IntegerField weatherCurrentSnowfallForecastAmountMM = new IntegerField("Schneefall Forecast in mm");
-    TextField weatherDatetimeLastRead = new TextField("Letzte Eingabe Wetter");
     IntegerField snowDepthMin = new IntegerField("Schneehöhe min ");
     IntegerField snowDepthMax = new IntegerField("Schneehöhe max");
     IntegerField amountFreshSnow = new IntegerField("Neuschneehöhe");
@@ -73,19 +65,11 @@ public class SkiResortForm extends FormLayout{
                 heightMax,
                 totalLenght,
                 ropeways,
-                pos_lon,
-                pos_lat,
                 dateSeasonStart,
                 dateSeasonEnd,
                 timeServiceStart,
                 timeServiceEnd,
                 currentUtilizationPercent,
-                userRating,
-                weatherCurrentWindspeed,
-                weatherCurrentTemperature,
-                weatherCurrentSnowfallForecastPercent,
-                weatherCurrentSnowfallForecastAmountMM,
-                weatherDatetimeLastRead,
                 snowDepthMin,
                 snowDepthMax,
                 amountFreshSnow,
