@@ -67,6 +67,7 @@ public class SkiResortService {
         skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
         skiResort.setWeatherCurrentWindspeed(data.getWindspeedMean().get(0));
+        skiResort.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
         repository.save(skiResort);
     }
 
