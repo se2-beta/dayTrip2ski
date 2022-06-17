@@ -24,6 +24,8 @@ public class RatingServiceTest {
     @Autowired
     RatingService ratingService;
     @Autowired
+    RatingRepository repository;
+    @Autowired
     UserRepository userRepository;
     @Autowired
     SkiResortRepository skiResortRepository;
@@ -99,5 +101,25 @@ public class RatingServiceTest {
 
 
         this.logger.info("... end");
+    }*/
+/*    @Test
+    public void callRest() {
+        this.logger.info("start ...");
+
+        User testUser = new User();
+        testUser.setName("TestName");
+        testUser.setUsername("usertest");
+        userRepository.save(testUser);
+
+        SkiResort testsSkiResort = new SkiResort();
+        testsSkiResort.setName("MyTest");
+        skiResortRepository.save(testsSkiResort);
+
+        Rating testrating = new Rating(testUser, testsSkiResort);
+        repository.save(testrating);
+        this.logger.info(String.valueOf(testrating.getDurationVal()));
+        this.logger.info(String.valueOf(testrating.getId()));
+        this.logger.info(String.valueOf(testUser.getId()));
+
     }*/
 }
