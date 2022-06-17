@@ -1,8 +1,10 @@
 package com.application.data.generator;
 
 import com.application.data.Role;
+import com.application.data.entity.Rating;
 import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
+import com.application.data.service.RatingRepository;
 import com.application.data.service.SampleBookRepository;
 import com.application.data.service.SkiResortRepository;
 import com.application.data.service.UserRepository;
@@ -22,7 +24,7 @@ public class DataGenerator {
 
     @Bean
     public CommandLineRunner loadData(PasswordEncoder passwordEncoder, SampleBookRepository sampleBookRepository,
-                                      UserRepository userRepository, SkiResortRepository skiResortRepository) {
+                                      UserRepository userRepository, SkiResortRepository skiResortRepository, RatingRepository ratingRepository) {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
             if (sampleBookRepository.count() != 0L) {
@@ -234,6 +236,33 @@ public class DataGenerator {
             logger.info("Resort added: " + skiResort5.getName());
 
             logger.info("Done with generating ski resorts");
+
+            Rating rating = new Rating(user,skiResort1);
+            ratingRepository.save(rating);
+            rating = new Rating(user,skiResort2);
+            ratingRepository.save(rating);
+            rating = new Rating(user,skiResort3);
+            ratingRepository.save(rating);
+            rating = new Rating(user,skiResort4);
+            ratingRepository.save(rating);
+            rating = new Rating(user,skiResort5);
+            ratingRepository.save(rating);
+
+            rating = new Rating(admin,skiResort1);
+            ratingRepository.save(rating);
+            rating = new Rating(admin,skiResort2);
+            ratingRepository.save(rating);
+            rating = new Rating(admin,skiResort3);
+            ratingRepository.save(rating);
+            rating = new Rating(admin,skiResort4);
+            ratingRepository.save(rating);
+            rating = new Rating(admin,skiResort5);
+            ratingRepository.save(rating);
+
+
+
+
+
         };
     }
 }

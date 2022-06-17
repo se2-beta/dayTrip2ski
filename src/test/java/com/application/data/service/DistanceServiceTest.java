@@ -28,13 +28,13 @@ public class DistanceServiceTest {
         this.logger = LoggerFactory.getLogger(getClass());
     }
 
-    @Test
+   /* @Test
     public void getDistDur() {
         this.logger.info("start ...");
 
         Element element = service.getDistDur("47.2692","11.4041", "47.2804","11.5058");
         this.logger.info(element.getDistance().getText());
 
-    }
+    }*/
 }
 
