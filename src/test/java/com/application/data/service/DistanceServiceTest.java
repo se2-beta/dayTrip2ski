@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest
 public class DistanceServiceTest {
 
@@ -26,7 +26,7 @@ public class DistanceServiceTest {
 
     public DistanceServiceTest() {
         this.logger = LoggerFactory.getLogger(getClass());
-    }
+    }*/
 
    /* @Test
     public void getDistDur() {
@@ -36,5 +36,5 @@ public class DistanceServiceTest {
         this.logger.info(element.getDistance().getText());
 
     }*/
-}
+
 
