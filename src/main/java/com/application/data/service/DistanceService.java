@@ -3,6 +3,8 @@ package com.application.data.service;
 import com.application.data.restpojo.Element;
 import com.application.data.restpojo.GoogleDistance;
 import com.application.data.restpojo.Row;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,9 +12,11 @@ import java.util.List;
 
 
 @Service
+@PropertySource("classpath:application-dev.properties")
 public class DistanceService {
     private final WebClient webClient;
-    private final String key = "AIzaSyD5UiKTQlGUo3ukCDvp3Wj71PSK2S_f94M";
+    @Value("${googleKey}")
+    private String googleKey;
 
     public DistanceService(WebClient.Builder builder) {
         webClient = builder.baseUrl("https://maps.googleapis.com/maps/api/").build();
@@ -24,7 +28,7 @@ public class DistanceService {
                         .path("distancematrix/json")
                         .queryParam("destinations", String.join(",", dlatitude, dlongitude))
                         .queryParam("origins", String.join(",", olatitude, olongitude))
-                        .queryParam("key", key)
+                        .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(GoogleDistance.class).block();
@@ -36,7 +40,7 @@ public class DistanceService {
                         .path("distancematrix/json")
                         .queryParam("destinations", String.join(",", dlatitude, dlongitude))
                         .queryParam("origins", String.join(",", olatitude, olongitude))
-                        .queryParam("key", key)
+                        .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class).block();
@@ -48,7 +52,7 @@ public class DistanceService {
                         .path("distancematrix/json")
                         .queryParam("destinations", String.join(",", dlatitude, dlongitude))
                         .queryParam("origins", String.join(",", olatitude, olongitude))
-                        .queryParam("key", key)
+                        .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(GoogleDistance.class).block();

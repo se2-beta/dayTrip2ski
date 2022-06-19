@@ -27,3 +27,6 @@ hs_err_pid*
 
 # never commit node modules
 node_modules/
+
+# nevere commit secret properties
+application-dev.properties
