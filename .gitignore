@@ -27,6 +27,9 @@ hs_err_pid*
 
 # never commit node modules
 node_modules/
+/frontend/index.html
+/frontend/generated/
+/target/
+/webpack.generated.js
 
-# nevere commit secret properties
 application-dev.properties
