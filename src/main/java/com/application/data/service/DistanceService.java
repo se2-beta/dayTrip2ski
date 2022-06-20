@@ -1,8 +1,6 @@
 package com.application.data.service;
 
-import com.application.data.restpojo.Element;
-import com.application.data.restpojo.GoogleDistance;
-import com.application.data.restpojo.Row;
+import com.application.data.restpojo.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -58,8 +56,32 @@ public class DistanceService {
                 .bodyToMono(GoogleDistance.class).block();
         List<Row> rows = gd.getRows();
         return rows.get(0).getElements().get(0);
-
     }
+
+    public String getLatLonString(String address){
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("geocode/json")
+                        .queryParam("address", address)
+                        .queryParam("key",googleKey)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class).block();
+    }
+
+    public Location getLocation(String address){
+        LatLon ll = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("geocode/json")
+                        .queryParam("address", address)
+                        .queryParam("key",googleKey)
+                        .build())
+                .retrieve()
+                .bodyToMono(LatLon.class).block();
+        return ll.getResults().get(0).getGeometry().getLocation();
+    }
+
+
 
 
 }
