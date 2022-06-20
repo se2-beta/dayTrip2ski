@@ -41,6 +41,10 @@ public class RatingService {
         repository.save(ratingObj);
     }
 
+    public List<Rating> getAllRating() {
+        return repository.findAll();
+    }
+
     public void setDistDur(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
@@ -66,7 +70,7 @@ public class RatingService {
         repository.save(rating);
     }
 
-    public void calculateRating(User user, SkiResort skiResort) {
+    public double calculateRating(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
         if (!optionalRating.isPresent()) {
@@ -78,5 +82,13 @@ public class RatingService {
         double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
                 user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal();
         rating.setRating(r);
+        repository.save(rating);
+        return r;
+    }
+    public void calculateAllRating(){
+        List<Rating> ratings =  getAllRating();
+        for (Rating r : ratings) {
+            calculateRating(r.getUser(),r.getSkiResort());
+        }
     }
 }
