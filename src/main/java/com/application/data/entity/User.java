@@ -7,25 +7,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity {
+
+    @NotNull
+    @Column(unique=true)
     private String username;
+
+    @NotNull
     private String name;
+
     @JsonIgnore
     private String hashedPassword;
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @NotNull
     private String profilePictureUrl;
+
+    @NotNull
     private Double homeLat;
+
+    @NotNull
     private Double homeLon;
 
+    @NotNull
     private Integer weightFreshSnow = 0;
+
+    @NotNull
     private Integer weightSlopeLength = 0;
+
+    @NotNull
     private Integer weightTravelTime = 0;
+
+    @NotNull
     private Integer weightOccupancy = 0;
 
     @OneToMany(mappedBy="user")

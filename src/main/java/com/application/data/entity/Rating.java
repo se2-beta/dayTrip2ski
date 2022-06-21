@@ -1,16 +1,26 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 //@Table()
 @Table(name = "Rating", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueUserAndSkiResort", columnNames = {"user_id", "skiResort_id"})})
 public class Rating extends AbstractEntity {
+    @NotNull
     Double rating;
+
+    @NotNull
     String distanceStr;
+
+    @NotNull
     Double distanceVal;
+
+    @NotNull
     String durationStr;
+
+    @NotNull
     Double durationVal;
 
     @ManyToOne

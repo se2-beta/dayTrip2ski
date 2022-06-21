@@ -1,42 +1,105 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "SkiResort")
 public class SkiResort extends AbstractEntity {
+    @Column(unique=true)
+    @NotNull
     private String name;
+
+    @NotNull
     private String region;
+
+    @NotNull
     private String operator;
+
+    @NotNull
     private String address;
+
+    @NotNull
     private Integer zip;
+
+    @NotNull
     private String city;
+
+    @NotNull
     private Integer heightMin;
+
+    @NotNull
     private Integer heightMax;
+
+    @NotNull
     private Double totalLength;
+
+    @NotNull
     private Integer ropeways;
+
+    @NotNull
     private Double posLon;
+
+    @NotNull
     private Double posLat;
+
+    @NotNull
     private String dateSeasonStart;
+
+    @NotNull
     private String dateSeasonEnd;
+
+    @NotNull
     private String timeServiceStart;
+
+    @NotNull
     private String timeServiceEnd;
+
+    @NotNull
     private Integer currentUtilizationPercent;
+
+    @NotNull
     private Integer userRating;
+
+    @NotNull
     private Double weatherCurrentWindspeed;
+
+    @NotNull
     private Double weatherCurrentTemperature;
+
+    @NotNull
     private Integer weatherCurrentSnowfallForecastPercent;
+
+    @NotNull
     private Integer weatherCurrentSnowfallForecastAmountMM;
+
+    @NotNull
     private String weatherDatetimeLastRead;
+
+    @NotNull
     private Integer snowDepthMin;
+
+    @NotNull
     private Integer snowDepthMax;
+
+    @NotNull
     private Integer amountFreshSnow;
+
+    @NotNull
     private String dateLastSnowfall;
+
+    @NotNull
     private String URLTicketpage;
+
+    @NotNull
     private Integer avalancheWarningLevel;
+
+    @NotNull
     private String URLImageFront;
+
+    @NotNull
     private String URLImageSlope;
 
     @OneToMany(mappedBy="skiResort")
