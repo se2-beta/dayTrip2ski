@@ -29,9 +29,9 @@ public class Rating extends AbstractEntity {
         this.user = user;
         this.skiResort = skiResort;
         this.rating = 0d;
-        this.distanceStr = "";
+        this.distanceStr = "0";
         this.distanceVal = 0d;
-        this.durationStr = "";
+        this.durationStr = "0";
         this.durationVal = 0d;
     }
 
