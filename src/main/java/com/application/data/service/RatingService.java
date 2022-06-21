@@ -91,4 +91,16 @@ public class RatingService {
             calculateRating(r.getUser(),r.getSkiResort());
         }
     }
+
+    public Rating getFrontend(User user, SkiResort skiResort){
+        Optional<Rating> optionalRating = get(user, skiResort);
+        Rating rating;
+        if (optionalRating.isEmpty()) {
+            rating = new Rating(user, skiResort);
+            repository.save(rating);
+        } else {
+            rating = optionalRating.get();
+        }
+        return rating;
+    }
 }
