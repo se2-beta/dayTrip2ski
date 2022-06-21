@@ -1,6 +1,7 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -11,13 +12,13 @@ public class Rating extends AbstractEntity {
     @NotNull
     Double rating;
 
-    @NotNull
+    @NotBlank
     String distanceStr;
 
     @NotNull
     Double distanceVal;
 
-    @NotNull
+    @NotBlank
     String durationStr;
 
     @NotNull

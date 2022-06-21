@@ -7,17 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity {
 
-    @NotNull
+    @NotBlank
     @Column(unique=true)
     private String username;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     @JsonIgnore
@@ -27,7 +28,7 @@ public class User extends AbstractEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @NotNull
+    @NotBlank
     private String profilePictureUrl;
 
     @NotNull
@@ -36,16 +37,9 @@ public class User extends AbstractEntity {
     @NotNull
     private Double homeLon;
 
-    @NotNull
     private Integer weightFreshSnow = 0;
-
-    @NotNull
     private Integer weightSlopeLength = 0;
-
-    @NotNull
     private Integer weightTravelTime = 0;
-
-    @NotNull
     private Integer weightOccupancy = 0;
 
     @OneToMany(mappedBy="user")

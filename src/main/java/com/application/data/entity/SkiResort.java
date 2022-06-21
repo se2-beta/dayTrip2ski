@@ -1,6 +1,7 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,22 +10,22 @@ import java.util.List;
 @Table(name = "SkiResort")
 public class SkiResort extends AbstractEntity {
     @Column(unique=true)
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String region;
 
-    @NotNull
+    @NotBlank
     private String operator;
 
-    @NotNull
+    @NotBlank
     private String address;
 
     @NotNull
     private Integer zip;
 
-    @NotNull
+    @NotBlank
     private String city;
 
     @NotNull
@@ -45,16 +46,16 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Double posLat;
 
-    @NotNull
+    @NotBlank
     private String dateSeasonStart;
 
-    @NotNull
+    @NotBlank
     private String dateSeasonEnd;
 
-    @NotNull
+    @NotBlank
     private String timeServiceStart;
 
-    @NotNull
+    @NotBlank
     private String timeServiceEnd;
 
     @NotNull
@@ -75,7 +76,7 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer weatherCurrentSnowfallForecastAmountMM;
 
-    @NotNull
+    @NotBlank
     private String weatherDatetimeLastRead;
 
     @NotNull
@@ -87,19 +88,19 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer amountFreshSnow;
 
-    @NotNull
+    @NotBlank
     private String dateLastSnowfall;
 
-    @NotNull
+    @NotBlank
     private String URLTicketpage;
 
     @NotNull
     private Integer avalancheWarningLevel;
 
-    @NotNull
+    @NotBlank
     private String URLImageFront;
 
-    @NotNull
+    @NotBlank
     private String URLImageSlope;
 
     @OneToMany(mappedBy="skiResort")
