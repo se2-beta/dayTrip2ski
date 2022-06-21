@@ -16,11 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest
 public class SkiResortServiceTest {
     @Autowired
     SkiResortService service;
+    @Autowired
+    SkiResortRepository skiResortRepository;
 
     Logger logger;
 
@@ -44,7 +46,7 @@ public class SkiResortServiceTest {
     @Test
     public void update() throws Exception {
         String original_name = "Flachau - Snow Space";
-        String changed_name = "Flachau - Snow Space [tested]";
+        String changed_name = "Flachau - Snow Space [tested]";*/
 
 //        this.logger.info("SkiResortServiceTest - Starting Test whether resort exists");
 //        Optional<SkiResort> testResort = service.get(original_name);
@@ -58,5 +60,20 @@ public class SkiResortServiceTest {
 //        }
 //        assertTrue(testResort.isPresent());
 //        this.logger.info("SkiResortServiceTest - Ending Test whether resort exists" + testResort.get().getName());
-    }
-}
+    
+
+/*    @Test
+    public void weatherUpdateTest() {
+        SkiResort testsSkiResort = new SkiResort();
+        testsSkiResort.setName("MyTest");
+        testsSkiResort.setPosLat(47.2804);
+        testsSkiResort.setPosLon(11.5058);
+        skiResortRepository.save(testsSkiResort);
+
+        service.updateWeather(testsSkiResort);
+
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentSnowfallForecastPercent()));
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentTemperature()));
+        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentWindspeed()));
+    }*/
+

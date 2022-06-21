@@ -1,6 +1,8 @@
 package com.application.data.service;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.restpojo.DataDay;
+import com.application.data.restpojo.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,10 +14,12 @@ import java.util.Optional;
 @Service
 public class SkiResortService {
     private final SkiResortRepository repository;
+    private final WeatherService service;
 
     @Autowired
-    public SkiResortService(SkiResortRepository repository) {
+    public SkiResortService(SkiResortRepository repository, WeatherService service) {
         this.repository = repository;
+        this.service = service;
     }
 
     public Optional<SkiResort> get(Integer id) {
@@ -53,4 +57,28 @@ public class SkiResortService {
     public int count() {
         return (int) repository.count();
     }
+
+    public void updateWeather(SkiResort skiResort){
+        String lat,lon;
+        lat = String.valueOf(skiResort.getPosLat());
+        lon = String.valueOf(skiResort.getPosLon());
+        DataDay data = service.getForecastDataDay(lat,lon);
+        skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
+        skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
+        skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
+        skiResort.setWeatherCurrentWindspeed(data.getWindspeedMean().get(0));
+        skiResort.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
+        repository.save(skiResort);
+    }
+
+    public void updateAllWeather(){
+        List<SkiResort> list = repository.findAll();
+        for (SkiResort resort:list) {
+            updateWeather(resort);
+        }
+
+    }
+
+
+
 }
