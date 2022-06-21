@@ -122,4 +122,4 @@ public class RatingServiceTest {
         this.logger.info(String.valueOf(testUser.getId()));
 
     }*/
-}
+
