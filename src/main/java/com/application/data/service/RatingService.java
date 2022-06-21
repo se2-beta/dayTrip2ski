@@ -97,10 +97,29 @@ public class RatingService {
         Rating rating;
         if (optionalRating.isEmpty()) {
             rating = new Rating(user, skiResort);
+            String olon, olat, dlat, dlon;
+            olon = String.valueOf(user.getHomeLon());
+            olat = String.valueOf(user.getHomeLat());
+            dlat = String.valueOf(skiResort.getPosLat());
+            dlon = String.valueOf(skiResort.getPosLon());
+
+            Element element = service.getDistDur(olat, olon, dlat, dlon);
+            rating.setDistanceStr(element.getDistance().getText());
+            rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
+            rating.setDurationStr(element.getDuration().getText());
+            rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
+
+            double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
+                    user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal();
+            rating.setRating(r);
             repository.save(rating);
         } else {
             rating = optionalRating.get();
         }
         return rating;
+    }
+
+    public void setDistDur(Rating rating){
+
     }
 }
