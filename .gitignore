@@ -31,3 +31,5 @@ node_modules/
 /frontend/generated/
 /target/
 /webpack.generated.js
+
+application-dev.properties
