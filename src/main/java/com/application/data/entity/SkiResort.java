@@ -34,16 +34,16 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer heightMax;
 
-    @NotNull
+    //@NotNull
     private Double totalLength;
 
     @NotNull
     private Integer ropeways;
 
-    @NotNull
+    //@NotNull
     private Double posLon;
 
-    @NotNull
+    //@NotNull
     private Double posLat;
 
     @NotBlank
@@ -61,22 +61,22 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer currentUtilizationPercent;
 
-    @NotNull
+    //@NotNull
     private Integer userRating;
 
-    @NotNull
+    //@NotNull
     private Double weatherCurrentWindspeed;
 
-    @NotNull
+    //@NotNull
     private Double weatherCurrentTemperature;
 
-    @NotNull
+    //@NotNull
     private Integer weatherCurrentSnowfallForecastPercent;
 
-    @NotNull
+    //@NotNull
     private Integer weatherCurrentSnowfallForecastAmountMM;
 
-    @NotBlank
+    //@NotBlank
     private String weatherDatetimeLastRead;
 
     @NotNull
