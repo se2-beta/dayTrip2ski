@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/*
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RatingServiceTest {
@@ -69,7 +69,7 @@ public class RatingServiceTest {
         }
 
         this.logger.info("... end");
-    }
+    }*/
 /*    @Test
     public void callRest() {
         this.logger.info("start ...");
