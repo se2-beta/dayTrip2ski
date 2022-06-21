@@ -34,7 +34,7 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer heightMax;
 
-    //@NotNull
+    @NotNull
     private Double totalLength;
 
     @NotNull
