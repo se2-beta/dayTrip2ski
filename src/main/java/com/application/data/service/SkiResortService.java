@@ -2,10 +2,9 @@ package com.application.data.service;
 
 import com.application.data.entity.SkiResort;
 import com.application.data.restpojo.DataDay;
-import com.application.data.restpojo.Weather;
+import com.application.data.restpojo.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.Optional;
 @Service
 public class SkiResortService {
     private final SkiResortRepository repository;
-    private final WeatherService service;
+    private final WeatherService weatherService;
+    private final DistanceService distanceService;
 
     @Autowired
-    public SkiResortService(SkiResortRepository repository, WeatherService service) {
+    public SkiResortService(SkiResortRepository repository, WeatherService service, DistanceService distanceService) {
         this.repository = repository;
-        this.service = service;
+        this.weatherService = service;
+        this.distanceService = distanceService;
     }
 
     public Optional<SkiResort> get(Integer id) {
@@ -31,6 +32,15 @@ public class SkiResortService {
     }
 
     public SkiResort update(SkiResort entity) {
+        if (!get(entity.getName()).isPresent()) {
+            String address = String.join("+", String.valueOf(entity.getZip()), entity.getAddress());
+            Location l = distanceService.getLocation(address);
+            entity.setPosLon(l.getLng());
+            entity.setPosLat(l.getLat());
+            if (entity.getWeatherDatetimeLastRead().isEmpty()) {
+                updateWeather(entity);
+            }
+        }
         return repository.save(entity);
     }
 
@@ -62,7 +72,7 @@ public class SkiResortService {
         String lat,lon;
         lat = String.valueOf(skiResort.getPosLat());
         lon = String.valueOf(skiResort.getPosLon());
-        DataDay data = service.getForecastDataDay(lat,lon);
+        DataDay data = weatherService.getForecastDataDay(lat,lon);
         skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
         skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
