@@ -39,13 +39,13 @@ public class SkiResortService {
             Location l = distanceService.getLocation(address);
             entity.setPosLon(l.getLng());
             entity.setPosLat(l.getLat());
-            if (entity.getWeatherDatetimeLastRead().isEmpty()) {
+            if (entity.getWeatherDatetimeLastRead() == null) {
                 //updateWeather(entity);
                 entity.setWeatherCurrentSnowfallForecastAmountMM(0);
                 entity.setWeatherCurrentSnowfallForecastPercent(0);
                 entity.setWeatherCurrentTemperature(20.0);
                 entity.setWeatherCurrentWindspeed(0.0);
-                entity.setWeatherDatetimeLastRead(String.valueOf(LocalDateTime.now()));
+                entity.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
             }
         }
         return repository.save(entity);
