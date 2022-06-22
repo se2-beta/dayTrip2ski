@@ -4,11 +4,8 @@ import com.application.data.entity.Rating;
 import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
 import com.application.data.restpojo.Element;
-import com.application.data.restpojo.GoogleDistance;
-import com.application.data.restpojo.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -85,14 +82,15 @@ public class RatingService {
         repository.save(rating);
         return r;
     }
-    public void calculateAllRating(){
-        List<Rating> ratings =  getAllRating();
+
+    public void calculateAllRating() {
+        List<Rating> ratings = getAllRating();
         for (Rating r : ratings) {
-            calculateRating(r.getUser(),r.getSkiResort());
+            calculateRating(r.getUser(), r.getSkiResort());
         }
     }
 
-    public Rating getFrontend(User user, SkiResort skiResort){
+    public Rating getFrontend(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
         if (optionalRating.isEmpty()) {
@@ -110,7 +108,7 @@ public class RatingService {
             rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
 
             double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                    user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal();
+                    user.getWeightSlopeLength() * skiResort.getTotalLength() - user.getWeightTravelTime() * rating.getDurationVal() / 100;
             rating.setRating(r);
             repository.save(rating);
         } else {
@@ -119,7 +117,7 @@ public class RatingService {
         return rating;
     }
 
-    public void setDistDur(Rating rating){
+    public void setDistDur(Rating rating) {
 
     }
 }

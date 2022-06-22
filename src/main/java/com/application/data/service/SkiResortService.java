@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,11 +74,11 @@ public class SkiResortService {
         return (int) repository.count();
     }
 
-    public void updateWeather(SkiResort skiResort){
-        String lat,lon;
+    public void updateWeather(SkiResort skiResort) {
+        String lat, lon;
         lat = String.valueOf(skiResort.getPosLat());
         lon = String.valueOf(skiResort.getPosLon());
-        DataDay data = weatherService.getForecastDataDay(lat,lon);
+        DataDay data = weatherService.getForecastDataDay(lat, lon);
         skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
         skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
@@ -88,14 +87,13 @@ public class SkiResortService {
         repository.save(skiResort);
     }
 
-    public void updateAllWeather(){
+    public void updateAllWeather() {
         List<SkiResort> list = repository.findAll();
-        for (SkiResort resort:list) {
+        for (SkiResort resort : list) {
             updateWeather(resort);
         }
 
     }
-
 
 
 }
