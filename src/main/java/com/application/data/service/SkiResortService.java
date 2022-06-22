@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,13 +34,18 @@ public class SkiResortService {
     }
 
     public SkiResort update(SkiResort entity) {
-        if (!get(entity.getName()).isPresent()) {
+        if (get(entity.getName()).isEmpty()) {
             String address = String.join("+", String.valueOf(entity.getZip()), entity.getAddress());
             Location l = distanceService.getLocation(address);
             entity.setPosLon(l.getLng());
             entity.setPosLat(l.getLat());
             if (entity.getWeatherDatetimeLastRead().isEmpty()) {
-                updateWeather(entity);
+                //updateWeather(entity);
+                entity.setWeatherCurrentSnowfallForecastAmountMM(0);
+                entity.setWeatherCurrentSnowfallForecastPercent(0);
+                entity.setWeatherCurrentTemperature(20.0);
+                entity.setWeatherCurrentWindspeed(0.0);
+                entity.setWeatherDatetimeLastRead(String.valueOf(LocalDateTime.now()));
             }
         }
         return repository.save(entity);
