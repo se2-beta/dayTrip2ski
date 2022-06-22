@@ -25,8 +25,7 @@ jobs:
           MAVEN_CLI_OPTS: "--batch-mode"
         steps:
             - checkout
-            - run: printf "googleKey=%s\nweatherKey=%s\n" "${googleKey}" "${weatherKey}" >> src/main/resources/application-dev.properties
-            - run: cat src/main/resources/application-dev.properties
+            - run: touch src/main/resources/application-dev.properties
             - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e
             - store_artifacts:
                 path: target
@@ -40,8 +39,7 @@ jobs:
                   password: $DOCKERHUB_PASSWORD
         steps:
             - checkout
-            - run: printf "googleKey=%s\nweatherKey=%s\n" "${googleKey}" "${weatherKey}" >> src/main/resources/application-dev.properties
-            - run: cat src/main/resources/application-dev.properties
+            - run: touch src/main/resources/application-dev.properties
             - run: mvn test -e
             - store_artifacts:
                 path: reports
@@ -54,8 +52,7 @@ jobs:
           image: ubuntu-2004:202010-01
         steps:
           - checkout
-          - run: printf "googleKey=%s\nweatherKey=%s\n" "${googleKey}" "${weatherKey}" >> src/main/resources/application-dev.properties
-          - run: cat src/main/resources/application-dev.properties
+          - run: touch src/main/resources/application-dev.properties
           - run:
               name: Build app binary and Docker image
               command: |
