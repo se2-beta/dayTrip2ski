@@ -34,10 +34,12 @@ public class SkiResortService {
 
     public SkiResort update(SkiResort entity) {
         if (get(entity.getName()).isEmpty()) {
-            String address = String.join("+", String.valueOf(entity.getZip()), entity.getAddress());
-            Location l = distanceService.getLocation(address);
-            entity.setPosLon(l.getLng());
-            entity.setPosLat(l.getLat());
+            if (entity.getPosLat() == null) {
+                String address = String.join("+", String.valueOf(entity.getZip()), entity.getAddress());
+                Location l = distanceService.getLocation(address);
+                entity.setPosLon(l.getLng());
+                entity.setPosLat(l.getLat());
+            }
             if (entity.getWeatherDatetimeLastRead() == null) {
                 //updateWeather(entity);
                 entity.setWeatherCurrentSnowfallForecastAmountMM(0);

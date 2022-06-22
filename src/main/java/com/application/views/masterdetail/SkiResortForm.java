@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
@@ -27,7 +28,7 @@ public class SkiResortForm extends FormLayout{
     TextField city = new TextField("Stadt");
     IntegerField heightMin = new IntegerField("min Höhenlage");
     IntegerField heightMax = new IntegerField("max Höhenlage");
-    IntegerField totalLength = new IntegerField("Pistenlänge");
+    NumberField totalLength = new NumberField("Pistenlänge");
     IntegerField ropeways = new IntegerField("Anzahl Pisten");
     TextField dateSeasonStart = new TextField("Saisonstart");
     TextField dateSeasonEnd = new TextField("Saisonende");
