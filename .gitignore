@@ -1,3 +1,6 @@
+# Mac Users
+.DS_Store
+
 # Compiled class file
 *.class
 
@@ -31,3 +34,5 @@ node_modules/
 /frontend/generated/
 /target/
 /webpack.generated.js
+
+application-dev.properties

@@ -28,7 +28,7 @@ public class SkiResortForm extends FormLayout{
     TextField city = new TextField("Stadt");
     IntegerField heightMin = new IntegerField("min Höhenlage");
     IntegerField heightMax = new IntegerField("max Höhenlage");
-    IntegerField totalLenght = new IntegerField("Pistenlänge");
+    NumberField totalLength = new NumberField("Pistenlänge");
     IntegerField ropeways = new IntegerField("Anzahl Pisten");
     TextField dateSeasonStart = new TextField("Saisonstart");
     TextField dateSeasonEnd = new TextField("Saisonende");
@@ -63,7 +63,7 @@ public class SkiResortForm extends FormLayout{
                 city,
                 heightMin,
                 heightMax,
-                totalLenght,
+                totalLength,
                 ropeways,
                 dateSeasonStart,
                 dateSeasonEnd,
