@@ -1,16 +1,27 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 //@Table()
 @Table(name = "Rating", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueUserAndSkiResort", columnNames = {"user_id", "skiResort_id"})})
 public class Rating extends AbstractEntity {
+    @NotNull
     Double rating;
+
+    @NotBlank
     String distanceStr;
+
+    @NotNull
     Double distanceVal;
+
+    @NotBlank
     String durationStr;
+
+    @NotNull
     Double durationVal;
 
     @ManyToOne
@@ -25,8 +36,14 @@ public class Rating extends AbstractEntity {
         this.rating = 0.0;
     }
 
-    public Rating(double rating) {
-        this.rating = rating;
+    public Rating(User user, SkiResort skiResort) {
+        this.user = user;
+        this.skiResort = skiResort;
+        this.rating = 0d;
+        this.distanceStr = "0";
+        this.distanceVal = 0d;
+        this.durationStr = "0";
+        this.durationVal = 0d;
     }
 
     public Rating(User user, SkiResort skiResort, Double rating, String distanceStr, Double distanceVal, String durationStr, Double durationVal) {
