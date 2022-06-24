@@ -37,6 +37,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     CustomDialog filterDialog;
     CustomDialog.Position dialogPosition = new CustomDialog.Position("120px", "50px");
     private OrderedList imageContainer = new OrderedList();
+    SkiResortFilterForm filterForm;
     SkiResortService skiResortService;
     UserService userService;
     RatingService ratingService;
@@ -74,6 +75,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterButton.addClickListener(e -> {
             if (filterDialog.isOpened()) {
                 closeFilter();
+                filterForm.setWeightValues();
             } else {
                 openFilter();
             }
@@ -124,7 +126,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
                 .set("font-size", "1.5em").set("font-weight", "bold");
         headline.addClassNames("text-center", "my-0", "py-0");
 
-        SkiResortFilterForm filterForm = new SkiResortFilterForm(dialog, authenticatedUser, userService, ratingService, this);
+        filterForm = new SkiResortFilterForm(dialog, authenticatedUser, userService, ratingService, this);
 
         VerticalLayout dialogLayout = new VerticalLayout(headline, filterForm);
         dialogLayout.setPadding(false);

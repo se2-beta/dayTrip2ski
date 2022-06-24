@@ -97,7 +97,7 @@ public class SkiResortFilterForm extends FormLayout {
         return layout;
     }
 
-    private void setWeightValues() {
+    public void setWeightValues() {
 
         freshSnow.setValue(user.getWeightFreshSnow());
         totalLength.setValue(user.getWeightSlopeLength());
