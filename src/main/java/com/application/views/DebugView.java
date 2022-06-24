@@ -17,9 +17,11 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.component.button.Button;
 
+import javax.annotation.security.RolesAllowed;
+
 @PageTitle("Debug")
 @Route(value = "debug", layout = MainLayout.class)
-@AnonymousAllowed
+@RolesAllowed("ADMIN")
 public class DebugView extends VerticalLayout {
 
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
@@ -32,14 +34,13 @@ public class DebugView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        add(/*getToolbar(), */getContent());
+        add(getContent());
         updateList();
     }
 
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid);
         content.setFlexGrow(2, grid);
-        //content.setFlexGrow(1, form);
         content.addClassNames("content");
         content.setSizeFull();
         return content;
@@ -49,8 +50,6 @@ public class DebugView extends VerticalLayout {
         grid.addClassNames("skiresort-grid");
         grid.setSizeFull();
         grid.setColumns("id", "name", "operator", "address", "zip", "city");
-        //grid.addColumn(skiresort -> skiresort.getName()).setHeader("Name");
-        //grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private HorizontalLayout getToolbar() {
