@@ -7,6 +7,7 @@ import com.application.views.freeride.FreerideView;
 import com.application.views.imagelist.SkiResortListView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
+import com.application.views.settings.Settings;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -16,7 +17,6 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -166,7 +166,7 @@ public class MainLayout extends AppLayout {
 
             ContextMenu userMenu = new ContextMenu(avatar);
             userMenu.setOpenOnClick(true);
-            userMenu.addItem("Settings", e -> Notification.show("Einstellungen sind noch nicht verfügbar!"));
+            userMenu.addItem("Settings", e -> UI.getCurrent().navigate(Settings.class));
             userMenu.addItem("Logout", e -> authenticatedUser.logout());
 
             Span name = new Span(user.getName());
