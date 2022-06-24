@@ -45,10 +45,11 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         this.userService = userService;
         this.authenticatedUser = authenticatedUser;
 
-        addClassNames("image-list-view", "mx-auto", "pb-l", "px-l", "max-w-screen-2xl");
+        addClassNames("image-list-view", "mx-auto", "pb-l", "pr-l");
         addClassName("ski-resort-list-view");
 
-        setSizeFull();
+        setHeightFull();
+        setWidth("90%");
 
         configureImageContainer();
         configureFilterDialog();

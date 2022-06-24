@@ -55,16 +55,20 @@ public class SkiResortFilterForm extends FormLayout {
     private Component generateContent() {
 
 
-        VerticalLayout verticalLayout = new VerticalLayout();
+        FormLayout verticalLayout = new FormLayout();
         verticalLayout.setWidth("100%");
         verticalLayout.addClassNames("px-0");
-        verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+//        verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         verticalLayout.add(
                 titleRatingLayout("Neuschnee", freshSnow),
                 titleRatingLayout("Pistenlänge", totalLength),
                 titleRatingLayout("Anfahrtszeit", travelTime),
                 titleRatingLayout("Auslastung", currentUtilizationPercent),
                 createButtonLayout()
+        );
+        verticalLayout.setResponsiveSteps(
+                new ResponsiveStep("0", 2),
+                new ResponsiveStep("1000", 1)
         );
         return verticalLayout;
     }
