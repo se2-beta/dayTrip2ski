@@ -19,6 +19,7 @@ import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
+
 import java.util.Optional;
 
 /**
@@ -97,7 +98,7 @@ public class MainLayout extends AppLayout {
 
         // Wrap the links in a list; improves accessibility
         UnorderedList list = new UnorderedList();
-        list.addClassNames("flex", "list-none", "m-0","p-0", "justify-center");
+        list.addClassNames("flex", "list-none", "m-0", "p-0", "justify-center");
         list.setWidth("93%");
         nav.add(list);
 
@@ -143,20 +144,18 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createTopMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Pisten", "la la-globe", SkiResortListView.class), //
-                new MenuItemInfo("Freeride", "la la-file", FreerideView.class), //
-
+                new MenuItemInfo("Pisten", "la la-skiing-nordic", SkiResortListView.class), //
+                new MenuItemInfo("Freeride", "la la-skiing", FreerideView.class), //
         };
     }
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Skigebiete", "la la-th-list", SkiResortListView.class), //
+                new MenuItemInfo("Skigebiete", "la la-skiing-nordic", SkiResortListView.class), //
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
-                new MenuItemInfo("Admin-Bereich", "la la-columns", MasterDetailView.class), //
-                new MenuItemInfo("About", "la la-file", AboutView.class), //
-                new MenuItemInfo("Debug", "la la-file", DebugView.class), //
-
+                new MenuItemInfo("Admin-Bereich", "la la-tasks", MasterDetailView.class), //
+                new MenuItemInfo("About", "la la-question", AboutView.class), //
+                new MenuItemInfo("Debug", "la la-bug", DebugView.class), //
         };
     }
 
