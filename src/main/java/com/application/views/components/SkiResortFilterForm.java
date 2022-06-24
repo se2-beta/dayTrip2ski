@@ -1,8 +1,10 @@
 package com.application.views.components;
 
 import com.application.data.entity.User;
+import com.application.data.service.RatingService;
 import com.application.data.service.UserService;
 import com.application.security.AuthenticatedUser;
+import com.application.views.imagelist.SkiResortListView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -10,6 +12,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.OrderedList;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -26,14 +29,23 @@ public class SkiResortFilterForm extends FormLayout {
     Button save = new Button("Speichern");
     Button cancel = new Button("Abbrechen");
     Dialog dialog;
-
     User user;
+    UserService userService;
+    RatingService ratingService;
+    SkiResortListView skiResortListView;
 
-    UserService service;
+    public SkiResortFilterForm(
+            CustomDialog dialog,
+            AuthenticatedUser authenticatedUser,
+            UserService userService,
+            RatingService ratingService,
+            SkiResortListView skiResortListView
+) {
 
-    public SkiResortFilterForm(CustomDialog dialog, AuthenticatedUser authenticatedUser, UserService service) {
         this.dialog = dialog;
-        this.service = service;
+        this.userService = userService;
+        this.ratingService = ratingService;
+        this.skiResortListView = skiResortListView;
 
         Optional<User> maybeUser = authenticatedUser.get();
         maybeUser.ifPresent(value -> user = value);
@@ -48,7 +60,6 @@ public class SkiResortFilterForm extends FormLayout {
 
         add(
                 content
-
         );
     }
 
@@ -58,7 +69,6 @@ public class SkiResortFilterForm extends FormLayout {
         FormLayout verticalLayout = new FormLayout();
         verticalLayout.setWidth("100%");
         verticalLayout.addClassNames("px-0");
-//        verticalLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         verticalLayout.add(
                 titleRatingLayout("Neuschnee", freshSnow),
                 titleRatingLayout("Pistenlänge", totalLength),
@@ -105,7 +115,9 @@ public class SkiResortFilterForm extends FormLayout {
         cancel.addClickListener(e -> dialog.close());
         save.addClickListener(event -> {
             updateWeightValues();
+            ratingService.calculateAllRating();
             dialog.close();
+            skiResortListView.setImageList();
             Notification.show("Präferenzen aktualisiert!");
         });
 
@@ -122,7 +134,7 @@ public class SkiResortFilterForm extends FormLayout {
         user.setWeightTravelTime(travelTime.getValue());
         user.setWeightOccupancy(currentUtilizationPercent.getValue());
 
-        service.update(user);
+        userService.update(user);
 
     }
 

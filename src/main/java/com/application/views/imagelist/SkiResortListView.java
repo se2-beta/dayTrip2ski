@@ -1,6 +1,7 @@
 package com.application.views.imagelist;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.service.RatingService;
 import com.application.data.service.SkiResortService;
 import com.application.data.service.UserService;
 import com.application.security.AuthenticatedUser;
@@ -13,7 +14,6 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
@@ -25,6 +25,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Optional;
 
 @PageTitle("Skigebiete")
 @Route(value = "", layout = MainLayout.class)
@@ -38,12 +39,15 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     private OrderedList imageContainer = new OrderedList();
     SkiResortService skiResortService;
     UserService userService;
+    RatingService ratingService;
     private AuthenticatedUser authenticatedUser;
+    Optional<UI> ui = getUI();
 
-    public SkiResortListView(SkiResortService service, AuthenticatedUser authenticatedUser, UserService userService) {
+    public SkiResortListView(SkiResortService service, AuthenticatedUser authenticatedUser, UserService userService, RatingService ratingService) {
         this.skiResortService = service;
         this.userService = userService;
         this.authenticatedUser = authenticatedUser;
+        this.ratingService = ratingService;
 
         addClassNames("image-list-view", "mx-auto", "pb-l", "pr-l");
         addClassName("ski-resort-list-view");
@@ -83,12 +87,12 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         return toolbar;
     }
 
-    private void setImageList() {
+    public void setImageList() {
 
         imageContainer.removeAll();
 
         for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue())) {
-            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
+            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort, authenticatedUser, ratingService);
             RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
             tempVar.addClickListener(e -> navigateToDetailView(skiResort));
             imageContainer.add(tempVar);
@@ -120,7 +124,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
                 .set("font-size", "1.5em").set("font-weight", "bold");
         headline.addClassNames("text-center", "my-0", "py-0");
 
-        SkiResortFilterForm filterForm = new SkiResortFilterForm(dialog, authenticatedUser, userService);
+        SkiResortFilterForm filterForm = new SkiResortFilterForm(dialog, authenticatedUser, userService, ratingService, this);
 
         VerticalLayout dialogLayout = new VerticalLayout(headline, filterForm);
         dialogLayout.setPadding(false);
