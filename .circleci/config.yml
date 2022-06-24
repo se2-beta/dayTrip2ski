@@ -25,6 +25,7 @@ jobs:
           MAVEN_CLI_OPTS: "--batch-mode"
         steps:
             - checkout
+            - run: touch src/main/resources/application-dev.properties
             - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e
             - store_artifacts:
                 path: target
@@ -38,6 +39,7 @@ jobs:
                   password: $DOCKERHUB_PASSWORD
         steps:
             - checkout
+            - run: touch src/main/resources/application-dev.properties
             - run: mvn test -e
             - store_artifacts:
                 path: reports
@@ -50,17 +52,15 @@ jobs:
           image: ubuntu-2004:202010-01
         steps:
           - checkout
-          
+          - run: touch src/main/resources/application-dev.properties
           - run:
               name: Build app binary and Docker image
               command: |
                 echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
                 echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
                 echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
-                echo 'export TAG=$CIRCLE_SHA1' >> $BASH_ENV                 
-          
+                echo 'export TAG=$CIRCLE_SHA1' >> $BASH_ENV
           - gcp-gcr/gcr-auth
-          
           - gcp-gcr/build-image:
               dockerfile: Dockerfile
               google-project-id: GOOGLE_PROJECT_ID
