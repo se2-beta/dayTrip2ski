@@ -130,7 +130,6 @@ public class Settings extends FormLayout {
             map.getFeatureLayer().removeFeature(marker);
             createMarker(userLocation.getLng(), userLocation.getLat());
 
-            updateUser();
 
         });
 
@@ -160,6 +159,16 @@ public class Settings extends FormLayout {
     }
 
     private void updateUser() {
+
+        Notification.show("Values: " +
+                lon.getValue() + " \n" +
+                lat.getValue() + " \n" +
+                firstName.getValue() + " " + lastName.getValue() + " \n" +
+                username.getValue() + " \n" +
+                profilePictureUrl.getValue()
+        );
+
+
         user.setHomeLon(lon.getValue());
         user.setHomeLat(lat.getValue());
         user.setName(firstName.getValue() + " " + lastName.getValue());
@@ -172,7 +181,10 @@ public class Settings extends FormLayout {
     private Component buttonLayout() {
 
         save = new Button("speichern");
-        save.addClickListener(e -> Notification.show("Benutzerdaten gespeichert!"));
+        save.addClickListener(e -> {
+            Notification.show("Benutzerdaten gespeichert!");
+            updateUser();
+        });
 
         save.addClassNames("bg-primary");
 
@@ -211,22 +223,18 @@ public class Settings extends FormLayout {
 
     private Map configureMap() {
 
-
         map.getElement().setAttribute("theme", "borderless");
         map.getView().setCenter(centerCoordinates);
         map.getView().setZoom(8);
         createMarker(user.getHomeLon(), user.getHomeLat());
 
-
         return map;
-
     }
 
     private void createMarker(Double lon, Double lat) {
 
         Coordinate coordinates = Coordinate.fromLonLat(lon, lat);
         marker = new MarkerFeature(coordinates, createMapIcon());
-
         map.getFeatureLayer().addFeature(marker);
 
     }
