@@ -19,17 +19,38 @@ public class AboutView extends VerticalLayout {
         setSizeFull();
         setSpacing(false);
 
+
+        H1 aboutTitle = new H1("About");
+        aboutTitle.addClassNames("pb-s", "mt-0", "pt-m");
+
         Image logo = new Image("images/daytrip2Ski_logo.png", "logo");
-        logo.setMaxWidth("100px");
-        logo.setMaxHeight("100px");
+        logo.setMaxWidth("150px");
+        logo.setMaxHeight("150px");
+
+        VerticalLayout title = new VerticalLayout(logo, aboutTitle);
+        title.setSpacing(false);
+        title.setWidthFull();
+        title.setJustifyContentMode(JustifyContentMode.CENTER);
+        title.setAlignItems(Alignment.CENTER);
+
+        Label aboutText = new Label("Mithilfe der dayTrip2Ski-App wird es Ihnen ermöglicht, das ideale Skigebiet für ihre Ansprüche zu finden. \n" +
+                "Geben sie hierfür in der Skigebiete-Ansicht einfach ihre Präferenzen an und der ausgeklügelte Algorithmus berechnet ihnen ihr Traum-Skigebiet. " +
+                "Natürlich können Sie auch nach einem Skigebiet sowohl in der Kartenansicht als auch in der Liste suchen.");
+        aboutText.setMaxWidth("80%");
+
+        HorizontalLayout aboutLayout = new HorizontalLayout(aboutText);
+        aboutLayout.setWidthFull();
+        aboutLayout.setJustifyContentMode(JustifyContentMode.CENTER);
+        aboutLayout.setAlignItems(Alignment.CENTER);
 
         H1 titleText = new H1("Team Beta");
         titleText.addClassNames("pb-s");
 
-        HorizontalLayout title = new HorizontalLayout(titleText, logo);
-        title.setWidthFull();
-        title.setJustifyContentMode(JustifyContentMode.CENTER);
-        title.setAlignItems(Alignment.CENTER);
+        HorizontalLayout teamTitle = new HorizontalLayout(titleText);
+        teamTitle.setWidthFull();
+        teamTitle.setJustifyContentMode(JustifyContentMode.CENTER);
+        teamTitle.setAlignItems(Alignment.CENTER);
+
 
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setHeightFull();
@@ -39,18 +60,20 @@ public class AboutView extends VerticalLayout {
                 threeMemberLayout(
                         teamMember("images/Annina_Ecker.jpg", "Annina Ecker", "Build Engineer"),
                         teamMember("images/Lukas_Gerber.jpg", "Lukas Gerber", "Frontend Dev"),
-                        teamMember("images/Annina_Ecker.jpg", "Markus Russold", "Backend Dev")
+                        teamMember("images/Markus_Russold_ws.jpg", "Markus Russold", "Backend Dev")
 
                 ),
                 threeMemberLayout(
                         teamMember("images/David_Zollitsch_ws.jpg", "David Zollitsch", "Quality Engineer"),
-                        teamMember("images/Annina_Ecker.jpg", "Andreas Schöffel", "Frontend Dev"),
+                        teamMember("images/Andreas_Schoffel.jpg", "Andreas Schöffel", "Frontend Dev"),
                         teamMember("images/Julian_Hirschberger_ws.jpg", "Julian Hirschberger", "Backend Dev")
                 )
         );
 
         add(
                 title,
+                aboutLayout,
+                teamTitle,
                 mainLayout
         );
     }
