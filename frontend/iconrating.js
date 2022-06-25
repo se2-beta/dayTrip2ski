@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit-element';
-import { repeat } from 'lit/directives/repeat';
+import {css, html, LitElement} from 'lit-element';
+import {repeat} from 'lit/directives/repeat';
 
 /**
  * `icons-rating`
@@ -14,26 +14,16 @@ class IconsRating extends LitElement {
         return {
             _icons: {
                 type: Array
-            },
-            numicons: {
-                type: Number,
-                value: 7
-            },
-            rating: {
-                type: Number,
-                value: 0
-            },
-            manual: {
-                type: Boolean,
-                value: false
-            },
-            mode: {
-                type: String,
-                value: 'auto'
-            },
-            resetbtn: {
-                type: Boolean,
-                value: false
+            }, numicons: {
+                type: Number, value: 7
+            }, rating: {
+                type: Number, value: 0
+            }, manual: {
+                type: Boolean, value: false
+            }, mode: {
+                type: String, value: 'auto'
+            }, resetbtn: {
+                type: Boolean, value: false
             }
         }
     }
@@ -43,7 +33,7 @@ class IconsRating extends LitElement {
       :host(:not([hidden])) {
           display: block;
           font-size: 2em;
-          --icon-size: 40px;
+          --icon-size: 35px;
           --icon-color: #00FFFF;
         }
         fieldset,
@@ -97,14 +87,14 @@ class IconsRating extends LitElement {
         super.disconnectedCallback();
 
         const ratingElement = this.renderRoot.querySelector('#rating')
-        if(ratingElement) ratingElement.removeEventListener('click', this._rate);
+        if (ratingElement) ratingElement.removeEventListener('click', this._rate);
     }
 
     updated(changedProperties, o) {
         if (changedProperties.get('manual') !== this.manual) {
             this._manualChanged();
         }
-        if (changedProperties.get('rating') !==  this.rating) {
+        if (changedProperties.get('rating') !== this.rating) {
             this._ratingChange();
         }
     }
@@ -123,7 +113,7 @@ class IconsRating extends LitElement {
         } else if (this.rating > this.numicons) {
             this.rating = this.numicons;
         }
-        this.dispatchEvent(new CustomEvent('rating-changed', { detail: this.rating }));
+        this.dispatchEvent(new CustomEvent('rating-changed', {detail: this.rating}));
     }
 
     reset() {
@@ -146,17 +136,17 @@ class IconsRating extends LitElement {
 
     render() {
         return html`
-      <fieldset id="rating">
-        ${(this.resetbtn && this.manual) ? html`<label class="resetbtn"><input @click="${this.reset}" type="radio" id="x" name="resetbtn" value="-1" /></label>  ` : html``}
-        ${repeat(
-            this._icons,
-            item => item,
-            (item, i) => html`<label for="icon${i}" ?data-hightlight="${this._isHightlight(i)}">
-                              <input type="radio" id="icon${i}" name="rating" value="${i}" />
-                            </label>`
-        )}
-      </fieldset>
-    `;
+            <fieldset id="rating">
+                ${(this.resetbtn && this.manual) ? html`<label class="resetbtn"><input @click="${this.reset}"
+                                                                                       type="radio" id="x"
+                                                                                       name="resetbtn"
+                                                                                       value="-1"/></label>  ` : html``}
+                ${repeat(this._icons, item => item, (item, i) => html`<label for="icon${i}"
+                                                                             ?data-hightlight="${this._isHightlight(i)}">
+                    <input type="radio" id="icon${i}" name="rating" value="${i}"/>
+                </label>`)}
+            </fieldset>
+        `;
     }
 }
 
