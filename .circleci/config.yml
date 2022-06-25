@@ -25,10 +25,14 @@ jobs:
           MAVEN_CLI_OPTS: "--batch-mode"
         steps:
             - checkout
-            - setup_remote_docker:
-                docker_layer_caching: true
+            - restore_cache:
+                key: maven-cache-{{ checksum "pom.xml" }}
             - run: touch src/main/resources/application-dev.properties
             - run: mvn $MAVEN_CLI_OPTS clean package -Pproduction -e
+            - save_cache:
+                paths:
+                  - ~/.m2
+                key: maven-cache-{{ checksum "pom.xml" }}
             - store_artifacts:
                 path: target
                 destination: target
@@ -41,8 +45,8 @@ jobs:
                   password: $DOCKERHUB_PASSWORD
         steps:
             - checkout
-            - setup_remote_docker:
-                docker_layer_caching: true
+            - restore_cache:
+                key: maven-cache-{{ checksum "pom.xml" }}
             - run: touch src/main/resources/application-dev.properties
             - run: mvn test -e
             - store_artifacts:
@@ -54,7 +58,6 @@ jobs:
         executor: gcp-gcr/default
         machine:
           image: ubuntu-2004:202010-01
-          docker_layer_caching: true
         steps:
           - checkout
           - run: touch src/main/resources/application-dev.properties
