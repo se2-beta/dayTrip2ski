@@ -1,7 +1,5 @@
 package com.application.views.settings;
 
-import com.application.data.Role;
-import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
 import com.application.data.restpojo.Location;
 import com.application.data.service.DistanceService;
@@ -25,15 +23,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 @PageTitle("user-profile")
 @Route(value = "user-profile", layout = MainLayout.class)
@@ -49,19 +45,20 @@ public class Settings extends FormLayout {
     DistanceService distanceService;
     UserService userService;
 
-    TextField firstName;
-    TextField lastName;
-    TextField profilePictureUrl;
-    TextField username;
-    Set<Role> roles;
-    TextField rolesTest;
-    TextField zip;
-    TextField address;
+    TextField firstName = new TextField("Vorname");
+    TextField lastName = new TextField("Nachname");
+    TextField profilePictureUrl = new TextField();
+    TextField username = new TextField();
+
+    TextField roles = new TextField();
+    TextField zip = new TextField();
+    TextField address = new TextField();
     NumberField lon;
     NumberField lat;
 
     Button save;
     Button reset;
+    Button getAddress;
 
     public Settings(AuthenticatedUser authenticatedUser, DistanceService distanceService, UserService userService) {
         this.distanceService = distanceService;
@@ -81,7 +78,10 @@ public class Settings extends FormLayout {
 
     private void configureLayout() {
 
-        Avatar avatar = new Avatar(user.getName(), user.getProfilePictureUrl());
+        removeAll();
+
+        Avatar avatar = new Avatar(user.getName());
+        avatar.setImage(user.getProfilePictureUrl());
         avatar.addClassNames("ml-m");
         avatar.addThemeVariants(AvatarVariant.LUMO_XLARGE);
 
@@ -90,50 +90,33 @@ public class Settings extends FormLayout {
         avatarTitle.setWidthFull();
         setColspan(avatarTitle, 2);
 
-
         String[] fullName = user.getName().split(" ");
-
-
         VerticalLayout fullNameLayout = verticalLayoutText(firstName, "Vorname", fullName[0], false,
                 lastName, "Nachname", fullName[1], false);
 
         String role = Arrays.toString(user.getRoles().toArray()).replace("[", "").replace("]", "");
         VerticalLayout roleLayout = verticalLayoutText(username, "Benutzername", user.getUsername(), false,
-                rolesTest, "Rollen", role, true);
+                roles, "Rollen", role, true);
 
 
-        TextField profilePictureUrl = new TextField("Profilbild-Url");
+        profilePictureUrl = new TextField("Profilbild-Url");
         profilePictureUrl.setValue(user.getProfilePictureUrl());
         profilePictureUrl.setMaxWidth("80%");
         profilePictureUrl.addClassNames("pl-l");
 
 
         zip = new TextField("Postleitzahl");
-        zip.setValue("6200");
+        zip.setPlaceholder("6020");
         zip.setWidth("50%");
 
         address = new TextField("Adresse");
-        address.setHelperText("Format: Teststrasse 69");
-        address.setValue("Kienbergstrasse 5");
+        address.setPlaceholder("Teststrasse 69");
         address.setWidth("50%");
         HorizontalLayout addressLayout = new HorizontalLayout(zip, address);
         addressLayout.setWidth("90%");
         addressLayout.addClassNames("pb-s");
 
-        Button getAddress = new Button("Adresse aktualisieren");
-        getAddress.addClickListener(e -> {
-            userLocation = distanceService.getLocation(String.join("+", String.valueOf(zip.getValue()), address.getValue()));
-            lon.setValue(userLocation.getLng());
-            lat.setValue(userLocation.getLat());
-
-            map.getView().setCenter(Coordinate.fromLonLat(userLocation.getLng(), userLocation.getLat()));
-            map.getFeatureLayer().removeFeature(marker);
-            createMarker(userLocation.getLng(), userLocation.getLat());
-
-
-        });
-
-        VerticalLayout addressVLayout = new VerticalLayout(addressLayout, getAddress);
+        VerticalLayout addressVLayout = new VerticalLayout(addressLayout, buttonLayout());
 
 
         lon = new NumberField("Längengrad Zuhause");
@@ -153,21 +136,12 @@ public class Settings extends FormLayout {
                 profilePictureUrl,
                 fullNameLayout, roleLayout,
                 addressVLayout, locationLayout,
-                configureMap(), buttonLayout()
+                configureMap()
         );
 
     }
 
     private void updateUser() {
-
-        Notification.show("Values: " +
-                lon.getValue() + " \n" +
-                lat.getValue() + " \n" +
-                firstName.getValue() + " " + lastName.getValue() + " \n" +
-                username.getValue() + " \n" +
-                profilePictureUrl.getValue()
-        );
-
 
         user.setHomeLon(lon.getValue());
         user.setHomeLat(lat.getValue());
@@ -176,28 +150,46 @@ public class Settings extends FormLayout {
         user.setProfilePictureUrl(profilePictureUrl.getValue());
 
         userService.update(user);
+
+        Notification.show("Benutzerdaten gespeichert!");
+
     }
 
     private Component buttonLayout() {
 
-        save = new Button("speichern");
-        save.addClickListener(e -> {
-            Notification.show("Benutzerdaten gespeichert!");
-            updateUser();
+        getAddress = new Button("Lon/Lat aktualisieren");
+        getAddress.addClickListener(e -> {
+            if (Objects.equals(zip.getValue(), "") || Objects.equals(address.getValue(), "")) {
+                Notification.show("Bitte geben sie eine gültige Postleitzahl und Adresse ein!");
+            } else {
+                userLocation = distanceService.getLocation(String.join("+", String.valueOf(zip.getValue()), address.getValue()));
+                lon.setValue(userLocation.getLng());
+                lat.setValue(userLocation.getLat());
+
+                map.getView().setCenter(Coordinate.fromLonLat(userLocation.getLng(), userLocation.getLat()));
+                map.getFeatureLayer().removeFeature(marker);
+                createMarker(userLocation.getLng(), userLocation.getLat());
+                zip.setValue("");
+                address.setValue("");
+            }
         });
+
+        save = new Button("Daten aktualisieren");
+        save.addClickListener(e -> updateUser());
 
         save.addClassNames("bg-primary");
 
-        reset = new Button("zurücksetzen");
+        reset = new Button("Daten zurücksetzen");
         reset.addClickListener(e -> {
+            resetForm();
             Notification.show("Benutzerdaten zurückgesetzt!");
-            configureLayout();
         });
 
-        reset.addClassNames("bg-primary-50");
+        reset.addClassNames("bg-error-50");
 
-        HorizontalLayout layout = new HorizontalLayout(save, reset);
-        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.AROUND);
+        HorizontalLayout layout = new HorizontalLayout(getAddress, save, reset);
+        layout.setWidth("90%");
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
 
         return layout;
     }
@@ -205,12 +197,12 @@ public class Settings extends FormLayout {
     private VerticalLayout verticalLayoutText(TextField top, String titleTop, String valueTop, boolean readOnlyTop,
                                               TextField bottom, String titleBottom, String valueBottom, boolean readOnlyBottom) {
 
-        top = new TextField(titleTop);
+        top.setLabel(titleTop);
         top.setReadOnly(readOnlyTop);
         top.setValue(valueTop);
         top.setWidth("90%");
 
-        bottom = new TextField(titleBottom);
+        bottom.setLabel(titleBottom);
         bottom.setReadOnly(readOnlyBottom);
         bottom.setValue(valueBottom);
         bottom.setWidth("90%");
@@ -221,11 +213,29 @@ public class Settings extends FormLayout {
         return layout;
     }
 
+    private void resetForm() {
+
+        String[] fullName = user.getName().split(" ");
+
+        firstName.setValue(fullName[0]);
+        lastName.setValue(fullName[1]);
+        profilePictureUrl.setValue(user.getProfilePictureUrl());
+        username.setValue(user.getUsername());
+        zip.setValue("");
+        address.setValue("");
+        lon.setValue(user.getHomeLon());
+        lat.setValue(user.getHomeLat());
+        map.getFeatureLayer().removeFeature(marker);
+        createMarker(user.getHomeLon(), user.getHomeLat());
+        map.getView().setCenter(Coordinate.fromLonLat(user.getHomeLon(), user.getHomeLat()));
+
+    }
+
     private Map configureMap() {
 
         map.getElement().setAttribute("theme", "borderless");
         map.getView().setCenter(centerCoordinates);
-        map.getView().setZoom(8);
+        map.getView().setZoom(15);
         createMarker(user.getHomeLon(), user.getHomeLat());
 
         return map;
@@ -234,9 +244,14 @@ public class Settings extends FormLayout {
     private void createMarker(Double lon, Double lat) {
 
         Coordinate coordinates = Coordinate.fromLonLat(lon, lat);
-        marker = new MarkerFeature(coordinates, createMapIcon());
-        map.getFeatureLayer().addFeature(marker);
-
+        MarkerFeature newMarker = new MarkerFeature(coordinates, createMapIcon());
+        if (marker == null ||
+                coordinates.getX() != marker.getCoordinates().getX() &&
+                        coordinates.getY() != marker.getCoordinates().getY()
+        ) {
+            marker = newMarker;
+            map.getFeatureLayer().addFeature(marker);
+        }
     }
 
     private Icon createMapIcon() {
