@@ -1,6 +1,9 @@
 package com.application.views.components;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.entity.User;
+import com.application.data.service.RatingService;
+import com.application.security.AuthenticatedUser;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
@@ -11,11 +14,18 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+import java.util.Optional;
+
 public class SkiResortListViewCard extends ListItem {
 
-    Integer filter_rating = 98;
+    RatingService ratingService;
+    User user;
 
-    public SkiResortListViewCard(SkiResort skiResort) {
+    public SkiResortListViewCard(SkiResort skiResort, AuthenticatedUser authenticatedUser, RatingService ratingService) {
+        this.ratingService = ratingService;
+        Optional<User> maybeUser = authenticatedUser.get();
+        maybeUser.ifPresent(value -> user = value);
+
         addClassNames("bg-contrast-10", "flex", "flex-col", "items-start", "p-s", "rounded-l");
 
         // Picture Settings
@@ -36,12 +46,11 @@ public class SkiResortListViewCard extends ListItem {
 
     }
 
-
     private Component createHeader(SkiResort skiResort) {
 
         Avatar avatar = new Avatar("fr");
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
-        avatar.setAbbreviation(filter_rating + "%");
+        avatar.setAbbreviation((int) ratingService.getFrontend(user, skiResort).getRating() + "%");
         avatar.setColorIndex(3);
         avatar.getStyle().set("font-weight", "700");
 
@@ -71,7 +80,7 @@ public class SkiResortListViewCard extends ListItem {
     private Component createInformationContent(SkiResort skiResort) {
 
         Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeatherCurrentTemperature(), " °C", "", ""),
-                IconText(VaadinIcon.CAR, "40", " min", "", ""));
+                IconText(VaadinIcon.CAR, ratingService.getFrontend(user, skiResort).getDurationStr(), " min", "", ""));
         Component snowLayout = horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnowDepthMin(), " - ", skiResort.getSnowDepthMax(), " cm"),
                 IconText(VaadinIcon.TRENDING_UP, skiResort.getAmountFreshSnow(), " cm", "", ""));
 
