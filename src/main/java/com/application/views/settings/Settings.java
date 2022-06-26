@@ -71,7 +71,12 @@ public class Settings extends FormLayout {
 
         setSizeFull();
         addClassNames("pb-l");
+        setResponsiveSteps(
+                new ResponsiveStep("0", 1),
+                new ResponsiveStep("1000", 2)
+        );
 
+        configureMap();
         configureLayout();
 
     }
@@ -90,6 +95,7 @@ public class Settings extends FormLayout {
         avatarTitle.setWidthFull();
         setColspan(avatarTitle, 2);
 
+
         String[] fullName = user.getName().split(" ");
         VerticalLayout fullNameLayout = verticalLayoutText(firstName, "Vorname", fullName[0], false,
                 lastName, "Nachname", fullName[1], false);
@@ -101,42 +107,42 @@ public class Settings extends FormLayout {
 
         profilePictureUrl = new TextField("Profilbild-Url");
         profilePictureUrl.setValue(user.getProfilePictureUrl());
-        profilePictureUrl.setMaxWidth("80%");
-        profilePictureUrl.addClassNames("pl-l");
+        profilePictureUrl.setWidthFull();
+        profilePictureUrl.addClassNames("pl-m");
+
+        HorizontalLayout urlLayout = new HorizontalLayout(profilePictureUrl);
+        urlLayout.setWidthFull();
+        setColspan(urlLayout, 2);
 
 
-        zip = new TextField("Postleitzahl");
-        zip.setPlaceholder("6020");
-        zip.setWidth("50%");
+        zip.setPlaceholder("Bsp.: 6020");
+        address.setPlaceholder("Bsp.: Teststrasse 69");
 
-        address = new TextField("Adresse");
-        address.setPlaceholder("Teststrasse 69");
-        address.setWidth("50%");
-        HorizontalLayout addressLayout = new HorizontalLayout(zip, address);
-        addressLayout.setWidth("90%");
-        addressLayout.addClassNames("pb-s");
-
-        VerticalLayout addressVLayout = new VerticalLayout(addressLayout, buttonLayout());
+        VerticalLayout addressLayout = verticalLayoutText(zip, "Postleitzahl", "", false,
+                address, "Adresse", "", false);
 
 
         lon = new NumberField("Längengrad Zuhause");
         lon.setValue(user.getHomeLon());
-        lon.setWidth("90%");
+        lon.setWidthFull();
+        lon.addClassNames("pt-0");
 
         lat = new NumberField("Breitengrad Zuhause");
+        lat.setWidthFull();
         lat.setValue(user.getHomeLat());
-        lat.setWidth("90%");
+        lat.addClassNames("pb-0");
 
         VerticalLayout locationLayout = new VerticalLayout(lon, lat);
         locationLayout.setSpacing(false);
+        locationLayout.addClassNames("px-0", "px-0", "pt-0");
 
+        VerticalLayout left = new VerticalLayout(fullNameLayout, roleLayout, configureDataButtonLayout());
+        VerticalLayout right = new VerticalLayout(addressLayout, locationLayout, configureAddressButtonLayout(), configureMapLayout());
 
         add(
                 avatarTitle,
-                profilePictureUrl,
-                fullNameLayout, roleLayout,
-                addressVLayout, locationLayout,
-                configureMap()
+                urlLayout,
+                left, right
         );
 
     }
@@ -155,9 +161,30 @@ public class Settings extends FormLayout {
 
     }
 
-    private Component buttonLayout() {
+    private Component configureDataButtonLayout() {
 
-        getAddress = new Button("Lon/Lat aktualisieren");
+        save = new Button("Daten aktualisieren");
+        save.addClickListener(e -> updateUser());
+
+        save.addClassNames("bg-primary");
+
+        reset = new Button("Daten zurücksetzen");
+        reset.addClickListener(e -> {
+            resetForm();
+            Notification.show("Benutzerdaten zurückgesetzt!");
+        });
+
+        reset.addClassNames("bg-error-50");
+
+        HorizontalLayout layout = new HorizontalLayout(save, reset);
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+        layout.setWidthFull();
+
+        return layout;
+    }
+
+    private Component configureAddressButtonLayout() {
+        getAddress = new Button("Adresse aktualisieren");
         getAddress.addClickListener(e -> {
             if (Objects.equals(zip.getValue(), "") || Objects.equals(address.getValue(), "")) {
                 Notification.show("Bitte geben sie eine gültige Postleitzahl und Adresse ein!");
@@ -174,21 +201,8 @@ public class Settings extends FormLayout {
             }
         });
 
-        save = new Button("Daten aktualisieren");
-        save.addClickListener(e -> updateUser());
-
-        save.addClassNames("bg-primary");
-
-        reset = new Button("Daten zurücksetzen");
-        reset.addClickListener(e -> {
-            resetForm();
-            Notification.show("Benutzerdaten zurückgesetzt!");
-        });
-
-        reset.addClassNames("bg-error-50");
-
-        HorizontalLayout layout = new HorizontalLayout(getAddress, save, reset);
-        layout.setWidth("90%");
+        HorizontalLayout layout = new HorizontalLayout(getAddress);
+        layout.setWidthFull();
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
 
         return layout;
@@ -200,15 +214,19 @@ public class Settings extends FormLayout {
         top.setLabel(titleTop);
         top.setReadOnly(readOnlyTop);
         top.setValue(valueTop);
-        top.setWidth("90%");
+        top.setWidthFull();
+        top.addClassNames("pt-0");
 
         bottom.setLabel(titleBottom);
         bottom.setReadOnly(readOnlyBottom);
         bottom.setValue(valueBottom);
-        bottom.setWidth("90%");
+        bottom.setWidthFull();
+        bottom.addClassNames("pb-0");
 
         VerticalLayout layout = new VerticalLayout(top, bottom);
         layout.setSpacing(false);
+        layout.addClassNames("px-0", "pt-0");
+        layout.setWidthFull();
 
         return layout;
     }
@@ -231,14 +249,21 @@ public class Settings extends FormLayout {
 
     }
 
-    private Map configureMap() {
+    private Component configureMapLayout() {
+        VerticalLayout layout = new VerticalLayout(map);
+        layout.setWidthFull();
+        layout.addClassNames("px-0");
+
+        return layout;
+    }
+
+    private void configureMap() {
 
         map.getElement().setAttribute("theme", "borderless");
         map.getView().setCenter(centerCoordinates);
         map.getView().setZoom(15);
         createMarker(user.getHomeLon(), user.getHomeLat());
 
-        return map;
     }
 
     private void createMarker(Double lon, Double lat) {
