@@ -38,11 +38,8 @@ public class RatingServiceTest {
         this.logger = LoggerFactory.getLogger(getClass());
     }
 
-
     @Test
     public void CreateAndGet() {
-
-
         this.logger.info("start ...");
 
         User testUser = new User();
@@ -115,12 +112,11 @@ public class RatingServiceTest {
             Assert.assertNotEquals(testRating, null);
         }
 
+        // Demonstration of reading multiple ratings for a single ski-resort
         Optional<SkiResort> testResort = skiResortservice.get("MyTest");
         if (testResort.isPresent()) {
-            List<Rating> ratingList = testResort.get().getRatings();
-
-            for (int i = 0; i < ratingList.size(); i++) {
-                this.logger.info("" + ratingList.get(i).getRating());
+            for (int i = 0; i < testResort.get().getRatings().size(); i++) {
+                this.logger.info("" + testResort.get().getRatings().get(i).getRating());
             }
         }
 
