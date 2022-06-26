@@ -353,4 +353,12 @@ public class SkiResort extends AbstractEntity {
     public void setURLImageSlope(String URLImageSlope) {
         this.URLImageSlope = URLImageSlope;
     }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }
