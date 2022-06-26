@@ -1,7 +1,10 @@
 package com.application.views.imagelist;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.service.RatingService;
 import com.application.data.service.SkiResortService;
+import com.application.data.service.UserService;
+import com.application.security.AuthenticatedUser;
 import com.application.views.MainLayout;
 import com.application.views.components.CustomDialog;
 import com.application.views.components.SkiResortFilterForm;
@@ -11,7 +14,6 @@ import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Main;
 import com.vaadin.flow.component.html.OrderedList;
@@ -23,6 +25,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Optional;
 
 @PageTitle("Skigebiete")
 @Route(value = "", layout = MainLayout.class)
@@ -33,17 +36,25 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     TextField filterText = new TextField();
     CustomDialog filterDialog;
     CustomDialog.Position dialogPosition = new CustomDialog.Position("120px", "50px");
-
     private OrderedList imageContainer = new OrderedList();
+    SkiResortFilterForm filterForm;
+    SkiResortService skiResortService;
+    UserService userService;
+    RatingService ratingService;
+    private AuthenticatedUser authenticatedUser;
+    Optional<UI> ui = getUI();
 
-    SkiResortService service;
+    public SkiResortListView(SkiResortService service, AuthenticatedUser authenticatedUser, UserService userService, RatingService ratingService) {
+        this.skiResortService = service;
+        this.userService = userService;
+        this.authenticatedUser = authenticatedUser;
+        this.ratingService = ratingService;
 
-    public SkiResortListView(SkiResortService service) {
-        this.service = service;
-        addClassNames("image-list-view", "mx-auto", "pb-l", "px-l", "max-w-screen-2xl");
+        addClassNames("image-list-view", "mx-auto", "pb-l", "pr-l");
         addClassName("ski-resort-list-view");
 
-        setSizeFull();
+        setHeightFull();
+        setWidth("90%");
 
         configureImageContainer();
         configureFilterDialog();
@@ -52,7 +63,6 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
                 getToolbar(),
                 imageContainer
         );
-
     }
 
     private Component getToolbar() {
@@ -65,9 +75,9 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         filterButton.addClickListener(e -> {
             if (filterDialog.isOpened()) {
                 closeFilter();
+                filterForm.setWeightValues();
             } else {
                 openFilter();
-
             }
         });
 
@@ -79,12 +89,12 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         return toolbar;
     }
 
-    private void setImageList() {
+    public void setImageList() {
 
         imageContainer.removeAll();
 
-        for (SkiResort skiResort : service.findAllSkiResort(filterText.getValue())) {
-            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort);
+        for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue())) {
+            SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort, authenticatedUser, ratingService);
             RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
             tempVar.addClickListener(e -> navigateToDetailView(skiResort));
             imageContainer.add(tempVar);
@@ -114,12 +124,13 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
         H2 headline = new H2("Ihre Präferenzen");
         headline.getStyle().set("margin", "var(--lumo-space-m) 0")
                 .set("font-size", "1.5em").set("font-weight", "bold");
-        headline.addClassNames("text-center");
+        headline.addClassNames("text-center", "my-0", "py-0");
 
-        SkiResortFilterForm filterForm = new SkiResortFilterForm(dialog);
+        filterForm = new SkiResortFilterForm(dialog, authenticatedUser, userService, ratingService, this);
 
         VerticalLayout dialogLayout = new VerticalLayout(headline, filterForm);
         dialogLayout.setPadding(false);
+        dialogLayout.setSpacing(false);
         dialogLayout.setAlignItems(FlexComponent.Alignment.STRETCH);
         dialogLayout.getStyle().set("width", "300px").set("max-width", "100%");
 
