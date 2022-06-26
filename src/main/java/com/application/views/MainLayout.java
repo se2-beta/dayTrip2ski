@@ -7,6 +7,7 @@ import com.application.views.freeride.FreerideView;
 import com.application.views.imagelist.SkiResortListView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
+import com.application.views.settings.Settings;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -16,23 +17,17 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AccessAnnotationChecker;
 
 import java.util.Optional;
 
-/**
- * The main view is a top-level placeholder for other views.
- */
-
 public class MainLayout extends AppLayout {
 
-    /**
-     * A simple navigation item component, based on ListItem element.
-     */
     public static class MenuItemInfo extends ListItem {
-
         private final Class<? extends Component> view;
 
         public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
@@ -42,9 +37,13 @@ public class MainLayout extends AppLayout {
             link.setRoute(view);
 
             Span text = new Span(menuTitle);
-            text.addClassNames("menu-item-text");
+            text.addClassNames("text-l", "pl-s");
 
-            link.add(new LineAwesomeIcon(iconClass), text);
+            HorizontalLayout iconText = new HorizontalLayout(new LineAwesomeIcon(iconClass), text);
+            iconText.setAlignItems(FlexComponent.Alignment.CENTER);
+            iconText.setSpacing(false);
+
+            link.add(iconText);
             add(link);
         }
 
@@ -52,10 +51,6 @@ public class MainLayout extends AppLayout {
             return view;
         }
 
-        /**
-         * Simple wrapper to create icons using LineAwesome iconset. See
-         * https://icons8.com/line-awesome
-         */
         @NpmPackage(value = "line-awesome", version = "1.3.0")
         public static class LineAwesomeIcon extends Span {
             public LineAwesomeIcon(String lineawesomeClassnames) {
@@ -65,7 +60,6 @@ public class MainLayout extends AppLayout {
                 }
             }
         }
-
     }
 
     private H1 viewTitle;
@@ -114,10 +108,10 @@ public class MainLayout extends AppLayout {
 
 
     private Component createDrawerContent() {
-        H2 appName = new H2("daytrip2Ski");
-        appName.addClassNames("app-name");
+        Image appLogo = new Image("images/daytrip2Ski_logo_transp_white_text.png", "logo");
+        appLogo.addClassNames("pb-m");
 
-        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
+        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appLogo,
                 createNavigation(), createFooter());
         section.addClassNames("drawer-section");
         return section;
@@ -152,7 +146,7 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Skigebiete", "la la-skiing-nordic", SkiResortListView.class), //
-                new MenuItemInfo("Map", "la la-map", MapView.class), //
+                new MenuItemInfo("Karte", "la la-map", MapView.class), //
                 new MenuItemInfo("Admin-Bereich", "la la-tasks", MasterDetailView.class), //
                 new MenuItemInfo("About", "la la-question", AboutView.class), //
                 new MenuItemInfo("Debug", "la la-bug", DebugView.class), //
@@ -172,6 +166,7 @@ public class MainLayout extends AppLayout {
 
             ContextMenu userMenu = new ContextMenu(avatar);
             userMenu.setOpenOnClick(true);
+            userMenu.addItem("Settings", e -> UI.getCurrent().navigate(Settings.class));
             userMenu.addItem("Logout", e -> authenticatedUser.logout());
 
             Span name = new Span(user.getName());
