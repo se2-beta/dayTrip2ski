@@ -1,11 +1,13 @@
 package com.application.data.service;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.entity.User;
 import com.application.data.restpojo.DataDay;
 import com.application.data.restpojo.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,12 +66,15 @@ public class SkiResortService {
         return repository.findAll();
     }
 
-    public List<SkiResort> findAllSkiResort(String filterText) {
+    public List<SkiResort> findAllSkiResort(String filterText, User user) {
+        List<SkiResort> resorts;
         if (filterText == null || filterText.isEmpty()) {
-            return repository.findAll();
+            resorts = repository.findAll();
         } else {
-            return repository.search(filterText);
+            resorts = repository.search(filterText);
         }
+        resorts.sort((o1, o2) -> o2.getRatingByUser(user).compareTo(o1.getRatingByUser(user)));
+        return resorts;
     }
 
     public int count() {

@@ -5,6 +5,7 @@ import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
 import com.application.data.restpojo.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -103,6 +104,6 @@ public class RatingService {
 
     private double calculate(Rating rating, User user, SkiResort skiResort) {
         return user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                user.getWeightSlopeLength() * skiResort.getTotalLength() - user.getWeightTravelTime() * rating.getDurationVal() / 100;
+                user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal() / 100;
     }
 }
