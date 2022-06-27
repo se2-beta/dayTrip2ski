@@ -155,7 +155,6 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Map", "la la-map", MapView.class), //
                 new MenuItemInfo("Admin-Bereich", "la la-tasks", MasterDetailView.class), //
                 new MenuItemInfo("About", "la la-question", AboutView.class), //
-                new MenuItemInfo("Debug", "la la-bug", DebugView.class), //
         };
     }
 
