@@ -45,42 +45,27 @@ public class RatingService {
     public void setDistDur(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
-        if (!optionalRating.isPresent()) {
+        if (optionalRating.isEmpty()) {
             rating = new Rating(user, skiResort);
             repository.save(rating);
         } else {
             rating = optionalRating.get();
         }
-        String olon, olat, dlat, dlon;
-        olon = String.valueOf(user.getHomeLon());
-        olat = String.valueOf(user.getHomeLat());
-        dlat = String.valueOf(skiResort.getPosLat());
-        dlon = String.valueOf(skiResort.getPosLon());
-
-
-        Element element = service.getDistDur(olat, olon, dlat, dlon);
-        rating.setDistanceStr(element.getDistance().getText());
-        rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
-        rating.setDurationStr(element.getDuration().getText());
-        rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
-
+        distanceApiCall(rating, skiResort, user);
         repository.save(rating);
     }
 
-    public double calculateRating(User user, SkiResort skiResort) {
+    public void calculateRating(User user, SkiResort skiResort) {
         Optional<Rating> optionalRating = get(user, skiResort);
         Rating rating;
-        if (!optionalRating.isPresent()) {
+        if (optionalRating.isPresent()) {
+            rating = optionalRating.get();
+        } else {
             rating = new Rating(user, skiResort);
             repository.save(rating);
-        } else {
-            rating = optionalRating.get();
         }
-        double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal();
-        rating.setRating(r);
+        rating.setRating(calculate(rating, user, skiResort));
         repository.save(rating);
-        return r;
     }
 
     public void calculateAllRating() {
@@ -95,21 +80,8 @@ public class RatingService {
         Rating rating;
         if (optionalRating.isEmpty()) {
             rating = new Rating(user, skiResort);
-            String olon, olat, dlat, dlon;
-            olon = String.valueOf(user.getHomeLon());
-            olat = String.valueOf(user.getHomeLat());
-            dlat = String.valueOf(skiResort.getPosLat());
-            dlon = String.valueOf(skiResort.getPosLon());
-
-            Element element = service.getDistDur(olat, olon, dlat, dlon);
-            rating.setDistanceStr(element.getDistance().getText());
-            rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
-            rating.setDurationStr(element.getDuration().getText());
-            rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
-
-            double r = user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                    user.getWeightSlopeLength() * skiResort.getTotalLength() - user.getWeightTravelTime() * rating.getDurationVal() / 100;
-            rating.setRating(r);
+            distanceApiCall(rating, skiResort, user);
+            rating.setRating(calculate(rating, user, skiResort));
             repository.save(rating);
         } else {
             rating = optionalRating.get();
@@ -117,7 +89,22 @@ public class RatingService {
         return rating;
     }
 
-    public void setDistDur(Rating rating) {
+    private void distanceApiCall(Rating rating, SkiResort skiResort, User user) {
+        String olon, olat, dlat, dlon;
+        olon = String.valueOf(user.getHomeLon());
+        olat = String.valueOf(user.getHomeLat());
+        dlat = String.valueOf(skiResort.getPosLat());
+        dlon = String.valueOf(skiResort.getPosLon());
 
+        Element element = service.getDistDur(olat, olon, dlat, dlon);
+        rating.setDistanceStr(element.getDistance().getText());
+        rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
+        rating.setDurationStr(element.getDuration().getText());
+        rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
+    }
+
+    private double calculate(Rating rating, User user, SkiResort skiResort) {
+        return user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
+                user.getWeightSlopeLength() * skiResort.getTotalLength() - user.getWeightTravelTime() * rating.getDurationVal() / 100;
     }
 }
