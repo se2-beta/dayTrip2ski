@@ -103,7 +103,7 @@ public class SkiResort extends AbstractEntity {
     @NotBlank
     private String URLImageSlope;
 
-    @OneToMany(mappedBy="skiResort")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
     public String getName() {
@@ -352,5 +352,17 @@ public class SkiResort extends AbstractEntity {
 
     public void setURLImageSlope(String URLImageSlope) {
         this.URLImageSlope = URLImageSlope;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public int getNumberRatings() {
+        return ratings.size();
     }
 }
