@@ -33,8 +33,8 @@ public class RatingService {
         return null;
     }
 
-    public void setRating(User user, SkiResort skiResort, Double rating, String distanceStr, Double distanceVal, String durationStr, Double durationVal) {
-        Rating ratingObj = new Rating(user, skiResort, rating, distanceStr, distanceVal, durationStr, durationVal);
+    public void setRating(User user, SkiResort skiResort, Double rating, Double distanceVal, Double durationVal) {
+        Rating ratingObj = new Rating(user, skiResort, rating, distanceVal, durationVal);
         repository.save(ratingObj);
     }
 
@@ -97,9 +97,7 @@ public class RatingService {
         dlon = String.valueOf(skiResort.getPosLon());
 
         Element element = service.getDistDur(olat, olon, dlat, dlon);
-        rating.setDistanceStr(element.getDistance().getText());
         rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
-        rating.setDurationStr(element.getDuration().getText());
         rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
     }
 

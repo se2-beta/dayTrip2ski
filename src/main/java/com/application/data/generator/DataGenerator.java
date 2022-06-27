@@ -254,11 +254,14 @@ public class DataGenerator {
             rating = new Rating(admin, skiResort3);
             ratingRepository.save(rating);
             rating = new Rating(admin, skiResort4);
+            rating.setDurationVal(1200d);
             ratingRepository.save(rating);
             rating = new Rating(admin, skiResort5);
+            rating.setDurationVal(14078d);
             ratingRepository.save(rating);
 
             ratingService.calculateAllRating();
+
 
         };
     }
