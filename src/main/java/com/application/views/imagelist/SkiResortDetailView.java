@@ -12,6 +12,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.charts.Chart;
 import com.vaadin.flow.component.charts.model.*;
 import com.vaadin.flow.component.charts.model.style.SolidColor;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
@@ -79,7 +80,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         Component chart = configureUtilizationChart();
 
         HorizontalLayout utilizationLayout = new HorizontalLayout(new Label("Auslastung"), chart);
-        utilizationLayout.setWidth("100%");
+        utilizationLayout.setMaxWidth("100%");
 
 
         VerticalLayout leftLayout = new VerticalLayout(
@@ -143,9 +144,13 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         );
         rightLayout.setSpacing(false);
 
-        HorizontalLayout layout = new HorizontalLayout(leftLayout, rightLayout);
-        layout.setWidth("100%");
-        layout.setSpacing(false);
+        FormLayout layout = new FormLayout(leftLayout, rightLayout);
+        layout.setWidthFull();
+        layout.setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 1),
+                new FormLayout.ResponsiveStep("1000px", 2)
+
+        );
 
         return layout;
     }

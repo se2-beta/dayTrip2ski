@@ -28,29 +28,43 @@ public class SkiResortListViewCard extends ListItem {
 
         addClassNames("bg-contrast-10", "flex", "flex-col", "items-start", "p-s", "rounded-l");
 
-        // Picture Settings
+        add(
+                createImageHeader(skiResort),
+                createContent(skiResort)
+        );
+
+    }
+
+    private Component createImageHeader(SkiResort skiResort) {
+
         Div imageHeader = new Div();
         imageHeader.addClassNames("bg-contrast", "flex items-center", "justify-center", "mb-m", "overflow-hidden",
                 "rounded-m w-full");
         imageHeader.setHeight("160px");
+        imageHeader.getElement().getStyle()
+                .set("background-image", "url(" + skiResort.getURLImageFront() + ")")
+                .set("background-size", "100%")
+                .set("background-position", "center")
+                .set("background-repeat", "no-repeat");
+        imageHeader.addClassNames("relative");
 
-        Image image = new Image();
-        image.setWidth("100%");
-        image.setSrc(skiResort.getURLImageFront());
-        imageHeader.add(image);
+//        Avatar avatar = new Avatar("fr");
+//        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
+//        avatar.setAbbreviation(skiResort.getUserRating().toString());
+//        avatar.setColorIndex(3);
+//        avatar.getStyle().set("font-weight", "700");
+//        avatar.addClassNames("border", "absolute", "mr-s", "mt-s");
+//        avatar.getElement().getStyle().set("top", "0").set("right", "0");
+//        imageHeader.add(avatar);
 
-        add(
-                imageHeader,
-                createContent(skiResort)
-        );
-
+        return imageHeader;
     }
 
     private Component createHeader(SkiResort skiResort) {
 
         Avatar avatar = new Avatar("fr");
         avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
-        avatar.setAbbreviation((int) ratingService.getFrontend(user, skiResort).getRating() + "%");
+        avatar.setAbbreviation(String.valueOf((int)ratingService.getFrontend(user, skiResort).getRating()));
         avatar.setColorIndex(3);
         avatar.getStyle().set("font-weight", "700");
 
@@ -79,14 +93,22 @@ public class SkiResortListViewCard extends ListItem {
 
     private Component createInformationContent(SkiResort skiResort) {
 
+        HorizontalLayout userRatingLayout = new HorizontalLayout();
+        userRatingLayout.add(IconText(VaadinIcon.STAR, skiResort.getUserRating(), "%", " - ", "Zufriedenheit"));
+
+        userRatingLayout.setWidth("100%");
+        userRatingLayout.setHeight("40px");
+        userRatingLayout.setSpacing(false);
+        userRatingLayout.addClassNames("pb-0", "px-s");
+
+
         Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeatherCurrentTemperature(), " °C", "", ""),
                 IconText(VaadinIcon.CAR, ratingService.getFrontend(user, skiResort).getDurationStr(), " min", "", ""));
         Component snowLayout = horizontalComponents(IconText(VaadinIcon.ASTERISK, skiResort.getSnowDepthMin(), " - ", skiResort.getSnowDepthMax(), " cm"),
                 IconText(VaadinIcon.TRENDING_UP, skiResort.getAmountFreshSnow(), " cm", "", ""));
 
         VerticalLayout informationContent = new VerticalLayout();
-        informationContent.add(tempDriveLayout);
-        informationContent.add(snowLayout);
+        informationContent.add(userRatingLayout, tempDriveLayout, snowLayout);
         informationContent.addClassNames("m-0", "p-0");
         informationContent.setSpacing(false);
 
