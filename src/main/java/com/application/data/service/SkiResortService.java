@@ -86,8 +86,14 @@ public class SkiResortService {
         lat = String.valueOf(skiResort.getPosLat());
         lon = String.valueOf(skiResort.getPosLon());
         DataDay data = weatherService.getForecastDataDay(lat, lon);
-        skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
-        skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
+        if(data.getSnowfraction().get(0)>0){
+            skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
+            skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
+        }else{
+            skiResort.setWeatherCurrentSnowfallForecastAmountMM(0);
+            skiResort.setWeatherCurrentSnowfallForecastPercent(0);
+        }
+
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
         skiResort.setWeatherCurrentWindspeed(data.getWindspeedMean().get(0));
         skiResort.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
