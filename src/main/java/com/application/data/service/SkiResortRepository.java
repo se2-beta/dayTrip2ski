@@ -15,4 +15,10 @@ public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
             "where lower(s.name) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(s.region) like lower(concat('%', :searchTerm, '%'))")
     List<SkiResort> search(@Param("searchTerm") String searchTerm);
+
+    Optional<SkiResort> findFirstByOrderByAmountFreshSnowDesc();
+
+    Optional<SkiResort> findFirstByOrderByCurrentUtilizationPercentDesc();
+
+    Optional<SkiResort> findFirstByOrderByTotalLengthDesc();
 }

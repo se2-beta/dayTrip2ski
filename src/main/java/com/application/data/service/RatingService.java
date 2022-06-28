@@ -5,7 +5,6 @@ import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
 import com.application.data.restpojo.Element;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.Optional;
 @Service
 public class RatingService {
     private final RatingRepository repository;
+    private final SkiResortRepository skiResortRepository;
     private final DistanceService service;
 
     @Autowired
-    public RatingService(RatingRepository repository, DistanceService service) {
+    public RatingService(RatingRepository repository, DistanceService service, SkiResortRepository skiResortRepository) {
         this.service = service;
         this.repository = repository;
+        this.skiResortRepository = skiResortRepository;
     }
 
     public Optional<Rating> get(Integer id) {
@@ -103,7 +104,14 @@ public class RatingService {
     }
 
     private double calculate(Rating rating, User user, SkiResort skiResort) {
-        return user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal() / 100;
+        double durmax = repository.findFirstByUserOrderByDurationValDesc(user).get().getDurationVal();
+        double ratingcalc = 1 - (rating.getDurationVal())/(durmax);
+        double all = (user.getWeightFreshSnow() - 1)+(user.getWeightOccupancy() - 1)+(user.getWeightSlopeLength() - 1)+(user.getWeightTravelTime() - 1);
+        return ((user.getWeightFreshSnow() - 1) * skiResort.getAmountFreshSnow()/(double)(skiResortRepository.findFirstByOrderByAmountFreshSnowDesc().get().getAmountFreshSnow())
+                + ((user.getWeightOccupancy() - 1) * skiResort.getCurrentUtilizationPercent())/(double)(skiResortRepository.findFirstByOrderByCurrentUtilizationPercentDesc().get().getCurrentUtilizationPercent())
+                + ((user.getWeightSlopeLength() - 1) * skiResort.getTotalLength())/(skiResortRepository.findFirstByOrderByTotalLengthDesc().get().getTotalLength())
+                + ((user.getWeightTravelTime() - 1) * ratingcalc))
+                *100/all;
+
     }
 }

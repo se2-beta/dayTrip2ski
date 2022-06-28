@@ -52,9 +52,6 @@ public class DataGenerator {
             admin.setRoles(Set.of(Role.USER, Role.ADMIN));
             admin.setHomeLat(47.076668); // Graz
             admin.setHomeLon(15.421371);
-            admin.setWeightFreshSnow(2);
-            admin.setWeightSlopeLength(2);
-            admin.setWeightOccupancy(3);
             userRepository.save(admin);
 
             logger.info("Generating ski resorts");
