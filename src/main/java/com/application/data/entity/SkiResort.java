@@ -365,4 +365,13 @@ public class SkiResort extends AbstractEntity {
     public int getNumberRatings() {
         return ratings.size();
     }
+
+    public Double getRatingByUser(User user){
+        for (Rating r:ratings) {
+            if(r.getUser().equals(user)){
+                return r.getRating();
+            }
+        }
+        return 0d;
+    }
 }

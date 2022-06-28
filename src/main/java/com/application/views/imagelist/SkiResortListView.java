@@ -93,7 +93,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
         imageContainer.removeAll();
 
-        for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue())) {
+        for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue(),authenticatedUser.get().get())) {
             SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort, authenticatedUser, ratingService);
             RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
             tempVar.addClickListener(e -> navigateToDetailView(skiResort));

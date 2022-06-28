@@ -4,31 +4,29 @@ import com.application.data.Role;
 import com.application.data.entity.Rating;
 import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
-import com.application.data.service.*;
+import com.application.data.service.RatingRepository;
+import com.application.data.service.RatingService;
+import com.application.data.service.SkiResortRepository;
+import com.application.data.service.UserRepository;
 import com.vaadin.flow.spring.annotation.SpringComponent;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collections;
+import java.util.Set;
+
 @SpringComponent
 public class DataGenerator {
 
     @Bean
-    public CommandLineRunner loadData(PasswordEncoder passwordEncoder, SampleBookRepository sampleBookRepository,
+    public CommandLineRunner loadData(PasswordEncoder passwordEncoder,
                                       UserRepository userRepository, SkiResortRepository skiResortRepository, RatingRepository ratingRepository, RatingService ratingService) {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
-            if (sampleBookRepository.count() != 0L) {
-                logger.info("Using existing database");
-                return;
-            }
+
             int seed = 123;
 
             logger.info("Generating demo data");
@@ -518,26 +516,28 @@ public class DataGenerator {
 
             logger.info("Done with generating ski resorts");
 
-            Rating rating = new Rating(user,skiResort1);
+            Rating rating = new Rating(user, skiResort1);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort2);
+            rating = new Rating(user, skiResort2);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort3);
+            rating = new Rating(user, skiResort3);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort4);
+            rating = new Rating(user, skiResort4);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort5);
+            rating = new Rating(user, skiResort5);
             ratingRepository.save(rating);
 
-            rating = new Rating(admin,skiResort1);
+            rating = new Rating(admin, skiResort1);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort2);
+            rating = new Rating(admin, skiResort2);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort3);
+            rating = new Rating(admin, skiResort3);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort4);
+            rating = new Rating(admin, skiResort4);
+            rating.setDurationVal(1200d);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort5);
+            rating = new Rating(admin, skiResort5);
+            rating.setDurationVal(14078d);
             ratingRepository.save(rating);
 
             rating = new Rating(user,skiResort6);
@@ -566,6 +566,7 @@ public class DataGenerator {
             ratingRepository.save(rating);
 
             ratingService.calculateAllRating();
+
 
         };
     }
