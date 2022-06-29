@@ -95,8 +95,14 @@ public class RatingService {
         dlon = String.valueOf(skiResort.getPosLon());
 
         Element element = service.getDistDur(olat, olon, dlat, dlon);
-        rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
-        rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
+        if (!(element == null)){
+            rating.setDistanceVal(Double.valueOf(element.getDistance().getValue()));
+            rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
+        }else{
+            rating.setDistanceVal(0d);
+            rating.setDurationVal(0d);
+        }
+
     }
 
     private double getDurationMaxByUser(User user) {

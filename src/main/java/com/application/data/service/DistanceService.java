@@ -54,8 +54,11 @@ public class DistanceService {
                         .build())
                 .retrieve()
                 .bodyToMono(GoogleDistance.class).block();
-        List<Row> rows = gd.getRows();
-        return rows.get(0).getElements().get(0);
+        if (gd != null && gd.getStatus().equals("OK")) {
+            List<Row> rows = gd.getRows();
+            return rows.get(0).getElements().get(0);
+        }
+        return null;
     }
 
     public String getLatLonString(String address) {
@@ -78,7 +81,10 @@ public class DistanceService {
                         .build())
                 .retrieve()
                 .bodyToMono(LatLon.class).block();
-        return ll.getResults().get(0).getGeometry().getLocation();
+        if (ll != null && ll.getStatus().equals("OK")) {
+            return ll.getResults().get(0).getGeometry().getLocation();
+        }
+        return null;
     }
 
 
