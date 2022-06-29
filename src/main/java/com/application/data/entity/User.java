@@ -42,7 +42,7 @@ public class User extends AbstractEntity {
     private Integer weightTravelTime = 1;
     private Integer weightOccupancy = 1;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
     public String getUsername() {
