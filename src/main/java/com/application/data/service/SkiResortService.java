@@ -7,7 +7,6 @@ import com.application.data.restpojo.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +14,11 @@ import java.util.Optional;
 
 @Service
 public class SkiResortService {
+
     private final SkiResortRepository repository;
+
     private final WeatherService weatherService;
+
     private final DistanceService distanceService;
 
     @Autowired
@@ -86,10 +88,10 @@ public class SkiResortService {
         lat = String.valueOf(skiResort.getPosLat());
         lon = String.valueOf(skiResort.getPosLon());
         DataDay data = weatherService.getForecastDataDay(lat, lon);
-        if(data.getSnowfraction().get(0)>0){
+        if (data.getSnowfraction().get(0) > 0) {
             skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
             skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
-        }else{
+        } else {
             skiResort.setWeatherCurrentSnowfallForecastAmountMM(0);
             skiResort.setWeatherCurrentSnowfallForecastPercent(0);
         }
@@ -107,6 +109,5 @@ public class SkiResortService {
         }
 
     }
-
 
 }
