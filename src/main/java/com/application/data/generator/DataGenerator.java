@@ -271,7 +271,7 @@ public class DataGenerator {
             skiResort7.setZip(6561);
             skiResort7.setCity("Ischgl");
             skiResort7.setHeightMin(1460);
-            skiResort7.setHeightMax(2375 );
+            skiResort7.setHeightMax(2375);
             skiResort7.setTotalLength(239.0);
             skiResort7.setRopeways(45);
             skiResort7.setPosLon(10.288217984659248);
@@ -338,7 +338,7 @@ public class DataGenerator {
             skiResort9.setRegion("Niederösterreich");
             skiResort9.setOperator("Bergbahnen Stuhleck GmbH");
             skiResort9.setAddress("Bundesstraße 6c");
-            skiResort9.setZip(8684 );
+            skiResort9.setZip(8684);
             skiResort9.setCity("Spital am Semmering");
             skiResort9.setHeightMin(140);
             skiResort9.setHeightMax(1783);
@@ -513,11 +513,11 @@ public class DataGenerator {
             //nur die ersten zwei ratings müssen erzeugt werden der rest wird automatisch generiert
             Rating rating = new Rating(user, skiResort1);
             ratingRepository.save(rating);
-            ratingService.setDistDur(user,skiResort1);
+            ratingService.setDistDur(user, skiResort1);
 
             rating = new Rating(admin, skiResort1);
             ratingRepository.save(rating);
-            ratingService.setDistDur(admin,skiResort1);
+            ratingService.setDistDur(admin, skiResort1);
 
             /* Wetter update noch auskommentiert,
             entweder alle oder nur Schladminger Planai */
@@ -546,34 +546,33 @@ public class DataGenerator {
             rating.setDurationVal(14078d);
             ratingRepository.save(rating);
 
-            rating = new Rating(user,skiResort6);
+            rating = new Rating(user, skiResort6);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort7);
+            rating = new Rating(user, skiResort7);
             ratingRepository.save(rating);
-            rating = new Rating(user,skiResort8);
-            ratingRepository.save(rating);
-
-            rating = new Rating(admin,skiResort6);
-            ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort7);
-            ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort8);
+            rating = new Rating(user, skiResort8);
             ratingRepository.save(rating);
 
-            rating = new Rating(admin,skiResort9);
+            rating = new Rating(admin, skiResort6);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort10);
+            rating = new Rating(admin, skiResort7);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort11);
+            rating = new Rating(admin, skiResort8);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort12);
+
+            rating = new Rating(admin, skiResort9);
             ratingRepository.save(rating);
-            rating = new Rating(admin,skiResort13);
+            rating = new Rating(admin, skiResort10);
+            ratingRepository.save(rating);
+            rating = new Rating(admin, skiResort11);
+            ratingRepository.save(rating);
+            rating = new Rating(admin, skiResort12);
+            ratingRepository.save(rating);
+            rating = new Rating(admin, skiResort13);
             ratingRepository.save(rating);
 
             ratingService.calculateAllRating();
-
-
         };
     }
+
 }
