@@ -16,9 +16,12 @@ public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
             "or lower(s.region) like lower(concat('%', :searchTerm, '%'))")
     List<SkiResort> search(@Param("searchTerm") String searchTerm);
 
-    Optional<SkiResort> findFirstByOrderByAmountFreshSnowDesc();
+    @Query("SELECT max(amountFreshSnow) FROM SkiResort ")
+    int getMaxAmountFreshSnow();
 
-    Optional<SkiResort> findFirstByOrderByCurrentUtilizationPercentDesc();
+    @Query("SELECT max(currentUtilizationPercent) FROM SkiResort ")
+    int getMaxUtilization();
 
-    Optional<SkiResort> findFirstByOrderByTotalLengthDesc();
+    @Query("SELECT max(totalLength) FROM SkiResort ")
+    int getMaxTotalLength();
 }

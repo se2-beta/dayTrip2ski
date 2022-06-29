@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
     Optional<Rating> findByUserAndSkiResort(User user, SkiResort skiResort);
-    Optional<Rating> findFirstByOrderByDurationValDesc();
     Optional<Rating> findFirstByUserOrderByDurationValDesc(User user);
 }

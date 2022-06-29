@@ -31,10 +31,6 @@ public class RatingService {
         return repository.findByUserAndSkiResort(user, skiResort);
     }
 
-    public Optional<Rating> get(User user) {
-        return null;
-    }
-
     public void setRating(User user, SkiResort skiResort, Double rating, Double distanceVal, Double durationVal) {
         Rating ratingObj = new Rating(user, skiResort, rating, distanceVal, durationVal);
         repository.save(ratingObj);
@@ -103,15 +99,30 @@ public class RatingService {
         rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
     }
 
+    private double getDurationMaxByUser(User user) {
+        Optional<Rating> optionalRating = repository.findFirstByUserOrderByDurationValDesc(user);
+        if (optionalRating.isPresent()) {
+            return optionalRating.get().getDurationVal();
+        } else {
+            return 1;
+        }
+    }
+
     private double calculate(Rating rating, User user, SkiResort skiResort) {
-        double durmax = repository.findFirstByUserOrderByDurationValDesc(user).get().getDurationVal();
-        double ratingcalc = 1 - (rating.getDurationVal())/(durmax);
-        double all = (user.getWeightFreshSnow() - 1)+(user.getWeightOccupancy() - 1)+(user.getWeightSlopeLength() - 1)+(user.getWeightTravelTime() - 1);
-        return ((user.getWeightFreshSnow() - 1) * skiResort.getAmountFreshSnow()/(double)(skiResortRepository.findFirstByOrderByAmountFreshSnowDesc().get().getAmountFreshSnow())
-                + ((user.getWeightOccupancy() - 1) * skiResort.getCurrentUtilizationPercent())/(double)(skiResortRepository.findFirstByOrderByCurrentUtilizationPercentDesc().get().getCurrentUtilizationPercent())
-                + ((user.getWeightSlopeLength() - 1) * skiResort.getTotalLength())/(skiResortRepository.findFirstByOrderByTotalLengthDesc().get().getTotalLength())
-                + ((user.getWeightTravelTime() - 1) * ratingcalc))
-                *100/all;
+        double freshSnowMax = skiResortRepository.getMaxAmountFreshSnow();
+        double utilizationMax = skiResortRepository.getMaxUtilization();
+        double totalLengthMax = skiResortRepository.getMaxTotalLength();
+        double durationMax = getDurationMaxByUser(user);
+
+        double inverseDuration = 1 - (rating.getDurationVal()) / (durationMax);
+
+        double all = (user.getWeightFreshSnow() - 1) + (user.getWeightOccupancy() - 1) + (user.getWeightSlopeLength() - 1) + (user.getWeightTravelTime() - 1);
+
+        return ((user.getWeightFreshSnow() - 1) * skiResort.getAmountFreshSnow() / freshSnowMax
+                + ((user.getWeightOccupancy() - 1) * skiResort.getCurrentUtilizationPercent()) / utilizationMax
+                + ((user.getWeightSlopeLength() - 1) * skiResort.getTotalLength()) / totalLengthMax
+                + ((user.getWeightTravelTime() - 1) * inverseDuration))
+                * 100 / all;
 
     }
 }
