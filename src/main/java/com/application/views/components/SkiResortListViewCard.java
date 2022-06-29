@@ -128,13 +128,14 @@ public class SkiResortListViewCard extends ListItem {
     }
 
 
-    private <T> Component IconText(VaadinIcon icon, T first_text, String suffix_first, T second_text, String suffix_second) {
+    private <T> Component IconText(VaadinIcon icon, T firstText, String suffixFirst, T secondText, String suffixSecond) {
         Icon ic = new Icon(icon);
-        String convert_first = first_text.toString();
-        String convert_second = second_text.toString();
+
+        String convertFirst = firstText == null ? "Invalid" : firstText.toString();
+        String convertSecond = secondText == null ? "Invalid" : secondText.toString();
 
         ic.setSize("15px");
-        Label l1 = new Label(convert_first + suffix_first + convert_second + suffix_second);
+        Label l1 = new Label(convertFirst + suffixFirst + convertSecond + suffixSecond);
         l1.getStyle().set("font-size", "15px");
         HorizontalLayout hl = new HorizontalLayout(ic, l1);
         hl.setAlignItems(FlexComponent.Alignment.CENTER);
