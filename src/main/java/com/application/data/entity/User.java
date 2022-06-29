@@ -37,10 +37,10 @@ public class User extends AbstractEntity {
     @NotNull
     private Double homeLon;
 
-    private Integer weightFreshSnow = 0;
-    private Integer weightSlopeLength = 0;
-    private Integer weightTravelTime = 0;
-    private Integer weightOccupancy = 0;
+    private Integer weightFreshSnow = 1;
+    private Integer weightSlopeLength = 1;
+    private Integer weightTravelTime = 1;
+    private Integer weightOccupancy = 1;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();

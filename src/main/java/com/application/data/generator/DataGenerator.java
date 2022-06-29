@@ -4,10 +4,7 @@ import com.application.data.Role;
 import com.application.data.entity.Rating;
 import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
-import com.application.data.service.RatingRepository;
-import com.application.data.service.RatingService;
-import com.application.data.service.SkiResortRepository;
-import com.application.data.service.UserRepository;
+import com.application.data.service.*;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +20,7 @@ public class DataGenerator {
 
     @Bean
     public CommandLineRunner loadData(PasswordEncoder passwordEncoder,
-                                      UserRepository userRepository, SkiResortRepository skiResortRepository, RatingRepository ratingRepository, RatingService ratingService) {
+                                      UserRepository userRepository, SkiResortRepository skiResortRepository, RatingRepository ratingRepository, RatingService ratingService, SkiResortService skiResortService) {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -52,9 +49,6 @@ public class DataGenerator {
             admin.setRoles(Set.of(Role.USER, Role.ADMIN));
             admin.setHomeLat(47.076668); // Graz
             admin.setHomeLon(15.421371);
-            admin.setWeightFreshSnow(2);
-            admin.setWeightSlopeLength(2);
-            admin.setWeightOccupancy(3);
             userRepository.save(admin);
 
             logger.info("Generating ski resorts");
@@ -516,8 +510,22 @@ public class DataGenerator {
 
             logger.info("Done with generating ski resorts");
 
+            //nur die ersten zwei ratings müssen erzeugt werden der rest wird automatisch generiert
             Rating rating = new Rating(user, skiResort1);
             ratingRepository.save(rating);
+            ratingService.setDistDur(user,skiResort1);
+
+            rating = new Rating(admin, skiResort1);
+            ratingRepository.save(rating);
+            ratingService.setDistDur(admin,skiResort1);
+
+            /* Wetter update noch auskommentiert,
+            entweder alle oder nur Schladminger Planai */
+
+            //skiResortService.updateAllWeather();
+            //skiResortService.updateWeather(skiResort1);
+
+            //ab hier kann später gelöscht werden, nur noch hier um api zu schonen
             rating = new Rating(user, skiResort2);
             ratingRepository.save(rating);
             rating = new Rating(user, skiResort3);
@@ -527,8 +535,6 @@ public class DataGenerator {
             rating = new Rating(user, skiResort5);
             ratingRepository.save(rating);
 
-            rating = new Rating(admin, skiResort1);
-            ratingRepository.save(rating);
             rating = new Rating(admin, skiResort2);
             ratingRepository.save(rating);
             rating = new Rating(admin, skiResort3);

@@ -5,7 +5,6 @@ import com.application.data.entity.SkiResort;
 import com.application.data.entity.User;
 import com.application.data.restpojo.Element;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +13,14 @@ import java.util.Optional;
 @Service
 public class RatingService {
     private final RatingRepository repository;
+    private final SkiResortRepository skiResortRepository;
     private final DistanceService service;
 
     @Autowired
-    public RatingService(RatingRepository repository, DistanceService service) {
+    public RatingService(RatingRepository repository, DistanceService service, SkiResortRepository skiResortRepository) {
         this.service = service;
         this.repository = repository;
+        this.skiResortRepository = skiResortRepository;
     }
 
     public Optional<Rating> get(Integer id) {
@@ -28,10 +29,6 @@ public class RatingService {
 
     public Optional<Rating> get(User user, SkiResort skiResort) {
         return repository.findByUserAndSkiResort(user, skiResort);
-    }
-
-    public Optional<Rating> get(User user) {
-        return null;
     }
 
     public void setRating(User user, SkiResort skiResort, Double rating, Double distanceVal, Double durationVal) {
@@ -102,8 +99,30 @@ public class RatingService {
         rating.setDurationVal(Double.valueOf(element.getDuration().getValue()));
     }
 
+    private double getDurationMaxByUser(User user) {
+        Optional<Rating> optionalRating = repository.findFirstByUserOrderByDurationValDesc(user);
+        if (optionalRating.isPresent()) {
+            return optionalRating.get().getDurationVal();
+        } else {
+            return 1;
+        }
+    }
+
     private double calculate(Rating rating, User user, SkiResort skiResort) {
-        return user.getWeightFreshSnow() * skiResort.getAmountFreshSnow() + user.getWeightOccupancy() * skiResort.getCurrentUtilizationPercent() +
-                user.getWeightSlopeLength() * skiResort.getTotalLength() + user.getWeightTravelTime() * rating.getDurationVal() / 100;
+        double freshSnowMax = skiResortRepository.getMaxAmountFreshSnow();
+        double utilizationMax = skiResortRepository.getMaxUtilization();
+        double totalLengthMax = skiResortRepository.getMaxTotalLength();
+        double durationMax = getDurationMaxByUser(user);
+
+        double inverseDuration = 1 - (rating.getDurationVal()) / (durationMax);
+
+        double all = (user.getWeightFreshSnow() - 1) + (user.getWeightOccupancy() - 1) + (user.getWeightSlopeLength() - 1) + (user.getWeightTravelTime() - 1);
+
+        return ((user.getWeightFreshSnow() - 1) * skiResort.getAmountFreshSnow() / freshSnowMax
+                + ((user.getWeightOccupancy() - 1) * skiResort.getCurrentUtilizationPercent()) / utilizationMax
+                + ((user.getWeightSlopeLength() - 1) * skiResort.getTotalLength()) / totalLengthMax
+                + ((user.getWeightTravelTime() - 1) * inverseDuration))
+                * 100 / all;
+
     }
 }
