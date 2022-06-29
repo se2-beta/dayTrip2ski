@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class User extends AbstractEntity {
 
     @NotBlank
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
 
     @NotBlank
@@ -38,40 +38,52 @@ public class User extends AbstractEntity {
     private Double homeLon;
 
     private Integer weightFreshSnow = 1;
+
     private Integer weightSlopeLength = 1;
+
     private Integer weightTravelTime = 1;
+
     private Integer weightOccupancy = 1;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getHashedPassword() {
         return hashedPassword;
     }
+
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
+
     public Set<Role> getRoles() {
         return roles;
     }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }
+
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
     }
@@ -131,4 +143,5 @@ public class User extends AbstractEntity {
     public void setWeightOccupancy(Integer weightOccupancy) {
         this.weightOccupancy = weightOccupancy;
     }
+
 }
