@@ -17,6 +17,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -33,7 +34,7 @@ import java.util.Optional;
 @RolesAllowed("USER")
 public class SkiResortDetailView extends Main implements HasComponents, HasStyle, BeforeEnterObserver {
 
-    private SkiResortService service;
+    private final SkiResortService service;
 
     private Optional<SkiResort> skiResort;
 
@@ -43,16 +44,19 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         Integer resortId = Integer.valueOf(event.getRouteParameters().get("id").get());
         skiResort = service.get(resortId);
 
-        // Headerimage
         Div skiresortDiv = new Div();
         skiresortDiv.addClassNames("bg-contrast", "flex items-center", "mb-m", "overflow-hidden", "rounded-m w-full");
         skiresortDiv.setMaxHeight("200px");
         Image skiresortImage = new Image();
         skiresortImage.setWidth("100%");
-        skiresortImage.setSrc(skiResort.get().getURLImageFront());
+        skiresortImage.setSrc(skiResort.isPresent()
+                ?
+                skiResort.get().getURLImageFront()
+                :
+                "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png");
+        skiresortImage.setAlt("Skigebiete-Titelbild");
 
         skiresortDiv.add(skiresortImage);
-
 
         setSizeFull();
         getStyle().set("text-align", "center");
@@ -70,8 +74,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
     private Component createContent() {
 
-
-        H4 slopeTitle = new H4("" + skiResort.get().getName()
+        H4 slopeTitle = new H4("" + (skiResort.isPresent() ? skiResort.get().getName() : "Invalid")
                 + " (Talstation: " + skiResort.get().getHeightMin() + "m - Bergstation: " + skiResort.get().getHeightMax() + "m)");
         Image slopeImage = new Image();
         slopeImage.setMaxWidth("100%");
@@ -82,17 +85,14 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         HorizontalLayout utilizationLayout = new HorizontalLayout(new Label("Auslastung"), chart);
         utilizationLayout.setMaxWidth("100%");
 
-
         VerticalLayout leftLayout = new VerticalLayout(
                 slopeTitle,
                 utilizationLayout,
                 slopeImage
         );
 
-
         H4 slopeTitleRight = new H4("Skigebietdetails");
         slopeTitleRight.addClassNames("pl-m", "pb-m");
-
 
         Component adressRegionLayout = horizontalDataView(
                 VerticalDataView("Adresse", VaadinIcon.ROAD, skiResort.get().getZip(), " - ", skiResort.get().getAddress(), ""),
@@ -112,7 +112,6 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         H4 informationTitleRight = new H4("Aktuelle Informationen");
         informationTitleRight.addClassNames("pl-m", "pb-s", "pt-m");
-
 
         Component temperatureSnowHeightLayout = horizontalDataView(
                 VerticalDataView("Aktuelle Temperatur", VaadinIcon.CLOUD, skiResort.get().getWeatherCurrentTemperature(), " °C", "", ""),
@@ -196,7 +195,12 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         }
 
         Button ticket = new Button("Tickets");
-        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", skiResort.get().getURLTicketpage()));
+        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);",
+                skiResort.isPresent()
+                        ?
+                        skiResort.get().getURLTicketpage()
+                        :
+                        Notification.show("Webseite nicht verfügbar!")));
         ticket.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         HorizontalLayout layout = new HorizontalLayout(avalancheLayout, ticket);
@@ -209,27 +213,23 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
     private Component configureUtilizationChart() {
 
-// Create a bullet chart
         Chart chart = new Chart(ChartType.BULLET);
         chart.setHeight("60px");
 
-// Modify the default configuration
         Configuration conf = chart.getConfiguration();
         conf.getChart().setInverted(true);
         conf.getLegend().setEnabled(false);
         conf.getChart().setBackgroundColor(new SolidColor(255, 255, 255, 0));
 
-// Add data
         PlotOptionsBullet options = new PlotOptionsBullet();
         options.setBorderWidth(0);
         options.setColor(SolidColor.BLACK);
         options.getTargetOptions().setWidth("200%");
         DataSeries series = new DataSeries();
-        series.add(new DataSeriesItemBullet(0, skiResort.get().getCurrentUtilizationPercent()));
+        series.add(new DataSeriesItemBullet(0, skiResort.isPresent() ? skiResort.get().getCurrentUtilizationPercent() : 0));
         series.setPlotOptions(options);
         conf.addSeries(series);
 
-// Configure the axes
         YAxis yAxis = conf.getyAxis();
         yAxis.setGridLineWidth(0);
         yAxis.setTitle("");
