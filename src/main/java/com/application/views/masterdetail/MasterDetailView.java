@@ -90,16 +90,16 @@ public class MasterDetailView extends VerticalLayout {
         grid.addColumn(SkiResort::getHeightMin).setHeader("Schneehöhe min");
         grid.addColumn(SkiResort::getHeightMax).setHeader("Schneehöhe max");
         grid.addColumn(SkiResort::getTotalLength).setHeader("Streckenlänge");
-        grid.addColumn(SkiResort::getRopeways).setHeader("Pistenanzahl");
+        grid.addColumn(SkiResort::getRopeWays).setHeader("Pistenanzahl");
         grid.addColumn(SkiResort::getPosLon).setHeader("Breitengrad");
         grid.addColumn(SkiResort::getPosLat).setHeader("Längengrad");
         grid.addColumn(SkiResort::getDateSeasonStart).setHeader("Start-Saison");
         grid.addColumn(SkiResort::getDateSeasonEnd).setHeader("Ende-Saison");
         grid.addColumn(SkiResort::getTimeServiceStart).setHeader("Öffnungszeiten");
         grid.addColumn(SkiResort::getTimeServiceEnd).setHeader("Schließzeiten");
-        grid.addColumn(SkiResort::getURLImageSlope).setHeader("Pistenbild");
-        grid.addColumn(SkiResort::getURLImageFront).setHeader("Titelbild");
-        grid.addColumn(SkiResort::getURLTicketpage).setHeader("Ticketseite");
+        grid.addColumn(SkiResort::getUrlImageSlope).setHeader("Pistenbild");
+        grid.addColumn(SkiResort::getUrlImageFront).setHeader("Titelbild");
+        grid.addColumn(SkiResort::getUrlTicketPage).setHeader("Ticketseite");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         grid.asSingleSelect().addValueChangeListener(e -> editContact(e.getValue()));
     }
