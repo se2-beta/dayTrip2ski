@@ -63,7 +63,7 @@ public class DataGenerator {
             skiResort1.setHeightMin(268);
             skiResort1.setHeightMax(1906);
             skiResort1.setTotalLength(122.7);
-            skiResort1.setRopeways(14);
+            skiResort1.setRopeWays(14);
             skiResort1.setPosLon(13.6785045);
             skiResort1.setPosLat(47.3901116);
             skiResort1.setDateSeasonStart("01.10.2022");
@@ -72,7 +72,7 @@ public class DataGenerator {
             skiResort1.setTimeServiceEnd("16.00");
             skiResort1.setCurrentUtilizationPercent(65);
             skiResort1.setUserRating(90);
-            skiResort1.setWeatherCurrentWindspeed(23.50);
+            skiResort1.setWeatherCurrentWindSpeed(23.50);
             skiResort1.setWeatherCurrentTemperature(25.80);
             skiResort1.setWeatherCurrentSnowfallForecastPercent(70);
             skiResort1.setWeatherCurrentSnowfallForecastAmountMM(20);
@@ -81,10 +81,10 @@ public class DataGenerator {
             skiResort1.setSnowDepthMax(35);
             skiResort1.setAmountFreshSnow(40);
             skiResort1.setDateLastSnowfall("04.06.2022");
-            skiResort1.setURLTicketpage("https://www.planai.at/de/tickets-preise/preise-winter");
+            skiResort1.setUrlTicketPage("https://www.planai.at/de/tickets-preise/preise-winter");
             skiResort1.setAvalancheWarningLevel(2);
-            skiResort1.setURLImageFront("https://urlaubsgeschichten.at/wp-content/uploads/2019/03/schladming-planai-20.jpg");
-            skiResort1.setURLImageSlope("https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg");
+            skiResort1.setUrlImageFront("https://urlaubsgeschichten.at/wp-content/uploads/2019/03/schladming-planai-20.jpg");
+            skiResort1.setUrlImageSlope("https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg");
             skiResortRepository.save(skiResort1);
             logger.info("Resort added: " + skiResort1.getName());
 
@@ -98,7 +98,7 @@ public class DataGenerator {
             skiResort2.setHeightMin(950);
             skiResort2.setHeightMax(1990);
             skiResort2.setTotalLength(120.0);
-            skiResort2.setRopeways(45);
+            skiResort2.setRopeWays(45);
             skiResort2.setPosLon(13.3894209);
             skiResort2.setPosLat(47.3432997);
             skiResort2.setDateSeasonStart("10.12.2022");
@@ -107,7 +107,7 @@ public class DataGenerator {
             skiResort2.setTimeServiceEnd("16.00");
             skiResort2.setCurrentUtilizationPercent(35);
             skiResort2.setUserRating(80);
-            skiResort2.setWeatherCurrentWindspeed(11.50);
+            skiResort2.setWeatherCurrentWindSpeed(11.50);
             skiResort2.setWeatherCurrentTemperature(-4.5);
             skiResort2.setWeatherCurrentSnowfallForecastPercent(0);
             skiResort2.setWeatherCurrentSnowfallForecastAmountMM(0);
@@ -116,10 +116,10 @@ public class DataGenerator {
             skiResort2.setSnowDepthMax(98);
             skiResort2.setAmountFreshSnow(20);
             skiResort2.setDateLastSnowfall("04.06.2022");
-            skiResort2.setURLTicketpage("https://snow-space.skiperformance.com/de/store#/de/buy");
+            skiResort2.setUrlTicketPage("https://snow-space.skiperformance.com/de/store#/de/buy");
             skiResort2.setAvalancheWarningLevel(1);
-            skiResort2.setURLImageFront("https://www.ramses.at/wp-content/uploads/2017/11/ramses_werbeagentur_snowspace_flachau_hoerfunk_02.jpg");
-            skiResort2.setURLImageSlope("https://www.snow-space.com/Bilderpool/Winter/interaktive-Karten/Panorama_SSPS_Saison_2021_22_Legende.jpg");
+            skiResort2.setUrlImageFront("https://www.ramses.at/wp-content/uploads/2017/11/ramses_werbeagentur_snowspace_flachau_hoerfunk_02.jpg");
+            skiResort2.setUrlImageSlope("https://www.snow-space.com/Bilderpool/Winter/interaktive-Karten/Panorama_SSPS_Saison_2021_22_Legende.jpg");
             skiResortRepository.save(skiResort2);
             logger.info("Resort added: " + skiResort2.getName());
 
@@ -133,7 +133,7 @@ public class DataGenerator {
             skiResort3.setHeightMin(840);
             skiResort3.setHeightMax(2096);
             skiResort3.setTotalLength(270.0);
-            skiResort3.setRopeways(70);
+            skiResort3.setRopeWays(70);
             skiResort3.setPosLon(12.641559);
             skiResort3.setPosLat(47.391941);
             skiResort3.setDateSeasonStart("08.10.2022");
@@ -142,7 +142,7 @@ public class DataGenerator {
             skiResort3.setTimeServiceEnd("16.00");
             skiResort3.setCurrentUtilizationPercent(88);
             skiResort3.setUserRating(95);
-            skiResort3.setWeatherCurrentWindspeed(25.36);
+            skiResort3.setWeatherCurrentWindSpeed(25.36);
             skiResort3.setWeatherCurrentTemperature(-10.1);
             skiResort3.setWeatherCurrentSnowfallForecastPercent(100);
             skiResort3.setWeatherCurrentSnowfallForecastAmountMM(150);
@@ -151,10 +151,10 @@ public class DataGenerator {
             skiResort3.setSnowDepthMax(286);
             skiResort3.setAmountFreshSnow(40);
             skiResort3.setDateLastSnowfall("06.06.2022");
-            skiResort3.setURLTicketpage("https://www.saalbach.com/de/winter/skitickets/ticketubersicht");
+            skiResort3.setUrlTicketPage("https://www.saalbach.com/de/winter/skitickets/ticketubersicht");
             skiResort3.setAvalancheWarningLevel(1);
-            skiResort3.setURLImageFront("https://www.saalbach.com/static/img/saalbach-logo.svg");
-            skiResort3.setURLImageSlope("https://www.saalbach.com/de/download__6027784");
+            skiResort3.setUrlImageFront("https://www.saalbach.com/static/img/saalbach-logo.svg");
+            skiResort3.setUrlImageSlope("https://www.saalbach.com/de/download__6027784");
             skiResortRepository.save(skiResort3);
             logger.info("Resort added: " + skiResort3.getName());
 
@@ -168,7 +168,7 @@ public class DataGenerator {
             skiResort4.setHeightMin(870);
             skiResort4.setHeightMax(1376);
             skiResort4.setTotalLength(20.0);
-            skiResort4.setRopeways(7);
+            skiResort4.setRopeWays(7);
             skiResort4.setPosLon(11.413878652485634);
             skiResort4.setPosLat(47.229466906215436);
             skiResort4.setDateSeasonStart("18.12.2022");
@@ -177,7 +177,7 @@ public class DataGenerator {
             skiResort4.setTimeServiceEnd("16.00");
             skiResort4.setCurrentUtilizationPercent(63);
             skiResort4.setUserRating(91);
-            skiResort4.setWeatherCurrentWindspeed(10.46);
+            skiResort4.setWeatherCurrentWindSpeed(10.46);
             skiResort4.setWeatherCurrentTemperature(-3.1);
             skiResort4.setWeatherCurrentSnowfallForecastPercent(20);
             skiResort4.setWeatherCurrentSnowfallForecastAmountMM(24);
@@ -186,10 +186,10 @@ public class DataGenerator {
             skiResort4.setSnowDepthMax(211);
             skiResort4.setAmountFreshSnow(20);
             skiResort4.setDateLastSnowfall("06.06.2022");
-            skiResort4.setURLTicketpage("https://www.patscherkofelbahn.at/de/winter#preise");
+            skiResort4.setUrlTicketPage("https://www.patscherkofelbahn.at/de/winter#preise");
             skiResort4.setAvalancheWarningLevel(4);
-            skiResort4.setURLImageFront("https://www.tyrol.tl/images/cms/main/754x435/B_1568280284.jpg");
-            skiResort4.setURLImageSlope("https://www.patscherkofelbahn.at/de/get-image/984/1/0/Plugin%252FApp%252FWidget%252FPanoramaWinter%252Fassets%252Fimg%252Fmap%252Fmap_lg.png");
+            skiResort4.setUrlImageFront("https://www.tyrol.tl/images/cms/main/754x435/B_1568280284.jpg");
+            skiResort4.setUrlImageSlope("https://www.patscherkofelbahn.at/de/get-image/984/1/0/Plugin%252FApp%252FWidget%252FPanoramaWinter%252Fassets%252Fimg%252Fmap%252Fmap_lg.png");
             skiResortRepository.save(skiResort4);
             logger.info("Resort added: " + skiResort4.getName());
 
@@ -203,7 +203,7 @@ public class DataGenerator {
             skiResort5.setHeightMin(874);
             skiResort5.setHeightMax(2340);
             skiResort5.setTotalLength(40.0);
-            skiResort5.setRopeways(10);
+            skiResort5.setRopeWays(10);
             skiResort5.setPosLon(11.302754852198207);
             skiResort5.setPosLat(47.19589141504654);
             skiResort5.setDateSeasonStart("03.12.2022");
@@ -212,7 +212,7 @@ public class DataGenerator {
             skiResort5.setTimeServiceEnd("16.00");
             skiResort5.setCurrentUtilizationPercent(36);
             skiResort5.setUserRating(92);
-            skiResort5.setWeatherCurrentWindspeed(18.46);
+            skiResort5.setWeatherCurrentWindSpeed(18.46);
             skiResort5.setWeatherCurrentTemperature(-5.9);
             skiResort5.setWeatherCurrentSnowfallForecastPercent(80);
             skiResort5.setWeatherCurrentSnowfallForecastAmountMM(130);
@@ -221,10 +221,10 @@ public class DataGenerator {
             skiResort5.setSnowDepthMax(378);
             skiResort5.setAmountFreshSnow(56);
             skiResort5.setDateLastSnowfall("010.06.2022");
-            skiResort5.setURLTicketpage("https://www.axamer-lizum.at/de/");
+            skiResort5.setUrlTicketPage("https://www.axamer-lizum.at/de/");
             skiResort5.setAvalancheWarningLevel(3);
-            skiResort5.setURLImageFront("https://www.axamer-lizum.at/media/animation/skier-neil-williman-photo-by-tove-kockum-location-axamer-lizum-bearb-neil-williman-zur-freien-verwendung-mit-c-fotogfraf-rider-siehe-jeweiliges-bild.jpg");
-            skiResort5.setURLImageSlope("https://vcdn.bergfex.at/images/resized/93/5cf2fa2aab2aba93_6a1bfd6e98988e25@2x.jpg");
+            skiResort5.setUrlImageFront("https://www.axamer-lizum.at/media/animation/skier-neil-williman-photo-by-tove-kockum-location-axamer-lizum-bearb-neil-williman-zur-freien-verwendung-mit-c-fotogfraf-rider-siehe-jeweiliges-bild.jpg");
+            skiResort5.setUrlImageSlope("https://vcdn.bergfex.at/images/resized/93/5cf2fa2aab2aba93_6a1bfd6e98988e25@2x.jpg");
             skiResortRepository.save(skiResort5);
             logger.info("Resort added: " + skiResort5.getName());
 
@@ -238,7 +238,7 @@ public class DataGenerator {
             skiResort6.setHeightMin(800);
             skiResort6.setHeightMax(2004);
             skiResort6.setTotalLength(188.0);
-            skiResort6.setRopeways(57);
+            skiResort6.setRopeWays(57);
             skiResort6.setPosLon(12.389929033629432);
             skiResort6.setPosLat(47.442899663005285);
             skiResort6.setDateSeasonStart("20.11.2022");
@@ -247,7 +247,7 @@ public class DataGenerator {
             skiResort6.setTimeServiceEnd("16.30");
             skiResort6.setCurrentUtilizationPercent(10);
             skiResort6.setUserRating(99);
-            skiResort6.setWeatherCurrentWindspeed(4.2);
+            skiResort6.setWeatherCurrentWindSpeed(4.2);
             skiResort6.setWeatherCurrentTemperature(23.0);
             skiResort6.setWeatherCurrentSnowfallForecastPercent(10);
             skiResort6.setWeatherCurrentSnowfallForecastAmountMM(10);
@@ -256,10 +256,10 @@ public class DataGenerator {
             skiResort6.setSnowDepthMax(55);
             skiResort6.setAmountFreshSnow(5);
             skiResort6.setDateLastSnowfall("10.04.2022");
-            skiResort6.setURLTicketpage("https://www.kitzski.at/de/tickets-gutscheine/sommer-tarife.html");
+            skiResort6.setUrlTicketPage("https://www.kitzski.at/de/tickets-gutscheine/sommer-tarife.html");
             skiResort6.setAvalancheWarningLevel(1);
-            skiResort6.setURLImageFront("https://www.leadersnet.at/resources/images/2020/11/20/89211/kitzski-kitzski.jpg");
-            skiResort6.setURLImageSlope("https://vcdn.bergfex.at/images/resized/2a/6a8422cf8b9cf02a_cf1cfe7077c6e5a3@2x.jpg");
+            skiResort6.setUrlImageFront("https://www.leadersnet.at/resources/images/2020/11/20/89211/kitzski-kitzski.jpg");
+            skiResort6.setUrlImageSlope("https://vcdn.bergfex.at/images/resized/2a/6a8422cf8b9cf02a_cf1cfe7077c6e5a3@2x.jpg");
             skiResortRepository.save(skiResort6);
             logger.info("Resort added: " + skiResort6.getName());
 
@@ -273,7 +273,7 @@ public class DataGenerator {
             skiResort7.setHeightMin(1460);
             skiResort7.setHeightMax(2375);
             skiResort7.setTotalLength(239.0);
-            skiResort7.setRopeways(45);
+            skiResort7.setRopeWays(45);
             skiResort7.setPosLon(10.288217984659248);
             skiResort7.setPosLat(47.010160772649854);
             skiResort7.setDateSeasonStart("24.11.2022");
@@ -282,7 +282,7 @@ public class DataGenerator {
             skiResort7.setTimeServiceEnd("17:00");
             skiResort7.setCurrentUtilizationPercent(95);
             skiResort7.setUserRating(97);
-            skiResort7.setWeatherCurrentWindspeed(17.34);
+            skiResort7.setWeatherCurrentWindSpeed(17.34);
             skiResort7.setWeatherCurrentTemperature(27.0);
             skiResort7.setWeatherCurrentSnowfallForecastPercent(18);
             skiResort7.setWeatherCurrentSnowfallForecastAmountMM(20);
@@ -291,10 +291,10 @@ public class DataGenerator {
             skiResort7.setSnowDepthMax(75);
             skiResort7.setAmountFreshSnow(0);
             skiResort7.setDateLastSnowfall("04.03.2022");
-            skiResort7.setURLTicketpage("https://www.ischgl.com/de/Active/Active-Winter/Skipasspreise-Betriebszeiten");
+            skiResort7.setUrlTicketPage("https://www.ischgl.com/de/Active/Active-Winter/Skipasspreise-Betriebszeiten");
             skiResort7.setAvalancheWarningLevel(1);
-            skiResort7.setURLImageFront("https://www.ischgl.com/media/ischgl/ssag_bilder/anlagenbilder/f1_velilleckbahn/kuerzi/image-thumb__27348555__hero-slide-small/Kuerzi200122-0692.jpg");
-            skiResort7.setURLImageSlope("https://cdn.snowplaza.com//content/WinterPanos/2500/13871.jpg");
+            skiResort7.setUrlImageFront("https://www.ischgl.com/media/ischgl/ssag_bilder/anlagenbilder/f1_velilleckbahn/kuerzi/image-thumb__27348555__hero-slide-small/Kuerzi200122-0692.jpg");
+            skiResort7.setUrlImageSlope("https://cdn.snowplaza.com//content/WinterPanos/2500/13871.jpg");
             skiResortRepository.save(skiResort7);
             logger.info("Resort added: " + skiResort7.getName());
 
@@ -308,7 +308,7 @@ public class DataGenerator {
             skiResort8.setHeightMin(1200);
             skiResort8.setHeightMax(2820);
             skiResort8.setTotalLength(162.0);
-            skiResort8.setRopeways(39);
+            skiResort8.setRopeWays(39);
             skiResort8.setPosLon(10.607798715340753);
             skiResort8.setPosLat(47.03951606373697);
             skiResort8.setDateSeasonStart("08.12.2022");
@@ -317,7 +317,7 @@ public class DataGenerator {
             skiResort8.setTimeServiceEnd("17:00");
             skiResort8.setCurrentUtilizationPercent(25);
             skiResort8.setUserRating(85);
-            skiResort8.setWeatherCurrentWindspeed(18.50);
+            skiResort8.setWeatherCurrentWindSpeed(18.50);
             skiResort8.setWeatherCurrentTemperature(26.80);
             skiResort8.setWeatherCurrentSnowfallForecastPercent(30);
             skiResort8.setWeatherCurrentSnowfallForecastAmountMM(50);
@@ -326,10 +326,10 @@ public class DataGenerator {
             skiResort8.setSnowDepthMax(120);
             skiResort8.setAmountFreshSnow(10);
             skiResort8.setDateLastSnowfall("25.06.2022");
-            skiResort8.setURLTicketpage("https://www.serfaus-fiss-ladis.at/de/Winterurlaub/Skipasspreise");
+            skiResort8.setUrlTicketPage("https://www.serfaus-fiss-ladis.at/de/Winterurlaub/Skipasspreise");
             skiResort8.setAvalancheWarningLevel(1);
-            skiResort8.setURLImageFront("https://www.serfaus-fiss-ladis.at/01SFL.AT/1Winter/03Skigebiet/Pisten/image-thumb__93173__img-teaser-16by9/Masner%20%28c%29%20%C3%96sterreich%20Werbung%20-%20Peter%20Podpera%20%285%29_klein.jpg");
-            skiResort8.setURLImageSlope("https://vcdn.bergfex.at/images/resized/2f/c172f8040d08622f_afb039f412c9ff4c@2x.jpg");
+            skiResort8.setUrlImageFront("https://www.serfaus-fiss-ladis.at/01SFL.AT/1Winter/03Skigebiet/Pisten/image-thumb__93173__img-teaser-16by9/Masner%20%28c%29%20%C3%96sterreich%20Werbung%20-%20Peter%20Podpera%20%285%29_klein.jpg");
+            skiResort8.setUrlImageSlope("https://vcdn.bergfex.at/images/resized/2f/c172f8040d08622f_afb039f412c9ff4c@2x.jpg");
             skiResortRepository.save(skiResort8);
             logger.info("Resort added: " + skiResort8.getName());
 
@@ -343,7 +343,7 @@ public class DataGenerator {
             skiResort9.setHeightMin(140);
             skiResort9.setHeightMax(1783);
             skiResort9.setTotalLength(24.0);
-            skiResort9.setRopeways(10);
+            skiResort9.setRopeWays(10);
             skiResort9.setPosLon(15.757575);
             skiResort9.setPosLat(47.6146976);
             skiResort9.setDateSeasonStart("08.12.2022");
@@ -352,7 +352,7 @@ public class DataGenerator {
             skiResort9.setTimeServiceEnd("16:00");
             skiResort9.setCurrentUtilizationPercent(85);
             skiResort9.setUserRating(95);
-            skiResort9.setWeatherCurrentWindspeed(0.0);
+            skiResort9.setWeatherCurrentWindSpeed(0.0);
             skiResort9.setWeatherCurrentTemperature(-5.80);
             skiResort9.setWeatherCurrentSnowfallForecastPercent(80);
             skiResort9.setWeatherCurrentSnowfallForecastAmountMM(110);
@@ -361,10 +361,10 @@ public class DataGenerator {
             skiResort9.setSnowDepthMax(234);
             skiResort9.setAmountFreshSnow(58);
             skiResort9.setDateLastSnowfall("27.06.2022");
-            skiResort9.setURLTicketpage("https://www.stuhleck.at/go/online-ticket");
+            skiResort9.setUrlTicketPage("https://www.stuhleck.at/go/online-ticket");
             skiResort9.setAvalancheWarningLevel(3);
-            skiResort9.setURLImageFront("https://image.cardspace.at/image.asp?guid={261FE0AA-13F2-4E28-AAD1-E47B0251957B}&width=0&height=0&cache=1");
-            skiResort9.setURLImageSlope("https://vcdn.bergfex.at/images/resized/26/8db04aecf0ff2126_65c7d5a416a4f072@2x.jpg");
+            skiResort9.setUrlImageFront("https://image.cardspace.at/image.asp?guid={261FE0AA-13F2-4E28-AAD1-E47B0251957B}&width=0&height=0&cache=1");
+            skiResort9.setUrlImageSlope("https://vcdn.bergfex.at/images/resized/26/8db04aecf0ff2126_65c7d5a416a4f072@2x.jpg");
             skiResortRepository.save(skiResort9);
             logger.info("Resort added: " + skiResort9.getName());
 
@@ -378,7 +378,7 @@ public class DataGenerator {
             skiResort10.setHeightMin(236);
             skiResort10.setHeightMax(1360);
             skiResort10.setTotalLength(14.0);
-            skiResort10.setRopeways(5);
+            skiResort10.setRopeWays(5);
             skiResort10.setPosLon(15.8295989);
             skiResort10.setPosLat(47.6315639);
             skiResort10.setDateSeasonStart("08.12.2022");
@@ -387,7 +387,7 @@ public class DataGenerator {
             skiResort10.setTimeServiceEnd("16:00");
             skiResort10.setCurrentUtilizationPercent(98);
             skiResort10.setUserRating(50);
-            skiResort10.setWeatherCurrentWindspeed(10.0);
+            skiResort10.setWeatherCurrentWindSpeed(10.0);
             skiResort10.setWeatherCurrentTemperature(-15.20);
             skiResort10.setWeatherCurrentSnowfallForecastPercent(10);
             skiResort10.setWeatherCurrentSnowfallForecastAmountMM(20);
@@ -396,10 +396,10 @@ public class DataGenerator {
             skiResort10.setSnowDepthMax(105);
             skiResort10.setAmountFreshSnow(1);
             skiResort10.setDateLastSnowfall("23.06.2022");
-            skiResort10.setURLTicketpage("https://semmering.com/content/65/Onlineshop");
+            skiResort10.setUrlTicketPage("https://semmering.com/content/65/Onlineshop");
             skiResort10.setAvalancheWarningLevel(4);
-            skiResort10.setURLImageFront("https://img3.oastatic.com/img2/20839669/max/bergstation-skigebiet-semmering.jpg");
-            skiResort10.setURLImageSlope("https://www.hdsports.at/images/stories/Breitensport/winter/pistenplan-semmering.jpg");
+            skiResort10.setUrlImageFront("https://img3.oastatic.com/img2/20839669/max/bergstation-skigebiet-semmering.jpg");
+            skiResort10.setUrlImageSlope("https://www.hdsports.at/images/stories/Breitensport/winter/pistenplan-semmering.jpg");
             skiResortRepository.save(skiResort10);
             logger.info("Resort added: " + skiResort10.getName());
 
@@ -413,7 +413,7 @@ public class DataGenerator {
             skiResort11.setHeightMin(211);
             skiResort11.setHeightMax(1418);
             skiResort11.setTotalLength(20.0);
-            skiResort11.setRopeways(4);
+            skiResort11.setRopeWays(4);
             skiResort11.setPosLon(14.9609335);
             skiResort11.setPosLat(47.5165353);
             skiResort11.setDateSeasonStart("08.12.2022");
@@ -422,7 +422,7 @@ public class DataGenerator {
             skiResort11.setTimeServiceEnd("16:00");
             skiResort11.setCurrentUtilizationPercent(35);
             skiResort11.setUserRating(60);
-            skiResort11.setWeatherCurrentWindspeed(32.0);
+            skiResort11.setWeatherCurrentWindSpeed(32.0);
             skiResort11.setWeatherCurrentTemperature(-1.20);
             skiResort11.setWeatherCurrentSnowfallForecastPercent(50);
             skiResort11.setWeatherCurrentSnowfallForecastAmountMM(43);
@@ -431,10 +431,10 @@ public class DataGenerator {
             skiResort11.setSnowDepthMax(155);
             skiResort11.setAmountFreshSnow(10);
             skiResort11.setDateLastSnowfall("11.06.2022");
-            skiResort11.setURLTicketpage("https://www.praebichl.at/winter/skitickets/preise/");
+            skiResort11.setUrlTicketPage("https://www.praebichl.at/winter/skitickets/preise/");
             skiResort11.setAvalancheWarningLevel(1);
-            skiResort11.setURLImageFront("https://www.praebichl.at/fileadmin/_processed_/0/b/csm_22_002f6b880f.jpg");
-            skiResort11.setURLImageSlope("https://www.praebichl.at/fileadmin/_processed_/5/7/csm_pistenplan-praebichl_ff11d069ae.jpg");
+            skiResort11.setUrlImageFront("https://www.praebichl.at/fileadmin/_processed_/0/b/csm_22_002f6b880f.jpg");
+            skiResort11.setUrlImageSlope("https://www.praebichl.at/fileadmin/_processed_/5/7/csm_pistenplan-praebichl_ff11d069ae.jpg");
             skiResortRepository.save(skiResort11);
             logger.info("Resort added: " + skiResort11.getName());
 
@@ -448,7 +448,7 @@ public class DataGenerator {
             skiResort12.setHeightMin(429);
             skiResort12.setHeightMax(1530);
             skiResort12.setTotalLength(110.0);
-            skiResort12.setRopeways(30);
+            skiResort12.setRopeWays(30);
             skiResort12.setPosLon(13.2803695);
             skiResort12.setPosLat(46.6110058);
             skiResort12.setDateSeasonStart("08.12.2022");
@@ -457,7 +457,7 @@ public class DataGenerator {
             skiResort12.setTimeServiceEnd("16:00");
             skiResort12.setCurrentUtilizationPercent(50);
             skiResort12.setUserRating(75);
-            skiResort12.setWeatherCurrentWindspeed(12.0);
+            skiResort12.setWeatherCurrentWindSpeed(12.0);
             skiResort12.setWeatherCurrentTemperature(-10.80);
             skiResort12.setWeatherCurrentSnowfallForecastPercent(100);
             skiResort12.setWeatherCurrentSnowfallForecastAmountMM(0);
@@ -466,10 +466,10 @@ public class DataGenerator {
             skiResort12.setSnowDepthMax(95);
             skiResort12.setAmountFreshSnow(0);
             skiResort12.setDateLastSnowfall("10.05.2022");
-            skiResort12.setURLTicketpage("https://www.nassfeld.at/de/Winter-World/Sun-Ski-World/Skigebiet-Nassfeld/Skipasspreise/Ticket-Shop#/erlebnisse");
+            skiResort12.setUrlTicketPage("https://www.nassfeld.at/de/Winter-World/Sun-Ski-World/Skigebiet-Nassfeld/Skipasspreise/Ticket-Shop#/erlebnisse");
             skiResort12.setAvalancheWarningLevel(5);
-            skiResort12.setURLImageFront("https://upload.wikimedia.org/wikipedia/commons/8/81/Nassfeld_Berge.jpg");
-            skiResort12.setURLImageSlope("https://vcdn.bergfex.at/images/resized/7a/bb18ccd307e11a7a_e32d2416acca4b52@2x.jpg");
+            skiResort12.setUrlImageFront("https://upload.wikimedia.org/wikipedia/commons/8/81/Nassfeld_Berge.jpg");
+            skiResort12.setUrlImageSlope("https://vcdn.bergfex.at/images/resized/7a/bb18ccd307e11a7a_e32d2416acca4b52@2x.jpg");
             skiResortRepository.save(skiResort12);
             logger.info("Resort added: " + skiResort12.getName());
 
@@ -483,7 +483,7 @@ public class DataGenerator {
             skiResort13.setHeightMin(127);
             skiResort13.setHeightMax(2205);
             skiResort13.setTotalLength(43.0);
-            skiResort13.setRopeways(15);
+            skiResort13.setRopeWays(15);
             skiResort13.setPosLon(13.8902149);
             skiResort13.setPosLat(46.9414043);
             skiResort13.setDateSeasonStart("08.12.2022");
@@ -492,7 +492,7 @@ public class DataGenerator {
             skiResort13.setTimeServiceEnd("16:00");
             skiResort13.setCurrentUtilizationPercent(25);
             skiResort13.setUserRating(40);
-            skiResort13.setWeatherCurrentWindspeed(22.0);
+            skiResort13.setWeatherCurrentWindSpeed(22.0);
             skiResort13.setWeatherCurrentTemperature(-18.10);
             skiResort13.setWeatherCurrentSnowfallForecastPercent(100);
             skiResort13.setWeatherCurrentSnowfallForecastAmountMM(100);
@@ -501,10 +501,10 @@ public class DataGenerator {
             skiResort13.setSnowDepthMax(295);
             skiResort13.setAmountFreshSnow(150);
             skiResort13.setDateLastSnowfall("16.06.2022");
-            skiResort13.setURLTicketpage("https://www.turracherhoehe.at/de/winter/tarife");
+            skiResort13.setUrlTicketPage("https://www.turracherhoehe.at/de/winter/tarife");
             skiResort13.setAvalancheWarningLevel(1);
-            skiResort13.setURLImageFront("https://www.turracherhoehe.at/uploads/media/1920x600/09/1689-DWP_4375.webp?v=1-0");
-            skiResort13.setURLImageSlope("http://huette.weebly.com/uploads/6/1/2/0/6120782/2182538_orig.jpg");
+            skiResort13.setUrlImageFront("https://www.turracherhoehe.at/uploads/media/1920x600/09/1689-DWP_4375.webp?v=1-0");
+            skiResort13.setUrlImageSlope("http://huette.weebly.com/uploads/6/1/2/0/6120782/2182538_orig.jpg");
             skiResortRepository.save(skiResort13);
             logger.info("Resort added: " + skiResort13.getName());
 
