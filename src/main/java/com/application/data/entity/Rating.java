@@ -4,10 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-//@Table()
 @Table(name = "Rating", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueUserAndSkiResort", columnNames = {"user_id", "skiResort_id"})})
 public class Rating extends AbstractEntity {
+
     @NotNull
     Double rating;
 
@@ -109,4 +109,5 @@ public class Rating extends AbstractEntity {
     public void setSkiResort(SkiResort skiResort) {
         this.skiResort = skiResort;
     }
+
 }

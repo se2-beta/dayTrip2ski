@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class RatingService {
+
     private final RatingRepository repository;
     private final SkiResortRepository skiResortRepository;
     private final DistanceService service;
@@ -132,4 +133,5 @@ public class RatingService {
                 * 100 / all;
 
     }
+
 }

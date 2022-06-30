@@ -14,8 +14,11 @@ import java.util.Optional;
 
 @Service
 public class SkiResortService {
+
     private final SkiResortRepository repository;
+
     private final WeatherService weatherService;
+
     private final DistanceService distanceService;
 
     @Autowired
@@ -106,6 +109,5 @@ public class SkiResortService {
         }
 
     }
-
 
 }

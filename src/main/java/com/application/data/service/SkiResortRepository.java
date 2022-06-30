@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
+
     Optional<SkiResort> findSkiResortByName(String name);
 
     @Query("select s from SkiResort s " +
@@ -24,4 +25,5 @@ public interface SkiResortRepository extends JpaRepository<SkiResort, Integer> {
 
     @Query("SELECT max(totalLength) FROM SkiResort ")
     int getMaxTotalLength();
+
 }
