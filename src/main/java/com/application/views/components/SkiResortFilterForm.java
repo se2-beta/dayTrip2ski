@@ -12,7 +12,6 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.OrderedList;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -40,7 +39,7 @@ public class SkiResortFilterForm extends FormLayout {
             UserService userService,
             RatingService ratingService,
             SkiResortListView skiResortListView
-) {
+    ) {
 
         this.dialog = dialog;
         this.userService = userService;
@@ -49,7 +48,6 @@ public class SkiResortFilterForm extends FormLayout {
 
         Optional<User> maybeUser = authenticatedUser.get();
         maybeUser.ifPresent(value -> user = value);
-
 
         addClassName("skigebieteFilter");
         addClassNames("px-0");
@@ -118,7 +116,6 @@ public class SkiResortFilterForm extends FormLayout {
             ratingService.calculateAllRating();
             dialog.close();
             skiResortListView.setImageList();
-            Notification.show("Präferenzen aktualisiert!");
         });
 
         HorizontalLayout layout = new HorizontalLayout(save, cancel);

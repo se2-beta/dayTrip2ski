@@ -2,7 +2,10 @@ package com.application.views.about;
 
 import com.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -19,7 +22,6 @@ public class AboutView extends VerticalLayout {
         setSizeFull();
         setSpacing(false);
 
-
         H1 aboutTitle = new H1("About");
         aboutTitle.addClassNames("pb-s", "mt-0", "pt-m");
 
@@ -33,9 +35,10 @@ public class AboutView extends VerticalLayout {
         title.setJustifyContentMode(JustifyContentMode.CENTER);
         title.setAlignItems(Alignment.CENTER);
 
-        Label aboutText = new Label("Mithilfe der dayTrip2Ski-App wird es Ihnen ermöglicht, das ideale Skigebiet für ihre Ansprüche zu finden. \n" +
-                "Geben sie hierfür in der Skigebiete-Ansicht einfach ihre Präferenzen an und der ausgeklügelte Algorithmus berechnet ihnen ihr Traum-Skigebiet. " +
-                "Natürlich können Sie auch nach einem Skigebiet sowohl in der Kartenansicht als auch in der Liste suchen.");
+        Label aboutText = new Label(
+                "Mithilfe der dayTrip2Ski-App wird es Ihnen ermöglicht, das ideale Skigebiet für ihre Ansprüche zu finden. \n" +
+                        "Geben sie hierfür in der Skigebiete-Ansicht einfach ihre Präferenzen an und der ausgeklügelte Algorithmus berechnet ihnen ihr Traum-Skigebiet. " +
+                        "Natürlich können Sie auch nach einem Skigebiet sowohl in der Kartenansicht als auch in der Liste suchen.");
         aboutText.setMaxWidth("80%");
 
         HorizontalLayout aboutLayout = new HorizontalLayout(aboutText);
@@ -50,7 +53,6 @@ public class AboutView extends VerticalLayout {
         teamTitle.setWidthFull();
         teamTitle.setJustifyContentMode(JustifyContentMode.CENTER);
         teamTitle.setAlignItems(Alignment.CENTER);
-
 
         VerticalLayout mainLayout = new VerticalLayout();
         mainLayout.setHeightFull();
@@ -85,7 +87,6 @@ public class AboutView extends VerticalLayout {
         img.setWidth("100px");
         img.setHeight("100px");
         img.getElement().getStyle().set("border-radius", "50%").set("object-fit", "cover");
-
 
         H3 name = new H3(fullname);
         name.addClassNames("m-0");

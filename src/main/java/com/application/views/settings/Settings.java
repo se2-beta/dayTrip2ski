@@ -36,25 +36,24 @@ import java.util.Optional;
 @RolesAllowed("USER")
 public class Settings extends FormLayout {
 
-
     User user;
-    private Map map = new Map();
-    private Coordinate centerCoordinates;
+    private final Map map = new Map();
+    private final Coordinate centerCoordinates;
     MarkerFeature marker;
     Location userLocation;
-    DistanceService distanceService;
-    UserService userService;
 
     TextField firstName = new TextField("Vorname");
     TextField lastName = new TextField("Nachname");
     TextField profilePictureUrl = new TextField();
     TextField username = new TextField();
-
     TextField roles = new TextField();
     TextField zip = new TextField();
     TextField address = new TextField();
     NumberField lon;
     NumberField lat;
+
+    DistanceService distanceService;
+    UserService userService;
 
     Button save;
     Button reset;
@@ -95,7 +94,6 @@ public class Settings extends FormLayout {
         avatarTitle.setWidthFull();
         setColspan(avatarTitle, 2);
 
-
         String[] fullName = user.getName().split(" ");
         VerticalLayout fullNameLayout = verticalLayoutText(firstName, "Vorname", fullName[0], false,
                 lastName, "Nachname", fullName[1], false);
@@ -103,7 +101,6 @@ public class Settings extends FormLayout {
         String role = Arrays.toString(user.getRoles().toArray()).replace("[", "").replace("]", "");
         VerticalLayout roleLayout = verticalLayoutText(username, "Benutzername", user.getUsername(), false,
                 roles, "Rollen", role, true);
-
 
         profilePictureUrl = new TextField("Profilbild-Url");
         profilePictureUrl.setValue(user.getProfilePictureUrl());
@@ -114,13 +111,11 @@ public class Settings extends FormLayout {
         urlLayout.setWidthFull();
         setColspan(urlLayout, 2);
 
-
         zip.setPlaceholder("Bsp.: 6020");
         address.setPlaceholder("Bsp.: Teststrasse 69");
 
         VerticalLayout addressLayout = verticalLayoutText(zip, "Postleitzahl", "", false,
                 address, "Adresse", "", false);
-
 
         lon = new NumberField("Längengrad Zuhause");
         lon.setValue(user.getHomeLon());
@@ -184,6 +179,7 @@ public class Settings extends FormLayout {
     }
 
     private Component configureAddressButtonLayout() {
+
         getAddress = new Button("Adresse aktualisieren");
         getAddress.addClickListener(e -> {
             if (Objects.equals(zip.getValue(), "") || Objects.equals(address.getValue(), "")) {
