@@ -49,7 +49,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         skiresortDiv.setMaxHeight("200px");
         Image skiresortImage = new Image();
         skiresortImage.setWidth("100%");
-        skiresortImage.setSrc(skiResort.get().getURLImageFront());
+        skiresortImage.setSrc(skiResort.get().getUrlImageFront());
 
         skiresortDiv.add(skiresortImage);
 
@@ -75,7 +75,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
                 + " (Talstation: " + skiResort.get().getHeightMin() + "m - Bergstation: " + skiResort.get().getHeightMax() + "m)");
         Image slopeImage = new Image();
         slopeImage.setMaxWidth("100%");
-        slopeImage.setSrc(skiResort.get().getURLImageSlope());
+        slopeImage.setSrc(skiResort.get().getUrlImageSlope());
 
         Component chart = configureUtilizationChart();
 
@@ -106,7 +106,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
 
         Component lengthRopewaysLayout = horizontalDataView(
                 VerticalDataView("Gesamte Pistenkilometer", VaadinIcon.FORWARD, skiResort.get().getTotalLength(), " km", "", ""),
-                VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, skiResort.get().getRopeways(), " km", "", "")
+                VerticalDataView("Gesamte Seilbahnkilometer", VaadinIcon.CARET_RIGHT, skiResort.get().getRopeWays(), " km", "", "")
         );
 
 
@@ -120,7 +120,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         );
 
         Component windspeedFreshSnowLayout = horizontalDataView(
-                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeatherCurrentWindspeed(), " m/s", "", ""),
+                VerticalDataView("Windgeschwindigkeit", VaadinIcon.LOCATION_ARROW, skiResort.get().getWeatherCurrentWindSpeed(), " m/s", "", ""),
                 VerticalDataView("Neuschnee heute", VaadinIcon.TRENDING_UP, skiResort.get().getAmountFreshSnow(), " cm", "", "")
         );
 
@@ -196,7 +196,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         }
 
         Button ticket = new Button("Tickets");
-        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", skiResort.get().getURLTicketpage()));
+        ticket.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.open($0);", skiResort.get().getUrlTicketPage()));
         ticket.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
         HorizontalLayout layout = new HorizontalLayout(avalancheLayout, ticket);

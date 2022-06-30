@@ -49,7 +49,7 @@ public class SkiResortService {
                 entity.setWeatherCurrentSnowfallForecastAmountMM(0);
                 entity.setWeatherCurrentSnowfallForecastPercent(0);
                 entity.setWeatherCurrentTemperature(20.0);
-                entity.setWeatherCurrentWindspeed(0.0);
+                entity.setWeatherCurrentWindSpeed(0.0);
                 entity.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
             }
         }
@@ -97,7 +97,7 @@ public class SkiResortService {
         }
 
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
-        skiResort.setWeatherCurrentWindspeed(data.getWindspeedMean().get(0));
+        skiResort.setWeatherCurrentWindSpeed(data.getWindspeedMean().get(0));
         skiResort.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
         repository.save(skiResort);
     }

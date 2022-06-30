@@ -40,7 +40,7 @@ public class SkiResortListViewCard extends ListItem {
                 "rounded-m w-full");
         imageHeader.setHeight("160px");
         imageHeader.getElement().getStyle()
-                .set("background-image", "url(" + skiResort.getURLImageFront() + ")")
+                .set("background-image", "url(" + skiResort.getUrlImageFront() + ")")
                 .set("background-size", "100%")
                 .set("background-position", "center")
                 .set("background-repeat", "no-repeat");

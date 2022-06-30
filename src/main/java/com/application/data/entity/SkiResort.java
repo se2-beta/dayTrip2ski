@@ -39,7 +39,7 @@ public class SkiResort extends AbstractEntity {
     private Double totalLength;
 
     @NotNull
-    private Integer ropeways;
+    private Integer ropeWays;
 
     private Double posLon;
 
@@ -62,7 +62,7 @@ public class SkiResort extends AbstractEntity {
 
     private Integer userRating;
 
-    private Double weatherCurrentWindspeed;
+    private Double weatherCurrentWindSpeed;
 
     private Double weatherCurrentTemperature;
 
@@ -85,16 +85,16 @@ public class SkiResort extends AbstractEntity {
     private String dateLastSnowfall;
 
     @NotBlank
-    private String URLTicketpage;
+    private String UrlTicketPage;
 
     @NotNull
     private Integer avalancheWarningLevel;
 
     @NotBlank
-    private String URLImageFront;
+    private String UrlImageFront;
 
     @NotBlank
-    private String URLImageSlope;
+    private String UrlImageSlope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
@@ -171,12 +171,12 @@ public class SkiResort extends AbstractEntity {
         this.totalLength = totalLength;
     }
 
-    public Integer getRopeways() {
-        return ropeways;
+    public Integer getRopeWays() {
+        return ropeWays;
     }
 
-    public void setRopeways(Integer ropeways) {
-        this.ropeways = ropeways;
+    public void setRopeWays(Integer ropeways) {
+        this.ropeWays = ropeways;
     }
 
     public Double getPosLon() {
@@ -243,12 +243,12 @@ public class SkiResort extends AbstractEntity {
         this.userRating = userRating;
     }
 
-    public Double getWeatherCurrentWindspeed() {
-        return weatherCurrentWindspeed;
+    public Double getWeatherCurrentWindSpeed() {
+        return weatherCurrentWindSpeed;
     }
 
-    public void setWeatherCurrentWindspeed(Double weatherCurrentWindspeed) {
-        this.weatherCurrentWindspeed = weatherCurrentWindspeed;
+    public void setWeatherCurrentWindSpeed(Double weatherCurrentWindspeed) {
+        this.weatherCurrentWindSpeed = weatherCurrentWindspeed;
     }
 
     public Double getWeatherCurrentTemperature() {
@@ -315,12 +315,12 @@ public class SkiResort extends AbstractEntity {
         this.dateLastSnowfall = dateLastSnowfall;
     }
 
-    public String getURLTicketpage() {
-        return URLTicketpage;
+    public String getUrlTicketPage() {
+        return UrlTicketPage;
     }
 
-    public void setURLTicketpage(String URLTicketpage) {
-        this.URLTicketpage = URLTicketpage;
+    public void setUrlTicketPage(String URLTicketpage) {
+        this.UrlTicketPage = URLTicketpage;
     }
 
     public Integer getAvalancheWarningLevel() {
@@ -331,20 +331,20 @@ public class SkiResort extends AbstractEntity {
         this.avalancheWarningLevel = avalancheWarningLevel;
     }
 
-    public String getURLImageFront() {
-        return URLImageFront;
+    public String getUrlImageFront() {
+        return UrlImageFront;
     }
 
-    public void setURLImageFront(String URLImageFront) {
-        this.URLImageFront = URLImageFront;
+    public void setUrlImageFront(String UrlImageFront) {
+        this.UrlImageFront = UrlImageFront;
     }
 
-    public String getURLImageSlope() {
-        return URLImageSlope;
+    public String getUrlImageSlope() {
+        return UrlImageSlope;
     }
 
-    public void setURLImageSlope(String URLImageSlope) {
-        this.URLImageSlope = URLImageSlope;
+    public void setUrlImageSlope(String UrlImageSlope) {
+        this.UrlImageSlope = UrlImageSlope;
     }
 
     public List<Rating> getRatings() {
