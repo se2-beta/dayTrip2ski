@@ -9,7 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "SkiResort")
 public class SkiResort extends AbstractEntity {
-    @Column(unique=true)
+
+    @Column(unique = true)
     @NotBlank
     private String name;
 
@@ -40,10 +41,8 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer ropeways;
 
-    //@NotNull
     private Double posLon;
 
-    //@NotNull
     private Double posLat;
 
     @NotBlank
@@ -61,22 +60,16 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer currentUtilizationPercent;
 
-    //@NotNull
     private Integer userRating;
 
-    //@NotNull
     private Double weatherCurrentWindspeed;
 
-    //@NotNull
     private Double weatherCurrentTemperature;
 
-    //@NotNull
     private Integer weatherCurrentSnowfallForecastPercent;
 
-    //@NotNull
     private Integer weatherCurrentSnowfallForecastAmountMM;
 
-    //@NotBlank
     private String weatherDatetimeLastRead;
 
     @NotNull
@@ -103,7 +96,7 @@ public class SkiResort extends AbstractEntity {
     @NotBlank
     private String URLImageSlope;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
     public String getName() {
@@ -366,12 +359,13 @@ public class SkiResort extends AbstractEntity {
         return ratings.size();
     }
 
-    public Double getRatingByUser(User user){
-        for (Rating r:ratings) {
-            if(r.getUser().equals(user)){
+    public Double getRatingByUser(User user) {
+        for (Rating r : ratings) {
+            if (r.getUser().equals(user)) {
                 return r.getRating();
             }
         }
         return 0d;
     }
+
 }
