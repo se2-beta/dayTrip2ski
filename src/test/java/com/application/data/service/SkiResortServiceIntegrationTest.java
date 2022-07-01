@@ -1,20 +1,24 @@
 package com.application.data.service;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.entity.User;
+import com.application.data.restpojo.Location;
+import com.helger.commons.exception.mock.IMockException;
 import com.vaadin.flow.router.NotFoundException;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,116 +27,6 @@ public class SkiResortServiceIntegrationTest {
     SkiResortService skiResortService;
     @Autowired
     SkiResortRepository skiResortRepository;
-
-    Logger logger;
-
-    public SkiResortServiceIntegrationTest() {
-        this.logger = LoggerFactory.getLogger(getClass());
-    }
-
-    @BeforeAll
-    public void setup() {
-        // no code yet
-    }
-
-    @Test
-    public void get() {
-        this.logger.info("SkiResortServiceTest - Starting Test whether resort exists");
-        Optional<SkiResort> testResort = skiResortService.get("Flachau - Snow Space");
-        //assertTrue(testResort.isPresent());
-        this.logger.info("SkiResortServiceTest - Ending Test whether resort exists");
-    }
-    /*
-    @Test
-    public void update() throws Exception {
-        String original_name = "Flachau - Snow Space";
-        String changed_name = "Flachau - Snow Space [tested]";
-
-//        this.logger.info("SkiResortServiceTest - Starting Test whether resort exists");
-//        Optional<SkiResort> testResort = service.get(original_name);
-//        if (testResort.isPresent()) {
-//            testResort.get().setName(changed_name);
-//            service.update(testResort.get());
-//            Optional<SkiResort> testResort2 = service.get(changed_name);
-//            Assert.assertEquals(changed_name, testResort2.get().getName());
-//        } else {
-//            throw new Exception("Expected Ski-Resort could not be found.");
-//        }
-//        assertTrue(testResort.isPresent());
-//        this.logger.info("SkiResortServiceTest - Ending Test whether resort exists" + testResort.get().getName());
-    */
-
-    /*
-   @Test
-    public void weatherUpdateTest() {
-        SkiResort testsSkiResort = new SkiResort();
-        testsSkiResort.setName("MyTest");
-        testsSkiResort.setPosLat(47.2804);
-        testsSkiResort.setPosLon(11.5058);
-        skiResortRepository.save(testsSkiResort);
-
-        service.updateWeather(testsSkiResort);
-
-        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentSnowfallForecastPercent()));
-        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentTemperature()));
-        this.logger.info(String.valueOf(testsSkiResort.getWeatherCurrentWindspeed()));
-    }
-
-    }*/
-
-/*  @Test
-    public void insertNew() throws Exception{
-        SkiResort skiResort1 = new SkiResort();
-        skiResort1.setName("Schladminger Planai & Hochwurzen");
-        skiResort1.setRegion("Steiermark");
-        skiResort1.setOperator("Planai-Hochwurzen-Bahnen Gesellschaft m.b.H.");
-        skiResort1.setAddress("Coburgstrasse 52");
-        skiResort1.setZip(8970);
-        skiResort1.setCity("Schladming");
-        skiResort1.setHeightMin(268);
-        skiResort1.setHeightMax(1906);
-        skiResort1.setTotalLength(122.7);
-        skiResort1.setRopeWays();(14);
-        skiResort1.setPosLon(13.6785045);
-        skiResort1.setPosLat(47.3901116);
-        skiResort1.setDateSeasonStart("01.10.2022");
-        skiResort1.setDateSeasonEnd("31.03.2023");
-        skiResort1.setTimeServiceStart("09:00");
-        skiResort1.setTimeServiceEnd("16.00");
-        skiResort1.setCurrentUtilizationPercent(65);
-        skiResort1.setUserRating(90);
-        skiResort1.setWeatherCurrentWindspeed(23.50);
-        skiResort1.setWeatherCurrentTemperature(25.80);
-        skiResort1.setWeatherCurrentSnowfallForecastPercent(70);
-        skiResort1.setWeatherCurrentSnowfallForecastAmountMM(20);
-        skiResort1.setWeatherDatetimeLastRead("05.06.2022 16:05:14");
-        skiResort1.setSnowDepthMin(10);
-        skiResort1.setSnowDepthMax(35);
-        skiResort1.setAmountFreshSnow(40);
-        skiResort1.setDateLastSnowfall("04.06.2022");
-        skiResort1.setUrlTicketPage();("https://www.planai.at/de/tickets-preise/preise-winter");
-        skiResort1.setAvalancheWarningLevel(2);
-        skiResort1.setUrlImageFront();("https://urlaubsgeschichten.at/wp-content/uploads/2019/03/schladming-planai-20.jpg");
-        skiResort1.setUrlImageSlope();("https://hikeandbike.de/wp-content/uploads/2014/07/Pistenplan-Planai.jpg");
-        service.update(skiResort1);
-    }
-
-        /*
-    @Before
-    public void setup() {
-        Optional<SkiResort> skiResort1 = Optional.of(new SkiResort());
-        Optional<SkiResort> skiResort2 = Optional.of(new SkiResort());
-
-        String newName1 = "Skiresort1";
-        String newName2 = "Skiresort2";
-
-        skiResort1.get().setName(newName1);
-        skiResort2.get().setName(newName2);
-
-        skiResortRepository.save(skiResort1.get());
-        skiResortRepository.save(skiResort2.get());
-    }
-     */
 
     @Test
     public void getById() {
@@ -147,7 +41,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd = "asdf";
         String timeServiceStart = "asdf";
@@ -171,7 +65,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.get().setHeightMin(heightMin);
         skiResort1.get().setHeightMax(heightMax);
         skiResort1.get().setTotalLength(totalLength);
-        skiResort1.get().setRopeWays(ropeways);
+        skiResort1.get().setRopeWays(ropeWays);
         skiResort1.get().setDateSeasonStart(dateSeasonStart);
         skiResort1.get().setDateSeasonEnd(dateSeasonEnd);
         skiResort1.get().setTimeServiceStart(timeServiceStart);
@@ -198,7 +92,6 @@ public class SkiResortServiceIntegrationTest {
         }
     }
 
-
     @Test
     public void getByName() {
         Optional<SkiResort> skiResort1 = Optional.of(new SkiResort());
@@ -212,7 +105,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd = "asdf";
         String timeServiceStart = "asdf";
@@ -236,7 +129,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.get().setHeightMin(heightMin);
         skiResort1.get().setHeightMax(heightMax);
         skiResort1.get().setTotalLength(totalLength);
-        skiResort1.get().setRopeWays(ropeways);
+        skiResort1.get().setRopeWays(ropeWays);
         skiResort1.get().setDateSeasonStart(dateSeasonStart);
         skiResort1.get().setDateSeasonEnd(dateSeasonEnd);
         skiResort1.get().setTimeServiceStart(timeServiceStart);
@@ -260,7 +153,6 @@ public class SkiResortServiceIntegrationTest {
         }
     }
 
-    //Tested within this class instead of Interface SkiresortRepository
     @Test
     public void findSkiResortByName() {
         Optional<SkiResort> skiResort1 = Optional.of(new SkiResort());
@@ -274,7 +166,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd = "asdf";
         String timeServiceStart = "asdf";
@@ -298,7 +190,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.get().setHeightMin(heightMin);
         skiResort1.get().setHeightMax(heightMax);
         skiResort1.get().setTotalLength(totalLength);
-        skiResort1.get().setRopeWays(ropeways);
+        skiResort1.get().setRopeWays(ropeWays);
         skiResort1.get().setDateSeasonStart(dateSeasonStart);
         skiResort1.get().setDateSeasonEnd(dateSeasonEnd);
         skiResort1.get().setTimeServiceStart(timeServiceStart);
@@ -320,8 +212,6 @@ public class SkiResortServiceIntegrationTest {
         Assert.assertEquals(skiResort1, skiResortService.get(name));
     }
 
-    /*
-    //25.06.22 - throws indexoutofbounds exception when calling update method
     @Test
     public void update() {
         SkiResort skiResort1 = new SkiResort();
@@ -335,7 +225,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd  = "asdf";
         String timeServiceStart  = "asdf";
@@ -345,10 +235,10 @@ public class SkiResortServiceIntegrationTest {
         Integer snowDepthMax  = 1;
         Integer amountFreshSnow = 1;
         String dateLastSnowfall = "asdf";
-        String URLTicketpage = "asdf";
+        String urlTicketPage = "asdf";
         Integer avalancheWarningLevel = 1;
-        String URLImageFront = "asdf";
-        String URLImageSlope = "asdf";
+        String urlImageFront = "asdf";
+        String urlImageSlope = "asdf";
 
         skiResort1.setName(name);
         skiResort1.setRegion(region);
@@ -359,7 +249,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.setHeightMin(heightMin);
         skiResort1.setHeightMax(heightMax);
         skiResort1.setTotalLength(totalLength);
-        skiResort1.setRopeWays();(ropeways);
+        skiResort1.setRopeWays(ropeWays);
         skiResort1.setDateSeasonStart(dateSeasonStart);
         skiResort1.setDateSeasonEnd(dateSeasonEnd);
         skiResort1.setTimeServiceStart(timeServiceStart);
@@ -369,26 +259,89 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.setSnowDepthMax(snowDepthMax);
         skiResort1.setAmountFreshSnow(amountFreshSnow);
         skiResort1.setDateLastSnowfall(dateLastSnowfall);
-        skiResort1.setUrlTicketPage();(URLTicketpage);
+        skiResort1.setUrlTicketPage(urlTicketPage);
         skiResort1.setAvalancheWarningLevel(avalancheWarningLevel);
-        skiResort1.setUrlImageFront();(URLImageFront);
-        skiResort1.setUrlImageSlope();(URLImageSlope);
+        skiResort1.setUrlImageFront(urlImageFront);
+        skiResort1.setUrlImageSlope(urlImageSlope);
 
         skiResortRepository.save(skiResort1);
 
-        String newName = "SledgingResort_New";
+        String newOperator = "Operator_New";
 
-        skiResort1.setName(newName);
+        skiResort1.setOperator(newOperator);
 
         skiResortService.update(skiResort1);
 
-        if(skiResortRepository.findSkiResortByName(newName).isPresent()){
-            Assert.assertEquals(skiResortRepository.findSkiResortByName(newName).get().getName(), newName);
+        if(skiResortRepository.findSkiResortByName(name).isPresent()){
+            Assert.assertEquals(skiResortRepository.findSkiResortByName(name).get().getOperator(), newOperator);
         } else {
-            throw new NotFoundException(newName + " not found");
+            throw new NotFoundException(newOperator + " not found");
         }
     }
-    */
+
+    @Test
+    public void weatherUpdate() {
+        SkiResort skiResort1 = new SkiResort();
+
+        String name = "WeatherResort";
+        String region = "Tirol";
+        String operator = "Fake Gmbh";
+        String address = "Talstraße1";
+        Integer zip = 12345;
+        String city = "Fakecity";
+        Integer heightMin = 0;
+        Integer heightMax = 1000;
+        Double totalLength = 10.00;
+        Integer ropeWays = 10;
+        String dateSeasonStart = "asdf";
+        String dateSeasonEnd  = "asdf";
+        String timeServiceStart  = "asdf";
+        String timeServiceEnd  = "asdf";
+        Integer currentUtilizationPercent = 1;
+        Integer snowDepthMin  = 1;
+        Integer snowDepthMax  = 1;
+        Integer amountFreshSnow = 1;
+        String dateLastSnowfall = "asdf";
+        String urlTicketPage = "asdf";
+        Integer avalancheWarningLevel = 1;
+        String urlImageFront = "asdf";
+        String urlImageSlope = "asdf";
+        Double posLat = 12.0;
+
+        skiResort1.setName(name);
+        skiResort1.setRegion(region);
+        skiResort1.setOperator(operator);
+        skiResort1.setAddress(address);
+        skiResort1.setZip(zip);
+        skiResort1.setCity(city);
+        skiResort1.setHeightMin(heightMin);
+        skiResort1.setHeightMax(heightMax);
+        skiResort1.setTotalLength(totalLength);
+        skiResort1.setRopeWays(ropeWays);
+        skiResort1.setDateSeasonStart(dateSeasonStart);
+        skiResort1.setDateSeasonEnd(dateSeasonEnd);
+        skiResort1.setTimeServiceStart(timeServiceStart);
+        skiResort1.setTimeServiceEnd(timeServiceEnd);
+        skiResort1.setCurrentUtilizationPercent(currentUtilizationPercent);
+        skiResort1.setSnowDepthMin(snowDepthMin);
+        skiResort1.setSnowDepthMax(snowDepthMax);
+        skiResort1.setAmountFreshSnow(amountFreshSnow);
+        skiResort1.setDateLastSnowfall(dateLastSnowfall);
+        skiResort1.setUrlTicketPage(urlTicketPage);
+        skiResort1.setAvalancheWarningLevel(avalancheWarningLevel);
+        skiResort1.setUrlImageFront(urlImageFront);
+        skiResort1.setUrlImageSlope(urlImageSlope);
+        skiResort1.setPosLat(posLat);
+
+        skiResortService.update(skiResort1);
+
+        if(skiResortService.get(name).isPresent()){
+            Assert.assertEquals(0, skiResortService.get(name).get().getWeatherCurrentSnowfallForecastAmountMM(), 0);
+            Assert.assertEquals(0, skiResortService.get(name).get().getWeatherCurrentSnowfallForecastPercent(), 0);
+            Assert.assertEquals(20, skiResortService.get(name).get().getWeatherCurrentTemperature(), 0);
+            Assert.assertEquals(0, skiResortService.get(name).get().getWeatherCurrentWindSpeed(), 0);
+        }
+    }
 
     @Test
     public void deleteById() {
@@ -403,7 +356,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd = "asdf";
         String timeServiceStart = "asdf";
@@ -427,7 +380,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.get().setHeightMin(heightMin);
         skiResort1.get().setHeightMax(heightMax);
         skiResort1.get().setTotalLength(totalLength);
-        skiResort1.get().setRopeWays(ropeways);
+        skiResort1.get().setRopeWays(ropeWays);
         skiResort1.get().setDateSeasonStart(dateSeasonStart);
         skiResort1.get().setDateSeasonEnd(dateSeasonEnd);
         skiResort1.get().setTimeServiceStart(timeServiceStart);
@@ -463,13 +416,6 @@ public class SkiResortServiceIntegrationTest {
         }
     }
 
-    /*
-    //Not yet implemented, test necessary?
-    @Test
-    public void list(){
-    }
-    */
-
     @Test
     public void findAllSkiResort() {
         Assert.assertEquals(skiResortRepository.count(), skiResortService.getAllSkiResort().size());
@@ -488,7 +434,7 @@ public class SkiResortServiceIntegrationTest {
         Integer heightMin = 0;
         Integer heightMax = 1000;
         Double totalLength = 10.00;
-        Integer ropeways = 10;
+        Integer ropeWays = 10;
         String dateSeasonStart = "asdf";
         String dateSeasonEnd = "asdf";
         String timeServiceStart = "asdf";
@@ -512,7 +458,7 @@ public class SkiResortServiceIntegrationTest {
         skiResort1.get().setHeightMin(heightMin);
         skiResort1.get().setHeightMax(heightMax);
         skiResort1.get().setTotalLength(totalLength);
-        skiResort1.get().setRopeWays(ropeways);
+        skiResort1.get().setRopeWays(ropeWays);
         skiResort1.get().setDateSeasonStart(dateSeasonStart);
         skiResort1.get().setDateSeasonEnd(dateSeasonEnd);
         skiResort1.get().setTimeServiceStart(timeServiceStart);
@@ -529,15 +475,67 @@ public class SkiResortServiceIntegrationTest {
 
         skiResortRepository.save(skiResort1.get());
 
-        String searchName = "Snowboard";
-        /*
-        if (skiResortService.findAllSkiResort(searchName).isEmpty()) {
-            throw new NotFoundException("No Skiresorts found with filter: " + searchName);
-        } else {
-            Assert.assertEquals(skiResortService.findAllSkiResort(searchName).size(), 1);
-        }
-         */
-    }
+        Optional<SkiResort> skiResort2 = Optional.of(new SkiResort());
 
+        String name2 = "JumpResort";
+
+        skiResort2.get().setName(name2);
+        skiResort2.get().setRegion(region);
+        skiResort2.get().setOperator(operator);
+        skiResort2.get().setAddress(address);
+        skiResort2.get().setZip(zip);
+        skiResort2.get().setCity(city);
+        skiResort2.get().setHeightMin(heightMin);
+        skiResort2.get().setHeightMax(heightMax);
+        skiResort2.get().setTotalLength(totalLength);
+        skiResort2.get().setRopeWays(ropeWays);
+        skiResort2.get().setDateSeasonStart(dateSeasonStart);
+        skiResort2.get().setDateSeasonEnd(dateSeasonEnd);
+        skiResort2.get().setTimeServiceStart(timeServiceStart);
+        skiResort2.get().setTimeServiceEnd(timeServiceEnd);
+        skiResort2.get().setCurrentUtilizationPercent(currentUtilizationPercent);
+        skiResort2.get().setSnowDepthMin(snowDepthMin);
+        skiResort2.get().setSnowDepthMax(snowDepthMax);
+        skiResort2.get().setAmountFreshSnow(amountFreshSnow);
+        skiResort2.get().setDateLastSnowfall(dateLastSnowfall);
+        skiResort2.get().setUrlTicketPage(URLTicketpage);
+        skiResort2.get().setAvalancheWarningLevel(avalancheWarningLevel);
+        skiResort2.get().setUrlImageFront(URLImageFront);
+        skiResort2.get().setUrlImageSlope(URLImageSlope);
+
+        skiResortRepository.save(skiResort2.get());
+
+        User testUser = new User();
+
+        String userName = "Lu";
+        String name1 = "Horst";
+        String profilePictureUrl = "asdf";
+        Double homeLat = 46.00;
+        Double homeLon = 46.00;
+
+        testUser.setUsername(userName);
+        testUser.setName(name1);
+        testUser.setProfilePictureUrl(profilePictureUrl);
+        testUser.setHomeLat(homeLat);
+        testUser.setHomeLon(homeLon);
+
+        //userRepository.save(testUser);
+
+        String searchName = "";
+
+        if (skiResortService.findAllSkiResort(searchName, testUser).isEmpty()) {
+            throw new NotFoundException("No Skiresorts found with empty filter");
+        } else {
+            Assert.assertEquals(skiResortService.findAllSkiResort(searchName, testUser).size(), skiResortRepository.count());
+        }
+
+        searchName = "Jump";
+
+        if (skiResortService.findAllSkiResort(searchName, testUser).isEmpty()) {
+            throw new NotFoundException("No Skiresorts found with filter " + searchName);
+        } else {
+            Assert.assertEquals(skiResortService.findAllSkiResort(searchName, testUser).size(), 1);
+        }
+    }
 }
 

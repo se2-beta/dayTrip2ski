@@ -27,8 +27,6 @@ class WeatherServiceUnitTest {
     @Mock
     WeatherService weatherService;
 
-
-    //Quatschtest
     @Test
     void getWeatherObjectWhenCallingGetForecast() {
         Weather weather = new Weather();
@@ -48,10 +46,5 @@ class WeatherServiceUnitTest {
         when(weatherService.getForecast(searchLati, searchLongi)).thenReturn(weather);
 
         assertEquals(weatherService.getForecast(searchLati, searchLongi), weather);
-    }
-
-
-    @Test
-    void getForecastString() {
     }
 }

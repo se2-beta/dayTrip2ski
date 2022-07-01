@@ -1,20 +1,35 @@
 package com.application.data.service;
 
-import com.application.data.entity.SkiResort;
-import com.application.data.entity.User;
+import com.application.data.restpojo.Distance;
 import com.application.data.restpojo.Element;
 import com.application.data.restpojo.GoogleDistance;
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
-/*@RunWith(SpringRunner.class)
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static org.mockito.Mockito.mock;
+
+@RunWith(SpringRunner.class)
 @SpringBootTest
-public class DistanceServiceTest {
+@ExtendWith(MockitoExtension.class)
+public class DistanceServiceUnitTest {
 
     @Autowired
     DistanceService service;
@@ -22,19 +37,48 @@ public class DistanceServiceTest {
     UserRepository userRepository;
     @Autowired
     SkiResortRepository skiResortRepository;
-    Logger logger;
 
-    public DistanceServiceTest() {
-        this.logger = LoggerFactory.getLogger(getClass());
-    }*/
+    @Mock
+    private RestTemplate restTemplate;
+    private WebClient webClient;
 
-   /* @Test
-    public void getDistDur() {
-        this.logger.info("start ...");
+    WebClient.Builder builder = mock(WebClient.Builder.class);
 
-        Element element = service.getDistDur("47.2692","11.4041", "47.2804","11.5058");
-        this.logger.info(element.getDistance().getText());
+    //@InjectMocks
+    //private DistanceService distanceService = new DistanceService(builder);
 
-    }*/
+    @Test
+    public void getDistance() {
+        DistanceService distanceService = mock(DistanceService.class);
+
+        GoogleDistance googleDistance = new GoogleDistance();
+
+        String address1 = "Testaddress1";
+
+        ArrayList<String> distanceList= new ArrayList<>();
+
+        distanceList.add(address1);
+
+        googleDistance.setOriginAddresses(distanceList);
+
+        Mockito.when(restTemplate.
+                getForEntity("https://maps.googleapis.com/maps/api/", GoogleDistance.class)).
+                thenReturn(new ResponseEntity(googleDistance, HttpStatus.OK));
+
+        String dlatitude = "Test";
+        String dlongitude = "Test";
+        String olatitude = "Test";
+        String olongitude = "Test";
+
+        GoogleDistance googleDistance1 = distanceService.getDistance(
+                dlatitude,
+                dlongitude,
+                olatitude,
+                olongitude
+        );
+
+        //Assert.assertEquals(googleDistance1.getOriginAddresses().get(0), address1);
+    }
+}
 
 
