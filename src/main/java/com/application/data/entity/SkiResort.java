@@ -9,7 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "SkiResort")
 public class SkiResort extends AbstractEntity {
-    @Column(unique=true)
+
+    @Column(unique = true)
     @NotBlank
     private String name;
 
@@ -38,12 +39,10 @@ public class SkiResort extends AbstractEntity {
     private Double totalLength;
 
     @NotNull
-    private Integer ropeways;
+    private Integer ropeWays;
 
-    //@NotNull
     private Double posLon;
 
-    //@NotNull
     private Double posLat;
 
     @NotBlank
@@ -61,22 +60,16 @@ public class SkiResort extends AbstractEntity {
     @NotNull
     private Integer currentUtilizationPercent;
 
-    //@NotNull
     private Integer userRating;
 
-    //@NotNull
-    private Double weatherCurrentWindspeed;
+    private Double weatherCurrentWindSpeed;
 
-    //@NotNull
     private Double weatherCurrentTemperature;
 
-    //@NotNull
     private Integer weatherCurrentSnowfallForecastPercent;
 
-    //@NotNull
     private Integer weatherCurrentSnowfallForecastAmountMM;
 
-    //@NotBlank
     private String weatherDatetimeLastRead;
 
     @NotNull
@@ -92,18 +85,18 @@ public class SkiResort extends AbstractEntity {
     private String dateLastSnowfall;
 
     @NotBlank
-    private String URLTicketpage;
+    private String urlTicketPage;
 
     @NotNull
     private Integer avalancheWarningLevel;
 
     @NotBlank
-    private String URLImageFront;
+    private String urlImageFront;
 
     @NotBlank
-    private String URLImageSlope;
+    private String urlImageSlope;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "skiResort", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
     public String getName() {
@@ -178,12 +171,12 @@ public class SkiResort extends AbstractEntity {
         this.totalLength = totalLength;
     }
 
-    public Integer getRopeways() {
-        return ropeways;
+    public Integer getRopeWays() {
+        return ropeWays;
     }
 
-    public void setRopeways(Integer ropeways) {
-        this.ropeways = ropeways;
+    public void setRopeWays(Integer ropeWays) {
+        this.ropeWays = ropeWays;
     }
 
     public Double getPosLon() {
@@ -250,12 +243,12 @@ public class SkiResort extends AbstractEntity {
         this.userRating = userRating;
     }
 
-    public Double getWeatherCurrentWindspeed() {
-        return weatherCurrentWindspeed;
+    public Double getWeatherCurrentWindSpeed() {
+        return weatherCurrentWindSpeed;
     }
 
-    public void setWeatherCurrentWindspeed(Double weatherCurrentWindspeed) {
-        this.weatherCurrentWindspeed = weatherCurrentWindspeed;
+    public void setWeatherCurrentWindSpeed(Double weatherCurrentWindSpeed) {
+        this.weatherCurrentWindSpeed = weatherCurrentWindSpeed;
     }
 
     public Double getWeatherCurrentTemperature() {
@@ -322,12 +315,12 @@ public class SkiResort extends AbstractEntity {
         this.dateLastSnowfall = dateLastSnowfall;
     }
 
-    public String getURLTicketpage() {
-        return URLTicketpage;
+    public String getUrlTicketPage() {
+        return urlTicketPage;
     }
 
-    public void setURLTicketpage(String URLTicketpage) {
-        this.URLTicketpage = URLTicketpage;
+    public void setUrlTicketPage(String urlTicketpage) {
+        this.urlTicketPage = urlTicketpage;
     }
 
     public Integer getAvalancheWarningLevel() {
@@ -338,20 +331,20 @@ public class SkiResort extends AbstractEntity {
         this.avalancheWarningLevel = avalancheWarningLevel;
     }
 
-    public String getURLImageFront() {
-        return URLImageFront;
+    public String getUrlImageFront() {
+        return urlImageFront;
     }
 
-    public void setURLImageFront(String URLImageFront) {
-        this.URLImageFront = URLImageFront;
+    public void setUrlImageFront(String urlImageFront) {
+        this.urlImageFront = urlImageFront;
     }
 
-    public String getURLImageSlope() {
-        return URLImageSlope;
+    public String getUrlImageSlope() {
+        return urlImageSlope;
     }
 
-    public void setURLImageSlope(String URLImageSlope) {
-        this.URLImageSlope = URLImageSlope;
+    public void setUrlImageSlope(String urlImageSlope) {
+        this.urlImageSlope = urlImageSlope;
     }
 
     public List<Rating> getRatings() {
@@ -365,4 +358,14 @@ public class SkiResort extends AbstractEntity {
     public int getNumberRatings() {
         return ratings.size();
     }
+
+    public Double getRatingByUser(User user) {
+        for (Rating r : ratings) {
+            if (r.getUser().equals(user)) {
+                return r.getRating();
+            }
+        }
+        return 0d;
+    }
+
 }

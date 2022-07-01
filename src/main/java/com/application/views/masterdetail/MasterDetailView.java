@@ -11,8 +11,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import javax.annotation.security.RolesAllowed;
 
+import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Admin-Bereich")
 @Route(value = "master-detail/:sampleBookID?/:action?(edit)", layout = MainLayout.class)
@@ -21,7 +21,7 @@ public class MasterDetailView extends VerticalLayout {
 
     Grid<SkiResort> grid = new Grid<>(SkiResort.class);
     SkiResortForm form;
-    private SkiResortService service;
+    private final SkiResortService service;
 
     public MasterDetailView(SkiResortService service) {
         this.service = service;
@@ -32,21 +32,19 @@ public class MasterDetailView extends VerticalLayout {
         add(getToolbar(), getContent());
         updateList();
         closeEditor();
-
     }
 
-    private void closeEditor(){
+    private void closeEditor() {
         form.setSkiResort(null);
         form.setVisible(false);
         removeClassName("editing");
-
     }
 
-    private void updateList(){
+    private void updateList() {
         grid.setItems(service.getAllSkiResort());
     }
 
-    private Component getContent(){
+    private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, form);
         content.setFlexGrow(2, grid);
         content.setFlexGrow(1, form);
@@ -55,23 +53,23 @@ public class MasterDetailView extends VerticalLayout {
         return content;
     }
 
-    public void configureForm(){
+    public void configureForm() {
         form = new SkiResortForm();
         form.setWidth("30em");
 
         form.addListener(SkiResortForm.SaveEvent.class, this::saveSkiresort);
         form.addListener(SkiResortForm.DeleteEvent.class, this::deleteSkiresort);
-        form.addListener(SkiResortForm.CloseEvent.class, e->closeEditor());
+        form.addListener(SkiResortForm.CloseEvent.class, e -> closeEditor());
     }
 
-    private void saveSkiresort(SkiResortForm.SaveEvent event){
+    private void saveSkiresort(SkiResortForm.SaveEvent event) {
         service.update(event.getContact());
         Notification.show("Skigebiet gesichert");
         updateList();
         closeEditor();
     }
 
-    private void deleteSkiresort(SkiResortForm.DeleteEvent event){
+    private void deleteSkiresort(SkiResortForm.DeleteEvent event) {
         service.delete(event.getContact().getId());
         Notification.show("Skigebiet gelöscht");
         updateList();
@@ -92,24 +90,24 @@ public class MasterDetailView extends VerticalLayout {
         grid.addColumn(SkiResort::getHeightMin).setHeader("Schneehöhe min");
         grid.addColumn(SkiResort::getHeightMax).setHeader("Schneehöhe max");
         grid.addColumn(SkiResort::getTotalLength).setHeader("Streckenlänge");
-        grid.addColumn(SkiResort::getRopeways).setHeader("Pistenanzahl");
+        grid.addColumn(SkiResort::getRopeWays).setHeader("Pistenanzahl");
         grid.addColumn(SkiResort::getPosLon).setHeader("Breitengrad");
         grid.addColumn(SkiResort::getPosLat).setHeader("Längengrad");
         grid.addColumn(SkiResort::getDateSeasonStart).setHeader("Start-Saison");
         grid.addColumn(SkiResort::getDateSeasonEnd).setHeader("Ende-Saison");
         grid.addColumn(SkiResort::getTimeServiceStart).setHeader("Öffnungszeiten");
         grid.addColumn(SkiResort::getTimeServiceEnd).setHeader("Schließzeiten");
-        grid.addColumn(SkiResort::getURLImageSlope).setHeader("Pistenbild");
-        grid.addColumn(SkiResort::getURLImageFront).setHeader("Titelbild");
-        grid.addColumn(SkiResort::getURLTicketpage).setHeader("Ticketseite");
+        grid.addColumn(SkiResort::getUrlImageSlope).setHeader("Pistenbild");
+        grid.addColumn(SkiResort::getUrlImageFront).setHeader("Titelbild");
+        grid.addColumn(SkiResort::getUrlTicketPage).setHeader("Ticketseite");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         grid.asSingleSelect().addValueChangeListener(e -> editContact(e.getValue()));
     }
 
-    private void editContact(SkiResort skiResort){
-        if(skiResort == null){
+    private void editContact(SkiResort skiResort) {
+        if (skiResort == null) {
             closeEditor();
-        }else {
+        } else {
             form.setSkiResort(skiResort);
             form.setVisible(true);
             addClassName("editing");
@@ -119,14 +117,14 @@ public class MasterDetailView extends VerticalLayout {
     private HorizontalLayout getToolbar() {
 
         Button addSkiButton = new Button("Skigebiet hinzufügen");
-        addSkiButton.addClickListener(e->addSkiResort());
+        addSkiButton.addClickListener(e -> addSkiResort());
         HorizontalLayout toolbar = new HorizontalLayout(addSkiButton);
 
         toolbar.addClassName("toolbar");
         return toolbar;
-
     }
-    private void addSkiResort(){
+
+    private void addSkiResort() {
         grid.asSingleSelect().clear();
         editContact(new SkiResort());
     }

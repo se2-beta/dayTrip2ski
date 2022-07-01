@@ -1,35 +1,28 @@
 package com.application.data.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-//@Table()
 @Table(name = "Rating", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueUserAndSkiResort", columnNames = {"user_id", "skiResort_id"})})
 public class Rating extends AbstractEntity {
+
     @NotNull
     Double rating;
 
-    @NotBlank
-    String distanceStr;
-
     @NotNull
     Double distanceVal;
-
-    @NotBlank
-    String durationStr;
 
     @NotNull
     Double durationVal;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "skiResort_id", nullable=false)
+    @JoinColumn(name = "skiResort_id", nullable = false)
     private SkiResort skiResort;
 
     public Rating() {
@@ -40,17 +33,13 @@ public class Rating extends AbstractEntity {
         this.user = user;
         this.skiResort = skiResort;
         this.rating = 0d;
-        this.distanceStr = "0";
         this.distanceVal = 0d;
-        this.durationStr = "0";
         this.durationVal = 0d;
     }
 
-    public Rating(User user, SkiResort skiResort, Double rating, String distanceStr, Double distanceVal, String durationStr, Double durationVal) {
+    public Rating(User user, SkiResort skiResort, Double rating, Double distanceVal, Double durationVal) {
         this.rating = rating;
-        this.distanceStr = distanceStr;
         this.distanceVal = distanceVal;
-        this.durationStr = durationStr;
         this.durationVal = durationVal;
         this.user = user;
         this.skiResort = skiResort;
@@ -69,11 +58,13 @@ public class Rating extends AbstractEntity {
     }
 
     public String getDistanceStr() {
-        return distanceStr;
-    }
-
-    public void setDistanceStr(String distanceStr) {
-        this.distanceStr = distanceStr;
+        String retval = "";
+        if (distanceVal > 1000) {
+            retval += Math.floor(distanceVal / 1000) + "km";
+        } else {
+            retval += (distanceVal) + "m";
+        }
+        return retval;
     }
 
     public Double getDistanceVal() {
@@ -85,12 +76,15 @@ public class Rating extends AbstractEntity {
     }
 
     public String getDurationStr() {
-        return durationStr;
+        int hours = (int) Math.floor((durationVal / 60) / 60);
+        String retval = "";
+        if (hours > 0) {
+            retval += hours + "h ";
+        }
+        retval += String.valueOf((int) (durationVal / 60) % 60);
+        return retval;
     }
 
-    public void setDurationStr(String durationStr) {
-        this.durationStr = durationStr;
-    }
 
     public Double getDurationVal() {
         return durationVal;
@@ -115,4 +109,5 @@ public class Rating extends AbstractEntity {
     public void setSkiResort(SkiResort skiResort) {
         this.skiResort = skiResort;
     }
+
 }

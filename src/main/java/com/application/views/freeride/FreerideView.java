@@ -1,7 +1,6 @@
 package com.application.views.freeride;
 
 import com.application.views.MainLayout;
-import com.application.views.imagelist.SkiResortDetailView;
 import com.application.views.imagelist.SkiResortListView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -11,8 +10,6 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteParameters;
-import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @PageTitle("Freeride")
@@ -21,6 +18,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 public class FreerideView extends VerticalLayout {
 
     public FreerideView() {
+
         setSpacing(false);
 
         Image img = new Image();
@@ -60,11 +58,9 @@ public class FreerideView extends VerticalLayout {
         information.getElement().getStyle().set("font-weight", "bold");
         information.setWidth("80%");
 
-
         Button redirect = new Button("weiterleiten zu Skigebiete");
         redirect.addClickListener(e -> UI.getCurrent().navigate(SkiResortListView.class)
         );
-
 
         add(
                 new H2("Freeriden ist nur unter bestimmten Bedingungen erlaubt!"),

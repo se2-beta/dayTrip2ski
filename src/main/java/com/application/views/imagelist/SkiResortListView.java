@@ -36,12 +36,12 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
     TextField filterText = new TextField();
     CustomDialog filterDialog;
     CustomDialog.Position dialogPosition = new CustomDialog.Position("120px", "50px");
-    private OrderedList imageContainer = new OrderedList();
+    private final OrderedList imageContainer = new OrderedList();
     SkiResortFilterForm filterForm;
     SkiResortService skiResortService;
     UserService userService;
     RatingService ratingService;
-    private AuthenticatedUser authenticatedUser;
+    private final AuthenticatedUser authenticatedUser;
     Optional<UI> ui = getUI();
 
     public SkiResortListView(SkiResortService service, AuthenticatedUser authenticatedUser, UserService userService, RatingService ratingService) {
@@ -93,7 +93,7 @@ public class SkiResortListView extends Main implements HasComponents, HasStyle {
 
         imageContainer.removeAll();
 
-        for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue())) {
+        for (SkiResort skiResort : skiResortService.findAllSkiResort(filterText.getValue(), authenticatedUser.get().get())) {
             SkiResortListViewCard tempVar = new SkiResortListViewCard(skiResort, authenticatedUser, ratingService);
             RouteConfiguration.forSessionScope().getUrl(SkiResortDetailView.class, new RouteParameters("id", String.valueOf(skiResort.getId())));
             tempVar.addClickListener(e -> navigateToDetailView(skiResort));

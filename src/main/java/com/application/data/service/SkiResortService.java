@@ -1,6 +1,7 @@
 package com.application.data.service;
 
 import com.application.data.entity.SkiResort;
+import com.application.data.entity.User;
 import com.application.data.restpojo.DataDay;
 import com.application.data.restpojo.Location;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import java.util.Optional;
 
 @Service
 public class SkiResortService {
+
     private final SkiResortRepository repository;
+
     private final WeatherService weatherService;
+
     private final DistanceService distanceService;
 
     @Autowired
@@ -45,7 +49,7 @@ public class SkiResortService {
                 entity.setWeatherCurrentSnowfallForecastAmountMM(0);
                 entity.setWeatherCurrentSnowfallForecastPercent(0);
                 entity.setWeatherCurrentTemperature(20.0);
-                entity.setWeatherCurrentWindspeed(0.0);
+                entity.setWeatherCurrentWindSpeed(0.0);
                 entity.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
             }
         }
@@ -64,12 +68,15 @@ public class SkiResortService {
         return repository.findAll();
     }
 
-    public List<SkiResort> findAllSkiResort(String filterText) {
+    public List<SkiResort> findAllSkiResort(String filterText, User user) {
+        List<SkiResort> resorts;
         if (filterText == null || filterText.isEmpty()) {
-            return repository.findAll();
+            resorts = repository.findAll();
         } else {
-            return repository.search(filterText);
+            resorts = repository.search(filterText);
         }
+        resorts.sort((o1, o2) -> o2.getRatingByUser(user).compareTo(o1.getRatingByUser(user)));
+        return resorts;
     }
 
     public int count() {
@@ -81,10 +88,16 @@ public class SkiResortService {
         lat = String.valueOf(skiResort.getPosLat());
         lon = String.valueOf(skiResort.getPosLon());
         DataDay data = weatherService.getForecastDataDay(lat, lon);
-        skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
-        skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
+        if (data.getSnowfraction().get(0) > 0) {
+            skiResort.setWeatherCurrentSnowfallForecastAmountMM(data.getPrecipitation().get(0).intValue());
+            skiResort.setWeatherCurrentSnowfallForecastPercent(data.getPrecipitationProbability().get(0));
+        } else {
+            skiResort.setWeatherCurrentSnowfallForecastAmountMM(0);
+            skiResort.setWeatherCurrentSnowfallForecastPercent(0);
+        }
+
         skiResort.setWeatherCurrentTemperature(data.getTemperatureMean().get(0));
-        skiResort.setWeatherCurrentWindspeed(data.getWindspeedMean().get(0));
+        skiResort.setWeatherCurrentWindSpeed(data.getWindspeedMean().get(0));
         skiResort.setWeatherDatetimeLastRead(String.valueOf(java.time.LocalDateTime.now()));
         repository.save(skiResort);
     }
@@ -96,6 +109,5 @@ public class SkiResortService {
         }
 
     }
-
 
 }

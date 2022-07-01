@@ -16,11 +16,10 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
-
-public class SkiResortForm extends FormLayout{
+public class SkiResortForm extends FormLayout {
 
     Binder<SkiResort> binder = new BeanValidationBinder<>(SkiResort.class);
-    TextField name =new TextField("Name");
+    TextField name = new TextField("Name");
     TextField region = new TextField("Region");
     TextField operator = new TextField("Betreiber");
     TextField address = new TextField("Addresse");
@@ -82,13 +81,13 @@ public class SkiResortForm extends FormLayout{
         );
     }
 
-    public void setSkiResort(SkiResort skiResort){
+    public void setSkiResort(SkiResort skiResort) {
         this.skiResort = skiResort;
         binder.readBean(skiResort);
     }
 
 
-    private HorizontalLayout  createButtonsLayout(){
+    private HorizontalLayout createButtonsLayout() {
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
@@ -104,22 +103,24 @@ public class SkiResortForm extends FormLayout{
         return new HorizontalLayout(save, delete, close);
     }
 
-    private void validateAndSave(){
-        try{
+    private void validateAndSave() {
+        try {
             binder.writeBean(skiResort);
             fireEvent(new SaveEvent(this, skiResort));
-        } catch (ValidationException e){
+        } catch (ValidationException e) {
             e.printStackTrace();
         }
     }
 
-    public static abstract class SkiResortEvent extends ComponentEvent<SkiResortForm>{
-        private SkiResort skiResort;
-        protected SkiResortEvent(SkiResortForm source, SkiResort contact){
+    public static abstract class SkiResortEvent extends ComponentEvent<SkiResortForm> {
+        private final SkiResort skiResort;
+
+        protected SkiResortEvent(SkiResortForm source, SkiResort contact) {
             super(source, false);
             this.skiResort = contact;
         }
-        public SkiResort getContact(){
+
+        public SkiResort getContact() {
             return skiResort;
         }
     }
@@ -130,7 +131,7 @@ public class SkiResortForm extends FormLayout{
         }
     }
 
-    public static class DeleteEvent extends SkiResortEvent{
+    public static class DeleteEvent extends SkiResortEvent {
         DeleteEvent(SkiResortForm source, SkiResort skiResort) {
             super(source, skiResort);
         }
@@ -142,6 +143,7 @@ public class SkiResortForm extends FormLayout{
             super(source, null);
         }
     }
+
     public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
                                                                   ComponentEventListener<T> listener) {
 

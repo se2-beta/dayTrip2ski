@@ -5,8 +5,6 @@ import com.application.data.entity.User;
 import com.application.data.service.RatingService;
 import com.application.security.AuthenticatedUser;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.avatar.Avatar;
-import com.vaadin.flow.component.avatar.AvatarVariant;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -42,53 +40,53 @@ public class SkiResortListViewCard extends ListItem {
                 "rounded-m w-full");
         imageHeader.setHeight("160px");
         imageHeader.getElement().getStyle()
-                .set("background-image", "url(" + skiResort.getURLImageFront() + ")")
+                .set("background-image", "url(" + skiResort.getUrlImageFront() + ")")
                 .set("background-size", "100%")
                 .set("background-position", "center")
                 .set("background-repeat", "no-repeat");
         imageHeader.addClassNames("relative");
-
-//        Avatar avatar = new Avatar("fr");
-//        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
-//        avatar.setAbbreviation(skiResort.getUserRating().toString());
-//        avatar.setColorIndex(3);
-//        avatar.getStyle().set("font-weight", "700");
-//        avatar.addClassNames("border", "absolute", "mr-s", "mt-s");
-//        avatar.getElement().getStyle().set("top", "0").set("right", "0");
-//        imageHeader.add(avatar);
-
         return imageHeader;
     }
 
     private Component createHeader(SkiResort skiResort) {
 
-        Avatar avatar = new Avatar("fr");
-        avatar.addThemeVariants(AvatarVariant.LUMO_LARGE);
-        avatar.setAbbreviation(String.valueOf((int)ratingService.getFrontend(user, skiResort).getRating()));
-        avatar.setColorIndex(3);
-        avatar.getStyle().set("font-weight", "700");
+        Label scoreTitle = new Label("Score:");
+        scoreTitle.addClassNames("m-0", "pb-s");
+        H4 score = new H4((int) ratingService.getFrontend(user, skiResort).getRating() + "%");
+        score.addClassNames("m-0", "pb-s");
 
-        // Title Settings
+        VerticalLayout scoreLayout = new VerticalLayout(scoreTitle, score);
+        scoreLayout.setWidth("70px");
+        scoreLayout.setHeight("70px");
+        scoreLayout.setSpacing(false);
+        scoreLayout.setPadding(false);
+        scoreLayout.setMargin(false);
+        scoreLayout.addClassNames("border", "rounded-l", "px-s");
+        scoreLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+        scoreLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+
         Label header = new Label();
         header.addClassNames("text-l", "font-semibold", "pb-0");
         header.setMaxWidth("100%");
         header.setText(skiResort.getName());
 
-        HorizontalLayout headerIcon = new HorizontalLayout(header, avatar);
-        headerIcon.addClassNames("pb-0");
-        headerIcon.setWidth("100%");
-        headerIcon.setAlignItems(FlexComponent.Alignment.START);
-        headerIcon.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
-
         Span subtitle = new Span();
         subtitle.addClassNames("text-s", "text-secondary", "pb-m");
         subtitle.setText(skiResort.getRegion());
 
-        VerticalLayout headerSubTitle = new VerticalLayout(headerIcon, subtitle);
+        VerticalLayout headerSubTitle = new VerticalLayout(header, subtitle);
         headerSubTitle.setSpacing(false);
         headerSubTitle.addClassNames("m-0", "p-0", "px-s");
 
-        return headerSubTitle;
+        HorizontalLayout headerLayout = new HorizontalLayout(
+                headerSubTitle,
+                (int) ratingService.getFrontend(user, skiResort).getRating() == 0 ? new Label() : scoreLayout);
+        headerLayout.addClassNames("pb-0");
+        headerLayout.setWidth("100%");
+        headerLayout.setAlignItems(FlexComponent.Alignment.START);
+        headerLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+
+        return headerLayout;
     }
 
     private Component createInformationContent(SkiResort skiResort) {
@@ -99,8 +97,7 @@ public class SkiResortListViewCard extends ListItem {
         userRatingLayout.setWidth("100%");
         userRatingLayout.setHeight("40px");
         userRatingLayout.setSpacing(false);
-        userRatingLayout.addClassNames("pb-0", "px-s");
-
+        userRatingLayout.addClassNames("px-s", "pb-m");
 
         Component tempDriveLayout = horizontalComponents(IconText(VaadinIcon.CLOUD, skiResort.getWeatherCurrentTemperature(), " °C", "", ""),
                 IconText(VaadinIcon.CAR, ratingService.getFrontend(user, skiResort).getDurationStr(), " min", "", ""));
@@ -128,21 +125,20 @@ public class SkiResortListViewCard extends ListItem {
         return content;
     }
 
-
-    private <T> Component IconText(VaadinIcon icon, T first_text, String suffix_first, T second_text, String suffix_second) {
+    private <T> Component IconText(VaadinIcon icon, T firstText, String suffixFirst, T secondText, String suffixSecond) {
         Icon ic = new Icon(icon);
-        String convert_first = first_text.toString();
-        String convert_second = second_text.toString();
+
+        String convertFirst = firstText == null ? "Invalid" : firstText.toString();
+        String convertSecond = secondText == null ? "Invalid" : secondText.toString();
 
         ic.setSize("15px");
-        Label l1 = new Label(convert_first + suffix_first + convert_second + suffix_second);
+        Label l1 = new Label(convertFirst + suffixFirst + convertSecond + suffixSecond);
         l1.getStyle().set("font-size", "15px");
         HorizontalLayout hl = new HorizontalLayout(ic, l1);
         hl.setAlignItems(FlexComponent.Alignment.CENTER);
 
         return hl;
     }
-
 
     private Component horizontalComponents(Component left, Component right) {
 
