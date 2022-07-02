@@ -1,0 +1,56 @@
+src
+    main
+        java
+            com
+                application
+                    data
+                        entity
+                            Rating.java
+                            SkiResort.java
+                            User.java
+                        generator
+                            DataGenerator
+                        service
+                            DistanceService.java
+                            RestConfiguration.java
+                            SkiresortService.java
+                            UserService.java
+                            WeatherService.java
+                    views
+                        about
+                            AboutView.java
+                        components
+                            CustomDialog.java
+                            RatingComponent.java
+                            SkiResortFilterForm.java
+                            SkiResortListViewCard.java
+                        freeride
+                            FreerideView.java
+                        imagelist
+                            SkiResortDetailView.java
+                            SkiResortListView.java
+                        login
+                            LoginView.java
+                        map
+                            MapView.java
+                        masterdetail
+                            MasterDetailView.java
+                            SkiResortForm.java
+    test
+        application
+            data
+                service
+                    UserServiceIntegrationTest.java
+                    UserServiceUnitTest.java
+
+
+
+
+
+
+
+
+
+
+
+
