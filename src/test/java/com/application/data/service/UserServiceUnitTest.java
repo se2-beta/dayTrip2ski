@@ -8,9 +8,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
+
+import static org.mockito.Mockito.mock;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -87,6 +90,46 @@ public class UserServiceUnitTest {
         userService.delete(1);
 
         Mockito.verify(userRepository).deleteById(1);
+    }
+
+    @Test
+    public void deletedByIdGotCalledOnlyOnce(){
+        UserService userService = new UserService(userRepository);
+
+        userService.delete(1);
+
+        Mockito.verify(userRepository, Mockito.times(1)).deleteById(1);
+    }
+
+    @Test
+    public void findAllGotCalled() {
+        UserService userService = new UserService(userRepository);
+
+        Pageable pageable = mock(Pageable.class);
+
+        userService.list(pageable);
+
+        Mockito.verify(userRepository).findAll(pageable);
+    }
+
+    @Test
+    public void countGotCalled(){
+        UserService userService = new UserService(userRepository);
+
+        userService.count();
+
+        Mockito.verify(userRepository).count();
+    }
+
+    @Test
+    public void countGotCalledCorrectly(){
+        UserService userService = new UserService(userRepository);
+
+        Mockito.when(((long) userService.count())).thenReturn(1L);
+
+        Assert.assertEquals(1, userService.count());
+
+        Mockito.verify(userRepository, Mockito.times(1)).count();
     }
 
     private Optional<User> createOptionalTestUser(){
