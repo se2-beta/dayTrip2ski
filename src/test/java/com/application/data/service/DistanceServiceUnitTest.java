@@ -44,7 +44,6 @@ public class DistanceServiceUnitTest {
 
     WebClient.Builder builder = mock(WebClient.Builder.class);
 
-    //@InjectMocks
     //private DistanceService distanceService = new DistanceService(builder);
 
     @Test
