@@ -126,7 +126,7 @@ public class SkiResortDetailView extends Main implements HasComponents, HasStyle
         Component forecastLastSnowfallLayout = horizontalDataView(
                 VerticalDataView("Vorhersage Neuschnee", VaadinIcon.TRENDING_UP, skiResort.get().getWeatherCurrentSnowfallForecastPercent(),
                         "% / ", skiResort.get().getWeatherCurrentSnowfallForecastAmountMM(), " mm"),
-                VerticalDataView("Datum letzer Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDateLastSnowfall(), "", "", "")
+                VerticalDataView("Datum letzter Schneefall", VaadinIcon.CALENDAR, skiResort.get().getDateLastSnowfall(), "", "", "")
         );
 
         VerticalLayout rightLayout = new VerticalLayout(
