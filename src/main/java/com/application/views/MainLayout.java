@@ -3,7 +3,6 @@ package com.application.views;
 import com.application.data.entity.User;
 import com.application.security.AuthenticatedUser;
 import com.application.views.about.AboutView;
-import com.application.views.freeride.FreerideView;
 import com.application.views.imagelist.SkiResortListView;
 import com.application.views.map.MapView;
 import com.application.views.masterdetail.MasterDetailView;
@@ -64,8 +63,8 @@ public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
 
-    private AuthenticatedUser authenticatedUser;
-    private AccessAnnotationChecker accessChecker;
+    private final AuthenticatedUser authenticatedUser;
+    private final AccessAnnotationChecker accessChecker;
 
     public MainLayout(AuthenticatedUser authenticatedUser, AccessAnnotationChecker accessChecker) {
         this.authenticatedUser = authenticatedUser;
@@ -95,11 +94,6 @@ public class MainLayout extends AppLayout {
         list.addClassNames("flex", "list-none", "m-0", "p-0", "justify-center");
         list.setWidth("93%");
         nav.add(list);
-
-        for (MenuItemInfo menuItem : createTopMenuItems()) {
-            list.add(menuItem);
-
-        }
 
         Header header = new Header(toggle, viewTitle, nav);
         header.addClassNames("view-header");
@@ -134,13 +128,6 @@ public class MainLayout extends AppLayout {
 
         }
         return nav;
-    }
-
-    private MenuItemInfo[] createTopMenuItems() {
-        return new MenuItemInfo[]{ //
-                new MenuItemInfo("Pisten", "la la-skiing-nordic", SkiResortListView.class), //
-                new MenuItemInfo("Freeride", "la la-skiing", FreerideView.class), //
-        };
     }
 
     private MenuItemInfo[] createMenuItems() {
