@@ -20,42 +20,45 @@ public class DistanceService {
         webClient = builder.baseUrl("https://maps.googleapis.com/maps/api/").build();
     }
 
-    public GoogleDistance getDistance(String dlatitude, String dlongitude, String olatitude, String olongitude) {
+    public GoogleDistance getDistance(String destinationLatitude, String destinationLongitude, String originLatitude, String originLongitude) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("distancematrix/json")
-                        .queryParam("destinations", String.join(",", dlatitude, dlongitude))
-                        .queryParam("origins", String.join(",", olatitude, olongitude))
+                        .queryParam("destinations", String.join(",", destinationLatitude, destinationLongitude))
+                        .queryParam("origins", String.join(",", originLatitude, originLongitude))
                         .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(GoogleDistance.class).block();
     }
 
-    public String getDistanceString(String dlatitude, String dlongitude, String olatitude, String olongitude) {
+    public String getDistanceString(String destinationLatitude, String destinationLongitude, String originLatitude, String originLongitude) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("distancematrix/json")
-                        .queryParam("destinations", String.join(",", dlatitude, dlongitude))
-                        .queryParam("origins", String.join(",", olatitude, olongitude))
+                        .queryParam("destinations", String.join(",", destinationLatitude, destinationLongitude))
+                        .queryParam("origins", String.join(",", originLatitude, originLongitude))
                         .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(String.class).block();
     }
 
-    public Element getDistDur(String dlatitude, String dlongitude, String olatitude, String olongitude) {
+    public Element getDistDur(String destinationLatitude, String destinationLongitude, String originLatitude, String originLongitude) {
         GoogleDistance gd = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("distancematrix/json")
-                        .queryParam("destinations", String.join(",", dlatitude, dlongitude))
-                        .queryParam("origins", String.join(",", olatitude, olongitude))
+                        .queryParam("destinations", String.join(",", destinationLatitude, destinationLongitude))
+                        .queryParam("origins", String.join(",", originLatitude, originLongitude))
                         .queryParam("key", googleKey)
                         .build())
                 .retrieve()
                 .bodyToMono(GoogleDistance.class).block();
-        List<Row> rows = gd.getRows();
-        return rows.get(0).getElements().get(0);
+        if (gd != null && gd.getStatus().equals("OK")) {
+            List<Row> rows = gd.getRows();
+            return rows.get(0).getElements().get(0);
+        }
+        return null;
     }
 
     public String getLatLonString(String address) {
@@ -78,7 +81,10 @@ public class DistanceService {
                         .build())
                 .retrieve()
                 .bodyToMono(LatLon.class).block();
-        return ll.getResults().get(0).getGeometry().getLocation();
+        if (ll != null && ll.getStatus().equals("OK")) {
+            return ll.getResults().get(0).getGeometry().getLocation();
+        }
+        return null;
     }
 
 

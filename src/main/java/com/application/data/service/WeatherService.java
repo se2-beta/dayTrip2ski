@@ -55,7 +55,10 @@ public class WeatherService {
                         .build())
                 .retrieve()
                 .bodyToMono(Weather.class).block();
-        return w.getDataDay();
+        if (w != null) {
+            return w.getDataDay();
+        }
+        return null;
     }
 
 

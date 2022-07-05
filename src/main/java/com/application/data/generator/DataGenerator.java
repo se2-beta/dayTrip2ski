@@ -510,7 +510,7 @@ public class DataGenerator {
 
             logger.info("Done with generating ski resorts");
 
-            //nur die ersten zwei ratings müssen erzeugt werden der rest wird automatisch generiert
+
             Rating rating = new Rating(user, skiResort1);
             ratingRepository.save(rating);
             ratingService.setDistDur(user, skiResort1);
@@ -519,59 +519,9 @@ public class DataGenerator {
             ratingRepository.save(rating);
             ratingService.setDistDur(admin, skiResort1);
 
-            /* Wetter update noch auskommentiert,
-            entweder alle oder nur Schladminger Planai */
+            skiResortService.updateAllWeather();
 
-            //skiResortService.updateAllWeather();
-            //skiResortService.updateWeather(skiResort1);
 
-            //ab hier kann später gelöscht werden, nur noch hier um api zu schonen
-            rating = new Rating(user, skiResort2);
-            ratingRepository.save(rating);
-            rating = new Rating(user, skiResort3);
-            ratingRepository.save(rating);
-            rating = new Rating(user, skiResort4);
-            ratingRepository.save(rating);
-            rating = new Rating(user, skiResort5);
-            ratingRepository.save(rating);
-
-            rating = new Rating(admin, skiResort2);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort3);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort4);
-            rating.setDurationVal(1200d);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort5);
-            rating.setDurationVal(14078d);
-            ratingRepository.save(rating);
-
-            rating = new Rating(user, skiResort6);
-            ratingRepository.save(rating);
-            rating = new Rating(user, skiResort7);
-            ratingRepository.save(rating);
-            rating = new Rating(user, skiResort8);
-            ratingRepository.save(rating);
-
-            rating = new Rating(admin, skiResort6);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort7);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort8);
-            ratingRepository.save(rating);
-
-            rating = new Rating(admin, skiResort9);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort10);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort11);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort12);
-            ratingRepository.save(rating);
-            rating = new Rating(admin, skiResort13);
-            ratingRepository.save(rating);
-
-            ratingService.calculateAllRating();
         };
     }
 
