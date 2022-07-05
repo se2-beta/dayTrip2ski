@@ -510,7 +510,7 @@ public class DataGenerator {
 
             logger.info("Done with generating ski resorts");
 
-            //nur die ersten zwei ratings müssen erzeugt werden der rest wird automatisch generiert
+
             Rating rating = new Rating(user, skiResort1);
             ratingRepository.save(rating);
             ratingService.setDistDur(user, skiResort1);
@@ -519,11 +519,8 @@ public class DataGenerator {
             ratingRepository.save(rating);
             ratingService.setDistDur(admin, skiResort1);
 
-            /* Wetter update noch auskommentiert,
-            entweder alle oder nur Schladminger Planai */
+            skiResortService.updateAllWeather();
 
-            //skiResortService.updateAllWeather();
-            //skiResortService.updateWeather(skiResort1);
 
         };
     }
