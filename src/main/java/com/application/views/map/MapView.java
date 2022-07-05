@@ -28,9 +28,9 @@ import java.util.Optional;
 @Route(value = "map", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class MapView extends VerticalLayout {
-    private Map map = new Map();
-    private SkiResortService skiResortService;
-    private Coordinate centerCoordinates;
+    private final Map map = new Map();
+    private final SkiResortService skiResortService;
+    private final Coordinate centerCoordinates;
     private User user;
     HashMap<Feature, SkiResort> skiResortLookup = new HashMap<>();
 

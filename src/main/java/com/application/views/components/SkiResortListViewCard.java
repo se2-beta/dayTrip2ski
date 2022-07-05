@@ -40,7 +40,7 @@ public class SkiResortListViewCard extends ListItem {
                 "rounded-m w-full");
         imageHeader.setHeight("160px");
         imageHeader.getElement().getStyle()
-                .set("background-image", "url(" + skiResort.getURLImageFront() + ")")
+                .set("background-image", "url(" + skiResort.getUrlImageFront() + ")")
                 .set("background-size", "100%")
                 .set("background-position", "center")
                 .set("background-repeat", "no-repeat");
@@ -50,7 +50,6 @@ public class SkiResortListViewCard extends ListItem {
 
     private Component createHeader(SkiResort skiResort) {
 
-        // Wertung
         Label scoreTitle = new Label("Score:");
         scoreTitle.addClassNames("m-0", "pb-s");
         H4 score = new H4((int) ratingService.getFrontend(user, skiResort).getRating() + "%");
@@ -66,7 +65,6 @@ public class SkiResortListViewCard extends ListItem {
         scoreLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         scoreLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
 
-        // Title Settings
         Label header = new Label();
         header.addClassNames("text-l", "font-semibold", "pb-0");
         header.setMaxWidth("100%");
@@ -127,7 +125,6 @@ public class SkiResortListViewCard extends ListItem {
         return content;
     }
 
-
     private <T> Component IconText(VaadinIcon icon, T firstText, String suffixFirst, T secondText, String suffixSecond) {
         Icon ic = new Icon(icon);
 
@@ -142,7 +139,6 @@ public class SkiResortListViewCard extends ListItem {
 
         return hl;
     }
-
 
     private Component horizontalComponents(Component left, Component right) {
 
